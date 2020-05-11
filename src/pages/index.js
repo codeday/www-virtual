@@ -25,8 +25,8 @@ export default function Home({ upcoming }) {
   }
 
   const next = upcoming[0];
-  next.startsAt = moment(next.startsAt);
-  next.endsAt = moment(next.endsAt);
+  next.startsAt = moment(next.startsAt.replace('Z', ''));
+  next.endsAt = moment(next.endsAt.replace('Z', ''));
 
   return (
     <Page slug="/">
