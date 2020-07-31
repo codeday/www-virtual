@@ -21,5 +21,8 @@
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-load-script": "^0.0.6"
+  },
+  "devDependencies": {
+    "moment-timezone": "^0.5.31"
   }
 }
