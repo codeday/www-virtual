@@ -1,6 +1,6 @@
 import moment from 'moment-timezone';
-import { Content } from '@codeday/topo/Box';
-import Text, { Link } from '@codeday/topo/Text';
+import { Content } from '@codeday/topo/atom/Box';
+import Text, { Link } from '@codeday/topo/atom/Text';
 import Page from '../../components/Page';
 import Calendar from '../../components/Calendar';
 import { getEvents } from '../../utils/gcal';
