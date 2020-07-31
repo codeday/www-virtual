@@ -3,12 +3,12 @@ import { Content } from '@codeday/topo/Box';
 import Text, { Link } from '@codeday/topo/Text';
 import Page from '../../components/Page';
 import Calendar from '../../components/Calendar';
-import { getCalendar } from '../../utils/airtable';
+import { getEvents } from '../../utils/gcal';
 
 export const getServerSideProps = async () => {
   let calendar;
   try {
-    calendar = await getCalendar();
+    calendar = await getEvents();
   } catch (err) {
     console.error('airtable is down (again) and the cache is empty.');
   }
