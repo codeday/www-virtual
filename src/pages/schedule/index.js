@@ -2,7 +2,7 @@ import moment from 'moment-timezone';
 import { Content } from '@codeday/topo/Box';
 import Text, { Link } from '@codeday/topo/Text';
 import Page from '../../components/Page';
-import Calendar from '../../components/index/calendar';
+import Calendar from '../../components/Calendar';
 import { getCalendar } from '../../utils/airtable';
 
 export const getServerSideProps = async () => {
