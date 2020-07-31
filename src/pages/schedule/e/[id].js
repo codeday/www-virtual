@@ -5,7 +5,7 @@ import absoluteUrl from 'next-absolute-url';
 import { Content } from '@codeday/topo/Box';
 import Text, { Link } from '@codeday/topo/Text';
 import Page from '../../../components/Page';
-import { getEvent } from '../../../utils/airtable';
+import { getEvent } from '../../../utils/gcal';
 import Event from '../../../components/Event';
 
 export const getServerSideProps = async ({ req, params: { id } }) => ({
