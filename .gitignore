@@ -29,3 +29,9 @@ yarn-error.log*
 .env.test.local
 .env.production.local
 .env
+.idea/.gitignore
+.idea/inspectionProfiles/
+.idea/misc.xml
+.idea/modules.xml
+.idea/vcs.xml
+.idea/www-virtual.iml
