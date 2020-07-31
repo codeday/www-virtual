@@ -4,10 +4,9 @@ import axios from 'axios'
 
 const { serverRuntimeConfig } = getConfig();
 
-let url = `https://www.googleapis.com/calendar/v3/calendars/${serverRuntimeConfig.gcal.calendarID}/events?key=${serverRuntimeConfig.gcal.apiKey}`
-
-// export means that this function will be available to any module that imports this module
 export function getEvents (callback) {
+// export means that this function will be available to any module that imports this module
+  let url = `https://www.googleapis.com/calendar/v3/calendars/${serverRuntimeConfig.gcal.calendarID}/events?key=${serverRuntimeConfig.gcal.apiKey}`
   axios
     .get(url)
     .end((err, resp) => {
@@ -25,6 +24,29 @@ export function getEvents (callback) {
           })
         })
         callback(events)
+      }
+    })
+}
+
+export function getEvent (callback, eventId) {
+  let url = `https://www.googleapis.com/calendar/v3/calendars/${serverRuntimeConfig.gcal.calendarID}/events/${eventId}?key=${serverRuntimeConfig.gcal.apiKey}`
+  axios
+    .get(url)
+    .end((err, resp) => {
+      if (!err) {
+        // create array to push events into
+        const event = []
+        // in practice, this block should be wrapped in a try/catch block,
+        // because as with any external API, we can't be sure if the data will be what we expect
+        JSON.parse(resp.text).items.map((event) => {
+          event.push({
+            // an event from Google Calendar can be a full day event or a regular one
+            start: event.start.date || event.start.dateTime,
+            end: event.end.date || event.end.dateTime,
+            title: event.summary,
+          })
+        })
+        callback(event)
       }
     })
 }
