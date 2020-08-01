@@ -31,11 +31,11 @@ export default function Home({ event, origin }) {
         }}
       />
       <Content>
-        <Text fontSize="lg" d="inline-block">
+        <Text fontSize="lg">
           <Link href="/schedule">&laquo; Schedule</Link>
         </Text>
-      <Event event={event} />
       </Content>
+      <Event event={event} />
     </Page>
   );
 }
