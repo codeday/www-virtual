@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import Box, { Content } from '@codeday/topo/atom/Box';
-import Text, { Heading, Link } from '@codeday/topo/atom/Text';
-import { default as Input } from '@codeday/topo/atom/Input/Text';
-import Form from '@codeday/topo/molecule/CognitoForm';
-import Button from '@codeday/topo/atom/Button';
+import Box from '@codeday/topo/Atom/Box';
+import Content from '@codeday/topo/Molecule/Content';
+import Text, { Heading, Link } from '@codeday/topo/Atom/Text';
+import { default as Input } from '@codeday/topo/Atom/Input/Text';
+import Form from '@codeday/topo/Molecule/CognitoForm';
+import Button from '@codeday/topo/Atom/Button';
 import moment from 'moment-timezone';
 import axios from 'axios';
 import { eventColors } from './Calendar';
