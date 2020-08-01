@@ -16,6 +16,7 @@
     "emotion-theming": "^10.0.27",
     "jimp": "^0.14.0",
     "moment": "^2.25.3",
+    "mysql": "^2.18.1",
     "next": "9.3.6",
     "next-absolute-url": "^1.2.2",
     "next-seo": "^4.4.0",
