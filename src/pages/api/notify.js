@@ -1,5 +1,5 @@
 import { parsePhoneNumberFromString } from 'libphonenumber-js';
-import { addNotification } from '../../utils/airtable';
+import { addNotification } from '../../utils/database';
 
 export default async ({ body: { id, phone } }, res) => {
   const phoneNumber = parsePhoneNumberFromString(phone || '', 'US');
@@ -8,6 +8,6 @@ export default async ({ body: { id, phone } }, res) => {
     return res.send({ error: `That doesn't look like a valid phone number. (Sadly, we don't support all countries.)` });
   }
 
-  await addNotification(id, phoneNumber.formatInternational());
+  addNotification(id, phoneNumber.formatInternational());
   return res.send({ ok: true });
 };
