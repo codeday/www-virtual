@@ -16,7 +16,6 @@ const renderMultiline = (str) => str && str
   .replace(/(https?:\/\/[^\s]+)/g, (url) => `<a href="${url}" style="text-decoration: underline" target="_blank">${url}</a>`);
 
 export default function Event({ event }) {
-  const [password, setPassword] = useState('');
   const [phone, setPhone] = useState('');
   const [fromNow, setFromNow] = useState('');
   const [hasSubscribed, setHasSubscribed] = useState(false);
@@ -38,18 +37,11 @@ export default function Event({ event }) {
   const localDateMatches = localStart.format(dateFormat) === start.format(dateFormat);
 
   const baseColor = eventColors[event.Type || ''] || 'gray';
-  const speakers = (event.Speakers || '').split('\n').filter((a) => a);
 
   const calendarEventStart = moment.utc(event.Date);
   const calendarEventFormat = 'YYYYMMDDTHHmmSS';
-  const calendarDescription = `With ${speakers.join(', ')}%0D%0A${event.Description}`;
-  const calendarInviteURL = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${event.Title}`
-    + `&dates=${calendarEventStart.format(calendarEventFormat)}Z`
-    + `/${calendarEventStart.add(1, 'hour').format(calendarEventFormat)}Z`
-    + `&details=${calendarDescription}`
-    + `&location=${encodeURIComponent(`https://labs.codeday.org/schedule/e/${event.id}`)}`
-    + `&sprop=website:labs.codeday.org`;
-
+  const calendarDescription = event.Description;
+  const calendarInviteURL = event.Link;
   const momentRefreshInterval = null;
   useEffect(() => {
     setFromNow(start.fromNow());
@@ -75,17 +67,13 @@ export default function Event({ event }) {
         >
           {event.Type}
         </Box>
-        {event['Confirmed Time'] ? (
-          <Text>
-            {localStart.format(combinedFormat)}
-            {!localIdentical && ` (${start.format(localDateMatches ? timeFormat : combinedFormat)} Pacific)`}
-            {fromNow && ` - ${fromNow}`}
-          </Text>
-        ) : (
-          <Text>TBA</Text>
-        )}
+        <Text>
+          {localStart.format(combinedFormat)}
+          {!localIdentical && ` (${start.format(localDateMatches ? timeFormat : combinedFormat)} Pacific)`}
+          {fromNow && ` - ${fromNow}`}
+        </Text>
         <Heading as="h2" fontSize="4xl">{event.Title || 'TBA'}</Heading>
-        <Text fontSize="xl" mb={8} fontStyle="italic">{speakers.join(', ')}</Text>
+        <Text fontSize="xl" mb={8} fontStyle="italic">{event.Location}</Text>
         <Text fontSize="xl" mb={8} dangerouslySetInnerHTML={{ __html: renderMultiline(event.Description) }} />
 
         {(
@@ -154,50 +142,6 @@ export default function Event({ event }) {
             </Text>
           </Box>
           ))}
-
-        { start.clone().add(2, 'hours').isBefore(moment.now()) && event['Recording URL'] && (
-          <Box mb={12}>
-            {!event.Public && (
-              <Input
-                placeholder="Password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                size="lg"
-                d="inline-block"
-                w="md"
-                verticalAlign="top"
-                borderTopRightRadius={0}
-                borderBottomRightRadius={0}
-                borderRightWidth={0}
-              />
-            )}
-            <Button
-              as="a"
-              variantColor="green"
-              href={`/api/join?id=${event.id}&password=${password || ''}`}
-              size="lg"
-              borderTopLeftRadius={event.Public ? null : 0}
-              borderBottomLeftRadius={event.Public ? null : 0}
-            >
-              Watch Recording
-            </Button>
-          </Box>
-        )}
-
-        {event.Type === 'Expert Lunch' && (
-          <Box mb={8}>
-            <Heading as="h3" fontSize="xl" mb={2} bold>Submit a Question</Heading>
-            <Form
-              formId={70}
-              prefill={{ Title: event.Title }}
-            />
-          </Box>
-        )}
-
-        <Heading as="h3" fontSize="xl" mb={2} bold>
-          {event['Speaker Bios'] && `About the Speaker${speakers.length > 1 ? 's' : ''}`}
-        </Heading>
-        <Text dangerouslySetInnerHTML={{ __html: renderMultiline(event['Speaker Bios']) }} />
       </Box>
     </Content>
   );
