@@ -21,10 +21,17 @@ export default ({ calendar, title, border }) => {
   });
   const displayStarts = calendar[0].Date;
   const displayEnds = calendar[calendar.length - 1].Date;
+  while(displayStarts.isoWeekday() !== 1){
+    console.log(displayStarts.isoWeekday())
+    displayStarts.subtract(1, 'd')
+  }
+  while (displayEnds.isoWeekday() !== 7){
+    displayEnds.add(1, 'd')
+  }
   const drawDays = [];
   let day = displayStarts.clone();
   while (day.isSameOrBefore(displayEnds)) {
-    if (day.isoWeekday() < 6) { drawDays.push(day.startOf('day')); }
+    if (day.isoWeekday() <= 7) { drawDays.push(day.startOf('day')); }
     day = day.clone().add(1, 'day');
   }
 
@@ -40,19 +47,19 @@ export default ({ calendar, title, border }) => {
       )}
       <Content maxWidth="containers.xl">
         <Grid
-          templateColumns={{ base: '1fr', md: 'repeat(5, 1fr)' }}
+          templateColumns={{ base: '1fr', md: 'repeat(7, 1fr)' }}
           borderWidth={{ base: 0, md: border ? 1 : 0 }}
           borderBottom={0}
           borderColor="gray.100"
         >
-          {['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'].map((day) => (
+          {['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'].map((day) => (
             <Box
               fontSize="sm"
               display={{ base: 'none', md: 'block' }}
               textAlign="center"
               color="gray.500"
               borderColor="gray.100"
-              borderLeftWidth={day === 'Monday' ? 0 : 1}
+              borderLeftWidth={day === 'Sunday' ? 0 : 1}
             >
               {day}
             </Box>
@@ -62,7 +69,7 @@ export default ({ calendar, title, border }) => {
               borderColor="gray.100"
               borderBottomWidth={1}
               marginTop={{ base: 4, md: 0 }}
-              borderLeftWidth={{ base: 0, md: date.isoWeekday() === 1 ? 0 : 1 }}
+              borderLeftWidth={{ base: 0, md: date.isoWeekday() === 0 ? 0 : 1 }}
               pt={1}
             >
               <Box fontSize="sm" color="gray.500" textAlign="center">{date.format('MMM D')}</Box>
