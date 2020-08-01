@@ -20,9 +20,7 @@ export const getServerSideProps = async () => {
 };
 
 export default function Home({ calendar }) {
-  console.log(calendar)
   const calendarHydrated = calendar.map((e) => ({ ...e, Date: moment(e.Date)}));
-  console.log(calendarHydrated)
 
   return (
     <Page slug="/schedule" title="Schedule">
