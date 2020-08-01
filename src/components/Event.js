@@ -98,8 +98,6 @@ export default function Event({ event }) {
               variantColor="green"
               href={`/api/join?id=${event.id}`}
               size="lg"
-              borderTopLeftRadius=null
-              borderBottomLeftRadius=null
             >
               Join{event['Meeting Type'] ? ` on ${event['Meeting Type']}` : ''}
             </Button>
