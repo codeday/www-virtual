@@ -1,6 +1,6 @@
-import Box, { Grid } from '@codeday/topo/atom/Box';
-import Content from '@codeday/topo/molecule/Content';
-import Text, { Heading, Link } from '@codeday/topo/atom/Text';
+import Box, { Grid } from '@codeday/topo/Atom/Box';
+import Content from '@codeday/topo/Molecule/Content';
+import Text, { Heading, Link } from '@codeday/topo/Atom/Text';
 import moment from 'moment-timezone';
 
 export const eventColors = {

@@ -1,12 +1,12 @@
 import moment from 'moment-timezone';
-import { Content } from '@codeday/topo/atom/Box';
-import Text, { Link } from '@codeday/topo/atom/Text';
+import Content from '@codeday/topo/Molecule/Content';
+import Text, { Link } from '@codeday/topo/Atom/Text';
 import Page from '../../components/Page';
 import Calendar from '../../components/Calendar';
 import { getEvents } from '../../utils/gcal';
 
 export const getServerSideProps = async () => {
-  let calendar;
+  let calendar = null;
   try {
     calendar = await getEvents();
   } catch (err) {
@@ -14,7 +14,7 @@ export const getServerSideProps = async () => {
   }
   return {
     props: {
-      calendar,
+      calendar: calendar || [],
     },
   };
 };
