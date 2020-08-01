@@ -8,7 +8,7 @@ const { serverRuntimeConfig } = getConfig();
 
 export const getEvents = async() => {
   if (!cache.has('events')) {
-    let url = `https://www.googleapis.com/calendar/v3/calendars/${serverRuntimeConfig.gcal.calendarID}/events?key=${serverRuntimeConfig.gcal.apiKey}`
+    let url = `https://www.googleapis.com/calendar/v3/calendars/${serverRuntimeConfig.gcal.calendarID}/events?key=${serverRuntimeConfig.gcal.apiKey}?orderBy=startTime`
     const result = await axios.get(url)
     const events = []
     result.data.items
