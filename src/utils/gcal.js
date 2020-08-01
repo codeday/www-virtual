@@ -12,8 +12,8 @@ export const getEvents = async() => {
   result.data.items
     .map((event) => {
       events.push({
-        date: event.start.dateTime,
-        title: event.summary,
+        Date: event.start.dateTime,
+        Title: event.summary,
       })
     })
   console.log(events)
