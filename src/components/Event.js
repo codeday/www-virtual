@@ -73,7 +73,7 @@ export default function Event({ event }) {
           {fromNow && ` - ${fromNow}`}
         </Text>
         <Heading as="h2" fontSize="4xl">{event.Title || 'TBA'}</Heading>
-        <Text fontSize="xl" mb={8} fontStyle="italic">{event.Location}</Text>
+        <Link fontSize="xl" mb={8} href={event.Location}>{event.Location}</Link>
         <Text fontSize="xl" mb={8} dangerouslySetInnerHTML={{ __html: renderMultiline(event.Description) }} />
 
         {(
