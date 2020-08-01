@@ -18,7 +18,6 @@ export default ({ calendar, title, border }) => {
     if (!(day in eventsByDay)) eventsByDay[day] = [];
     eventsByDay[day].push(e);
   });
-
   const displayStarts = moment('2020-08-17T12:00:00-05:00');
   const displayEnds = moment('2020-08-28T12:00:00-05:00');
   const drawDays = [];
@@ -66,7 +65,7 @@ export default ({ calendar, title, border }) => {
               pt={1}
             >
               <Box fontSize="sm" color="gray.500" textAlign="center">{date.format('MMM D')}</Box>
-              {eventsByDay[date.format('YYYY-MM-DD')].sort((a, b) => (a.Date.isAfter(b.Date) ? 1 : -1)).map((event) => {
+              {(date.format('YYYY-MM-DD') in eventsByDay) ? eventsByDay[date.format('YYYY-MM-DD')].sort((a, b) => (a.Date.isAfter(b.Date) ? 1 : -1)).map((event) => {
                 const baseColor = eventColors[event.Type || ''] || 'gray';
 
                 const timezone = typeof window !== 'undefined' ? Intl.DateTimeFormat().resolvedOptions().timeZone || 'America/Los_Angeles' : 'America/Los_Angeles';
@@ -94,7 +93,7 @@ export default ({ calendar, title, border }) => {
                       borderBottomWidth={1}
                       borderColor={`${baseColor}.200`}
                     >
-                      {event.Type}&thinsp;&mdash;&thinsp;{start.format('h:mma')}' your time'
+                      {event.Type}&thinsp;&mdash;&thinsp;{start.format('h:mma')} your time
                     </Box>
                     <Box pl={2} pr={2} pb={1} fontSize="sm" fontWeight="bold" color={`${baseColor}.900`} textDecoration="underline">
                       {event.Title || 'TBA'}
@@ -106,7 +105,7 @@ export default ({ calendar, title, border }) => {
                     )}
                   </Box>
                 );
-              })}
+              }): null}
             </Box>
           ))}
         </Grid>
