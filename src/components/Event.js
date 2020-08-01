@@ -79,18 +79,7 @@ export default function Event({ event }) {
         {(
           start.clone().subtract(1, 'hours').isBefore(moment.now())
           && start.clone().add(2, 'hours').isAfter(moment.now())
-        ) ? (
-          <Box mb={12}>
-            <Button
-              as="a"
-              variantColor="green"
-              href={`/api/join?id=${event.id}`}
-              size="lg"
-            >
-              Join
-            </Button>
-          </Box>
-          ) : (start.clone().add(2, 'hours').isAfter(moment.now()) && (
+        ) ? null : (start.clone().add(2, 'hours').isAfter(moment.now()) && (
           <Box mb={12}>
             <Input
               placeholder="Phone Number"
