@@ -14,6 +14,10 @@ export const getEvents = async() => {
       events.push({
         Date: event.start.dateTime,
         Title: event.summary,
+        Type: 'Event',
+        Description: event.description || '',
+
+        id: event.id,
       })
     })
   console.log(events)
