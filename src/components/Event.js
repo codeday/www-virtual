@@ -86,12 +86,6 @@ export default function Event({ event }) {
         )}
         <Heading as="h2" fontSize="4xl">{event.Title || 'TBA'}</Heading>
         <Text fontSize="xl" mb={8} fontStyle="italic">{speakers.join(', ')}</Text>
-
-        {!event.Public && (
-          <Box bg="red.50" borderColor="red.200" borderWidth={2} borderRadius={2} color="red.800" p={4} mb={4}>
-            This event is only for registered CodeLabs community members.
-          </Box>
-        )}
         <Text fontSize="xl" mb={8} dangerouslySetInnerHTML={{ __html: renderMultiline(event.Description) }} />
 
         {(
@@ -99,27 +93,13 @@ export default function Event({ event }) {
           && start.clone().add(2, 'hours').isAfter(moment.now())
         ) ? (
           <Box mb={12}>
-            {!event.Public && (
-              <Input
-                placeholder="Password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                size="lg"
-                d="inline-block"
-                w="md"
-                verticalAlign="top"
-                borderTopRightRadius={0}
-                borderBottomRightRadius={0}
-                borderRightWidth={0}
-              />
-            )}
             <Button
               as="a"
               variantColor="green"
-              href={`/api/join?id=${event.id}&password=${password || ''}`}
+              href={`/api/join?id=${event.id}`}
               size="lg"
-              borderTopLeftRadius={event.Public ? null : 0}
-              borderBottomLeftRadius={event.Public ? null : 0}
+              borderTopLeftRadius=null
+              borderBottomLeftRadius=null
             >
               Join{event['Meeting Type'] ? ` on ${event['Meeting Type']}` : ''}
             </Button>
