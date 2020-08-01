@@ -22,7 +22,7 @@ export const getEvents = async() => {
     })
   console.log(events)
   return events
-}
+};
 export function getEvent (callback, eventId) {
   let url = `https://www.googleapis.com/calendar/v3/calendars/${serverRuntimeConfig.gcal.calendarID}/events/${eventId}?key=${serverRuntimeConfig.gcal.apiKey}`
   axios
