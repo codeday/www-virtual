@@ -20,7 +20,6 @@ export const getEvents = async() => {
         id: event.id,
       })
     })
-  console.log(events)
   return events
 };
 export function getEvent (callback, eventId) {
