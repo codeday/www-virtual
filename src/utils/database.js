@@ -11,6 +11,6 @@ const conn = mysql.createConnection({
 export const addNotification = function(eventId, phone) {
   conn.connect()
   conn.query(`create table IF NOT EXISTS ${eventId} (sms text null);`)
-  conn.query(`INSERT INTO \`www-virtual\`.\`${eventId}\` () VALUES ('${phone}')`)
+  conn.query(`INSERT INTO \`www-virtual\`.\`${conn.escape(eventId)}\` () VALUES ('${conn.escape(phone)}')`)
   conn.end();
 }
