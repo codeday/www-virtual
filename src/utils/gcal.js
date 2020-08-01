@@ -1,6 +1,8 @@
 import getConfig from 'next/config';
 import axios from 'axios'
+import LruCache from 'lru-cache';
 
+const cache = new LruCache({ max: 60, maxAge: 60 * 1000 });
 
 const { serverRuntimeConfig } = getConfig();
 
@@ -28,6 +30,8 @@ export const getEvents = async() => {
 export const getEvent = async(eventId) => {
   let url = `https://www.googleapis.com/calendar/v3/calendars/${serverRuntimeConfig.gcal.calendarID}/events/${eventId}?key=${serverRuntimeConfig.gcal.apiKey}`
   const result = await axios.get(url)
-  console.log(result.data)
-  return result.data
+  let event = result.data
+  return {
+
+  }
 };
