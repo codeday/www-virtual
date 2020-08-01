@@ -1908,6 +1908,11 @@
   resolved "https://registry.yarnpkg.com/@xtuc/long/-/long-4.2.2.tgz#d291c6a4e97989b5c61d9acf396ae4fe133a718d"
   integrity sha512-NuHqBY1PB/D8xU6s/thBgOAiAP7HOYDQ32+BFZILJ8ivkUkAHQnWfn6WhL79Owj1qmUnoN/YPhktdIoucipkAQ==
 
+Math@^0.0.1-security:
+  version "0.0.1-security"
+  resolved "https://registry.yarnpkg.com/Math/-/Math-0.0.1-security.tgz#04ddfc526214f3866614eb70d9e5889e70d0f419"
+  integrity sha1-BN38UmIU84ZmFOtw2eWInnDQ9Bk=
+
 acorn@^6.4.1:
   version "6.4.1"
   resolved "https://registry.yarnpkg.com/acorn/-/acorn-6.4.1.tgz#531e58ba3f51b9dacb9a6646ca4debf5b14ca474"

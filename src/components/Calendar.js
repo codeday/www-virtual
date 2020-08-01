@@ -2,6 +2,8 @@ import Box, { Grid } from '@codeday/topo/Atom/Box';
 import Content from '@codeday/topo/Molecule/Content';
 import Text, { Heading, Link } from '@codeday/topo/Atom/Text';
 import moment from 'moment-timezone';
+import seed from "random-seed";
+import colors from '@codeday/topo/Theme/vars/colors'
 
 export const eventColors = {
   Event: 'gray',
@@ -65,7 +67,8 @@ export default ({ calendar, title, border }) => {
             >
               <Box fontSize="sm" color="gray.500" textAlign="center">{date.format('MMM D')}</Box>
               {(date.format('YYYY-MM-DD') in eventsByDay) ? eventsByDay[date.format('YYYY-MM-DD')].sort((a, b) => (a.Date.isAfter(b.Date) ? 1 : -1)).map((event) => {
-                const baseColor = eventColors[event.Type || ''] || 'gray';
+                const colorHues = Object.keys(colors)
+                const baseColor = eventColors[event.Type || ''] || colorHues[seed(event.Type.toLowerCase()).intBetween(0, colorHues.length)];
 
                 const timezone = typeof window !== 'undefined' ? Intl.DateTimeFormat().resolvedOptions().timeZone || 'America/Los_Angeles' : 'America/Los_Angeles';
                 const start = moment.utc(event.Date).tz(timezone);
