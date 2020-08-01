@@ -5,10 +5,9 @@ import moment from 'moment-timezone';
 
 export const eventColors = {
   Event: 'gray',
-  'Tech Talk': 'orange',
-  'Career Talk': 'purple',
-  'Expert Lunch': 'blue',
-  'Watch Party': 'yellow',
+  'Workshop': 'orange',
+  'Livestream': 'purple',
+  'Deadline': 'red',
 };
 
 export default ({ calendar, title, border }) => {
