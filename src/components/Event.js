@@ -141,7 +141,7 @@ export default function Event({ event }) {
               or <Link href={calendarInviteURL} target="_blank">add to Google Calendar</Link>
             </Text>
           </Box>
-          ))}
+        ))}
       </Box>
     </Content>
   );
