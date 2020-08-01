@@ -2,7 +2,7 @@ import React from 'react';
 import { useRouter } from 'next/router';
 import { NextSeo } from 'next-seo';
 import absoluteUrl from 'next-absolute-url';
-import Content from '@codeday/topo/Atom/Box';
+import Content from '@codeday/topo/Molecule/Content';
 import Text, { Link } from '@codeday/topo/Atom/Text';
 import Page from '../../../components/Page';
 import { getEvent } from '../../../utils/gcal';
@@ -31,11 +31,11 @@ export default function Home({ event, origin }) {
         }}
       />
       <Content>
-        <Text fontSize="lg">
+        <Text fontSize="lg" d="inline-block">
           <Link href="/schedule">&laquo; Schedule</Link>
         </Text>
-      </Content>
       <Event event={event} />
+      </Content>
     </Page>
   );
 }
