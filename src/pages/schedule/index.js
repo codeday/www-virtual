@@ -20,7 +20,7 @@ export const getServerSideProps = async () => {
 };
 
 export default function Home({ calendar }) {
-  const calendarHydrated = calendar.map((e) => ({ ...e, Date: moment.utc(e.Date).tz('America/Los_Angeles') }));
+  const calendarHydrated = calendar.map((e) => ({ ...e, Date: moment(e.Date)}));
 
   return (
     <Page slug="/schedule" title="Schedule">
