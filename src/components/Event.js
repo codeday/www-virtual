@@ -87,7 +87,7 @@ export default function Event({ event }) {
               href={`/api/join?id=${event.id}`}
               size="lg"
             >
-              Join{event['Meeting Type'] ? ` on ${event['Meeting Type']}` : ''}
+              Join
             </Button>
           </Box>
           ) : (start.clone().add(2, 'hours').isAfter(moment.now()) && (
