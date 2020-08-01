@@ -8,7 +8,7 @@ const { serverRuntimeConfig } = getConfig();
 
 export const getEvents = async() => {
   if (!cache.has('events')) {
-    let url = `https://www.googleapis.com/calendar/v3/calendars/${serverRuntimeConfig.gcal.calendarID}/events?key=${serverRuntimeConfig.gcal.apiKey}?orderBy=startTime`
+    let url = `https://www.googleapis.com/calendar/v3/calendars/${serverRuntimeConfig.gcal.calendarID}/events?key=${serverRuntimeConfig.gcal.apiKey}`
     const result = await axios.get(url)
     const events = []
     result.data.items
@@ -24,7 +24,8 @@ export const getEvents = async() => {
           id: event.id,
         })
       })
-    cache.set('events', events)
+    let sortedEvents = events.sort(function(a,b){return Date.parse(a.Date) - Date.parse(b.Date);}) // Use .sort() because sortBy in google calendar api didnt work for some reason
+    cache.set('events', sortedEvents)
   }
   return cache.get('events')
 };
