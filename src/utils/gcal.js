@@ -12,15 +12,14 @@ export const getEvents = async() => {
   let typeExp = /(?:(\w*): )?(.*)/g
   result.data.items
     .map((event) => {
-      console.log(event.summary)
-      let typeMatch = typeExp.exec(event.summary)
-      console.log(typeMatch)
+      const [title, type] = event.summary.split(/:\s+/, 2).reverse();
       events.push({
         Date: event.start.dateTime,
-        Title: typeMatch[2] || 'TBD',
-        Type: typeMatch[1] || 'Event',
+        Title: title || 'TBD',
+        Type: type || 'Event',
+        Link: event.htmlLink || '',
         Description: event.description || '',
-
+        Location: event.location || 'TBD',
         id: event.id,
       })
     })
