@@ -32,8 +32,8 @@ export default ({ children, title, darkHeader, slug, ...props }) => (
           </a>
         </SiteLogo>
         <Menu>
-          <Link href="/volunteer">Volunteer</Link>
-          <Button variant="outline" variantColor="blue">Schedule</Button>
+          <Button variant="outline" variantColor="brand" as="a" href="/volunteer">Volunteer</Button>
+          <Button variant="outline" variantColor="brand" as="a" href="/schedule">Schedule</Button>
           <Button variantColor="brand" as="a" href="https://www.codeday.org/">Back to Regular CodeDay</Button>
         </Menu>
       </Header>
