@@ -19,8 +19,8 @@ export default ({ calendar, title, border }) => {
     if (!(day in eventsByDay)) eventsByDay[day] = [];
     eventsByDay[day].push(e);
   });
-  const displayStarts = moment('2020-08-17T12:00:00-05:00');
-  const displayEnds = moment('2020-08-28T12:00:00-05:00');
+  const displayStarts = calendar[0].Date;
+  const displayEnds = calendar[calendar.length - 1].Date;
   const drawDays = [];
   let day = displayStarts.clone();
   while (day.isSameOrBefore(displayEnds)) {
