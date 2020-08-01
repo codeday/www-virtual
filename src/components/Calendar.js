@@ -21,17 +21,16 @@ export default ({ calendar, title, border }) => {
   });
   const displayStarts = calendar[0].Date;
   const displayEnds = calendar[calendar.length - 1].Date;
-  while(displayStarts.isoWeekday() !== 1){
-    console.log(displayStarts.isoWeekday())
+  while(displayStarts.isoWeekday() !== 7){
     displayStarts.subtract(1, 'd')
   }
-  while (displayEnds.isoWeekday() !== 7){
+  while (displayEnds.isoWeekday() !== 6){
     displayEnds.add(1, 'd')
   }
   const drawDays = [];
   let day = displayStarts.clone();
   while (day.isSameOrBefore(displayEnds)) {
-    if (day.isoWeekday() <= 7) { drawDays.push(day.startOf('day')); }
+    drawDays.push(day.startOf('day'));
     day = day.clone().add(1, 'day');
   }
 
@@ -69,7 +68,7 @@ export default ({ calendar, title, border }) => {
               borderColor="gray.100"
               borderBottomWidth={1}
               marginTop={{ base: 4, md: 0 }}
-              borderLeftWidth={{ base: 0, md: date.isoWeekday() === 0 ? 0 : 1 }}
+              borderLeftWidth={{ base: 0, md: date.isoWeekday() === 7 ? 0 : 1 }}
               pt={1}
             >
               <Box fontSize="sm" color="gray.500" textAlign="center">{date.format('MMM D')}</Box>
