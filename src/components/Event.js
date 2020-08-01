@@ -36,7 +36,9 @@ export default function Event({ event }) {
   const localIdentical = localStart.format(combinedFormat) === start.format(combinedFormat);
   const localDateMatches = localStart.format(dateFormat) === start.format(dateFormat);
 
-  const baseColor = eventColors[event.Type || ''] || 'gray';
+  const  { colors } = useTheme()
+  const colorHues = Object.keys(colors)
+  const baseColor = eventColors[event.Type || ''] || colorHues[seed(type.toLowerCase()).intBetween(0, colors.length)];
 
   const calendarEventStart = moment.utc(event.Date);
   const calendarEventFormat = 'YYYYMMDDTHHmmSS';
