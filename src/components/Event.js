@@ -9,7 +9,7 @@ import Button from '@codeday/topo/Atom/Button';
 import moment from 'moment-timezone';
 import axios from 'axios';
 import { eventColors } from './Calendar';
-import colors from '@codeday/topo/Theme/vars/colors';
+import { useTheme } from '@codeday/topo/utils';
 import seed from 'random-seed';
 const renderMultiline = (str) => str && str
   .replace(/</g, '&lt;').replace(/>/g, '&gt;')
@@ -36,6 +36,7 @@ export default function Event({ event }) {
 
   const localIdentical = localStart.format(combinedFormat) === start.format(combinedFormat);
   const localDateMatches = localStart.format(dateFormat) === start.format(dateFormat);
+  const { colors } = useTheme()
   const colorHues = Object.keys(colors)
   const baseColor = eventColors[event.Type || ''] || colorHues[seed(event.Type.toLowerCase()).intBetween(0, colorHues.length)];
   const calendarEventStart = moment.utc(event.Date);

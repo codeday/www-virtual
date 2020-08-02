@@ -3,7 +3,7 @@ import Content from '@codeday/topo/Molecule/Content';
 import Text, { Heading, Link } from '@codeday/topo/Atom/Text';
 import moment from 'moment-timezone';
 import seed from "random-seed";
-import colors from '@codeday/topo/Theme/vars/colors'
+import { useTheme } from '@codeday/topo/utils'
 
 export const eventColors = {
   Event: 'gray',
@@ -73,6 +73,7 @@ export default ({ calendar, title, border }) => {
             >
               <Box fontSize="sm" color="gray.500" textAlign="center">{date.format('MMM D')}</Box>
               {(date.format('YYYY-MM-DD') in eventsByDay) ? eventsByDay[date.format('YYYY-MM-DD')].sort((a, b) => (a.Date.isAfter(b.Date) ? 1 : -1)).map((event) => {
+                const { colors } = useTheme()
                 const colorHues = Object.keys(colors)
                 const baseColor = eventColors[event.Type || ''] || colorHues[seed(event.Type.toLowerCase()).intBetween(0, colorHues.length)];
 
