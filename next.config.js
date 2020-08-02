@@ -17,5 +17,6 @@ module.exports = {
   },
   publicRuntimeConfig: {
     appUrl: process.env.APP_URL,
+    scheduleEnabled: !!(process.env.CALENDAR_ID)
   },
 };
