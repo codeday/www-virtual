@@ -8,18 +8,25 @@
     "start": "next start"
   },
   "dependencies": {
-    "@codeday/topo": "^2.0.0",
+    "@codeday/topo": "^3.3.0",
     "@codeday/topocons": "^1.3.0",
     "@emotion/core": "^10.0.28",
     "@emotion/styled": "^10.0.27",
     "axios": "^0.19.2",
     "emotion-theming": "^10.0.27",
     "moment": "^2.25.3",
-    "next": "9.3.6",
-    "next-seo": "^4.4.0",
+    "next": "^9.5.1",
+    "next-seo": "^4.7.3",
     "prop-types": "^15.7.2",
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-load-script": "^0.0.6"
+  },
+  "devDependencies": {
+    "@codeday/eslint-config": "^1.3.0",
+    "eslint": "^7.6.0"
+  },
+  "resolutions": {
+    "webpack": "^5.0.0-beta.22"
   }
 }
