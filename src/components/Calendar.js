@@ -10,6 +10,7 @@ export const eventColors = {
   'Workshop': 'orange',
   'Livestream': 'purple',
   'Deadline': 'red',
+  'Gaming Tournament': 'pink',
 };
 
 export default ({ calendar, title, border }) => {
