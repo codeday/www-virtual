@@ -9,7 +9,5 @@ const conn = mysql.createConnection({
 })
 
 export const addNotification = function(eventId, phone) {
-  conn.connect()
-  conn.query(`INSERT INTO \`www-virtual\`.\`subscriptions\` (eventId, sms) VALUES ('${conn.escape(eventId)}', '${conn.escape(phone)}')`)
-  conn.end();
+  conn.query(`INSERT INTO \`www-virtual\`.\`subscriptions\` (eventId, sms) VALUES (${conn.escape(eventId)}, ${conn.escape(phone)})`)
 }
