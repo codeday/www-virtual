@@ -6,10 +6,9 @@ const conn = mysql.createConnection({
   user: serverRuntimeConfig.mysql.user,
   password: serverRuntimeConfig.mysql.password,
   database: serverRuntimeConfig.mysql.database,
-})
+});
+conn.on('error', console.error);
 
 export const addNotification = function(eventId, phone) {
-  conn.connect()
-  conn.query(`INSERT INTO \`www-virtual\`.\`subscriptions\` (eventId, sms) VALUES ('${conn.escape(eventId)}', '${conn.escape(phone)}')`)
-  conn.end();
+  conn.query(`INSERT INTO \`www-virtual\`.\`subscriptions\` (eventId, sms) VALUES (${conn.escape(eventId)}, ${conn.escape(phone)})`);
 }
