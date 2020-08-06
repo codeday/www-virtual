@@ -5,7 +5,7 @@ import LruCache from 'lru-cache';
 const cache = new LruCache({ max: 60, maxAge: 60 * 1000 });
 
 const { serverRuntimeConfig } = getConfig();
-
+//TODO:  at some point, store events in the database in case of extended google api downtime
 export const getEvents = async() => {
   if (!cache.has('events')) {
     let url = `https://www.googleapis.com/calendar/v3/calendars/${serverRuntimeConfig.gcal.calendarID}/events?key=${serverRuntimeConfig.gcal.apiKey}`
