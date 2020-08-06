@@ -5,6 +5,8 @@ import Header, { SiteLogo, Menu } from '@codeday/topo/Organism/Header';
 import Footer from '@codeday/topo/Organism/Footer';
 import { CodeDay } from '@codeday/topo/Atom/Logo';
 import Button from '@codeday/topo/Atom/Button';
+import getConfig from 'next/config';
+const { publicRuntimeConfig } = getConfig();
 
 export default ({ children, title, darkHeader, slug, ...props }) => (
   <>
@@ -32,7 +34,8 @@ export default ({ children, title, darkHeader, slug, ...props }) => (
           </a>
         </SiteLogo>
         <Menu>
-          <Link href="/volunteer">Volunteer</Link>
+          <Button variant="outline" variantColor="brand" as="a" href="/volunteer">Volunteer</Button>
+          {publicRuntimeConfig.scheduleEnabled?<Button variant="outline" variantColor="brand" as="a" href="/schedule">Schedule</Button>:null}
           <Button variantColor="brand" as="a" href="https://www.codeday.org/">Back to Regular CodeDay</Button>
         </Menu>
       </Header>

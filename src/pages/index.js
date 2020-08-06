@@ -11,10 +11,12 @@ import Page from '../components/Page';
 import FaqAnswer from '../components/FaqAnswer';
 
 export default function Home({ upcoming, faqs }) {
-  if (!upcoming) {
+  if (!upcoming || upcoming.length === 0) {
     return (
       <Page slug="/">
-        <Text>There's no scheduled Virtual CodeDay. Check back later.</Text>
+        <Content>
+          <Text fontSize="xl">There's no scheduled Virtual CodeDay. Check back later.</Text>
+        </Content>
       </Page>
     );
   }
