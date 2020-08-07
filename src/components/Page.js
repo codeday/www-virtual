@@ -34,8 +34,9 @@ export default ({ children, title, darkHeader, slug, ...props }) => (
           </a>
         </SiteLogo>
         <Menu>
-          <Button variant="outline" variantColor="brand" as="a" href="/volunteer">Volunteer</Button>
-          {publicRuntimeConfig.scheduleEnabled?<Button variant="outline" variantColor="brand" as="a" href="/schedule">Schedule</Button>:null}
+          <Button variant="ghost" variantColor="brand" as="a" href="/volunteer">Volunteer</Button>
+          {publicRuntimeConfig.scheduleEnabled?<Button variant="ghost" variantColor="brand" as="a" href="/schedule">Schedule</Button>:null}
+          <Button variant="ghost" variantColor="indigo" as="a" href="https://codeday.to/discord"><img width="35" src="https://discord.com/assets/f8389ca1a741a115313bede9ac02e2c0.svg" /></Button>
           <Button variantColor="brand" as="a" href="https://www.codeday.org/">Back to Regular CodeDay</Button>
         </Menu>
       </Header>
