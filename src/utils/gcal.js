@@ -12,7 +12,8 @@ export const getEvents = async () => {
               + `/events?key=${serverRuntimeConfig.gcal.apiKey}`;
     const result = await axios.get(url);
     const events = result.data.items
-      .filter((event) => event.status === 'confirmed')
+      .filter((event) => event.summary)
+      .filter((event) => event.visibility && ['public'].includes(event.visibility))
       .map((event) => {
         const [title, type] = event.summary.split(/:\s+/, 2).reverse();
         return {

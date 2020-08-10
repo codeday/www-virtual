@@ -1,5 +1,6 @@
 import React from 'react';
 import moment from 'moment-timezone';
+import { apiFetch } from '@codeday/topo/utils';
 import Content from '@codeday/topo/Molecule/Content';
 import Text, { Link } from '@codeday/topo/Atom/Text';
 import getConfig from 'next/config';
@@ -8,21 +9,8 @@ import Calendar from '../../components/Calendar';
 import { getEvents } from '../../utils/gcal';
 
 const { publicRuntimeConfig } = getConfig();
-export const getServerSideProps = async () => {
-  let calendar = null;
-  try {
-    calendar = await getEvents();
-  } catch (err) {
-    console.error(err);
-  }
-  return {
-    props: {
-      calendar: calendar || [],
-    },
-  };
-};
 
-export default function Home({ calendar }) {
+export default function Home({ calendar, upcoming }) {
   const calendarHydrated = calendar.map((e) => ({ ...e, Date: moment(e.Date) }));
 
   if (calendar.length === 0) {
@@ -45,7 +33,44 @@ export default function Home({ calendar }) {
           (In Google Calendar, find "Other calendars," click +, choose "From URL", and copy-paste that link.)
         </Text>
       </Content>
-      <Calendar calendar={calendarHydrated} />
+      <Calendar calendar={calendarHydrated} displayStarts={moment(upcoming.startsAt)} displayEnds={moment(upcoming.endsAt)} />
     </Page>
   );
 }
+
+
+const query = () => `{
+  cms {
+    events(
+      limit: 1,
+      order: startsAt_ASC,
+      where: {
+        program: { webname: "virtual" }
+        endsAt_gte: "${(new Date((new Date()).getTime() - (1000 * 60 * 60 * 24))).toISOString()}"
+      }
+    ) {
+      items {
+        startsAt
+        endsAt
+      }
+    }
+  }
+}`;
+
+export async function getStaticProps() {
+  const data = await apiFetch(query());
+  let calendar = null;
+  try {
+    calendar = await getEvents();
+  } catch (err) {
+    console.error(err);
+  }
+
+  return {
+    props: {
+      upcoming: data?.cms?.events?.items[0] || null,
+      calendar: calendar || [],
+    },
+    revalidate: 120,
+  }
+};

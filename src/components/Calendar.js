@@ -1,32 +1,32 @@
+import React from 'react';
 import Box, { Grid } from '@codeday/topo/Atom/Box';
 import Content from '@codeday/topo/Molecule/Content';
-import Text, { Heading, Link } from '@codeday/topo/Atom/Text';
 import moment from 'moment-timezone';
-import seed from "random-seed";
-import { useTheme } from '@codeday/topo/utils'
+import seed from 'random-seed';
+import { useTheme } from '@codeday/topo/utils';
 
 export const eventColors = {
   Event: 'gray',
-  'Workshop': 'orange',
-  'Livestream': 'purple',
-  'Deadline': 'red',
+  Workshop: 'orange',
+  Livestream: 'purple',
+  Deadline: 'red',
   'Gaming Tournament': 'pink',
 };
 
-export default ({ calendar, title, border }) => {
+export default ({
+  calendar, border, displayStarts, displayEnds,
+}) => {
   const eventsByDay = {};
   calendar.forEach((e) => {
-    const day = e.Date.clone().startOf('day').format('YYYY-MM-DD');
+    const day = e.Date.clone().tz('America/Los_Angeles').startOf('day').format('YYYY-MM-DD');
     if (!(day in eventsByDay)) eventsByDay[day] = [];
     eventsByDay[day].push(e);
   });
-  const displayStarts = calendar[0].Date;
-  const displayEnds = calendar[calendar.length - 1].Date;
-  while(displayStarts.isoWeekday() !== 7){
-    displayStarts.subtract(1, 'd')
+  while (displayStarts.isoWeekday() !== 7) {
+    displayStarts.subtract(1, 'd');
   }
-  while (displayEnds.isoWeekday() !== 6){
-    displayEnds.add(1, 'd')
+  while (displayEnds.isoWeekday() !== 6) {
+    displayEnds.add(1, 'd');
   }
   const drawDays = [];
   let day = displayStarts.clone();
@@ -37,14 +37,6 @@ export default ({ calendar, title, border }) => {
 
   return (
     <>
-      { title && (
-        <Content>
-          <Heading paddingBottom={3} textAlign="center">A full calendar of events.</Heading>
-          <Text textAlign="center" paddingBottom={6}>
-            It's not all project work, you'll get to talk to leaders from the tech industry.
-          </Text>
-        </Content>
-      )}
       <Content maxWidth="containers.xl">
         <Grid
           templateColumns={{ base: '1fr', md: 'repeat(7, 1fr)' }}
@@ -74,8 +66,8 @@ export default ({ calendar, title, border }) => {
             >
               <Box fontSize="sm" color="gray.500" textAlign="center">{date.format('MMM D')}</Box>
               {(date.format('YYYY-MM-DD') in eventsByDay) ? eventsByDay[date.format('YYYY-MM-DD')].sort((a, b) => (a.Date.isAfter(b.Date) ? 1 : -1)).map((event) => {
-                const { colors } = useTheme()
-                const colorHues = Object.keys(colors)
+                const { colors } = useTheme();
+                const colorHues = Object.keys(colors);
                 const baseColor = eventColors[event.Type || ''] || colorHues[seed(event.Type.toLowerCase()).intBetween(0, colorHues.length)];
 
                 const timezone = typeof window !== 'undefined' ? Intl.DateTimeFormat().resolvedOptions().timeZone || 'America/Los_Angeles' : 'America/Los_Angeles';
@@ -115,7 +107,7 @@ export default ({ calendar, title, border }) => {
                     )}
                   </Box>
                 );
-              }): null}
+              }) : null}
             </Box>
           ))}
         </Grid>
