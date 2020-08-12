@@ -1,7 +1,8 @@
 import moment from 'moment';
 import { apiFetch } from '@codeday/topo/utils';
 import Box, { Grid } from '@codeday/topo/Atom/Box';
-import Text, { Heading } from '@codeday/topo/Atom/Text';
+import Image from '@codeday/topo/Atom/Image';
+import Text, { Link, Heading } from '@codeday/topo/Atom/Text';
 import Skelly from '@codeday/topo/Atom/Skelly';
 import Button from '@codeday/topo/Atom/Button';
 import Content from '@codeday/topo/Molecule/Content';
@@ -10,7 +11,7 @@ import CognitoForm from '@codeday/topo/Molecule/CognitoForm';
 import Page from '../components/Page';
 import FaqAnswer from '../components/FaqAnswer';
 
-export default function Home({ upcoming, faqs }) {
+export default function Home({ upcoming, globalSponsors, faqs }) {
   if (!upcoming || upcoming.length === 0) {
     return (
       <Page slug="/">
@@ -70,9 +71,28 @@ export default function Home({ upcoming, faqs }) {
           </Box>
         </Content>
       )}
-      <Content paddingBottom={8}>
+      {globalSponsors && (
+        <Content paddingBottom={8} textAlign="center">
+            <Heading as="h3" color="current.textLight" fontSize="2xl" pb={4}>With support from...</Heading>
+            <Box mb={8}>
+              {globalSponsors.filter((sponsor) => sponsor.type === "major").map((sponsor, i) => (
+                <Link to={sponsor.link}>
+                  <Image d="inline-block" src={sponsor.logo.url} pr={i+1 === globalSponsors.length ? 0 : 8} />
+                </Link>
+              ))}
+            </Box>
+            <Box>
+              {globalSponsors.filter((sponsor) => sponsor.type === "minor").map((sponsor, i) => (
+                <Link to={sponsor.link}>
+                  <Image d="inline-block" src={sponsor.logo.small} pr={i+1 === globalSponsors.length ? 0 : 8} />
+                </Link>
+              ))}
+            </Box>
+        </Content>
+      )}
+      <Content paddingBottom={8} textAlign="center">
         <Heading as="h3" fontSize="4xl" bold>FAQ:</Heading>
-        <Grid templateColumns={{ base: '1fr', md: '1fr 1fr 1fr' }} gap={6} paddingTop={3} paddingBottom={3}>
+        <Grid templateColumns={{ base: '1fr', md: '1fr 1fr 1fr' }} gap={6} paddingTop={3} paddingBottom={3} textAlign="left">
           {faqs.map((faq) => (
             <Box borderColor="current.border" borderWidth={1} borderRadius="sm" padding={8} key={faq.title}>
               <Text fontSize="lg" bold>{faq.title}</Text>
@@ -83,10 +103,10 @@ export default function Home({ upcoming, faqs }) {
         More questions? <Button as="a" href="mailto:team@codeday.org">Contact us!</Button>
       </Content>
       <Content>
-        <Heading as="h3" fontSize="4xl" bold>Register Now:</Heading>
+        <Heading as="h3" fontSize="4xl" bold textAlign="center" mb={8}>Register Now:</Heading>
         <Grid templateColumns={{ base: '1fr', md: '8fr 4fr' }} gap={8}>
           <Box>
-            <CognitoForm formId={53} />
+            <CognitoForm formId={53} fallback />
           </Box>
           <Box backgroundColor="red.50" borderRadius="sm" padding={4}>
             <Heading as="h3" fontSize="lg" bold>Date</Heading>
@@ -124,7 +144,7 @@ const query = () => `{
         endsAt
         themeBackgrounds {
           items {
-            url(transform: { width: 1400, height: 400, quality: 90 })
+            url(transform: { width: 1400, height: 400, quality: 90, resizeStrategy: FILL })
           }
         }
         kickoffVideo {
@@ -133,31 +153,43 @@ const query = () => `{
       }
     }
 
-
-    faqs (
-      where: {
-        program: {webname:"virtual"},
-        audience_contains_all: ["Student"]
-      },
-      order: [featured_DESC, sys_firstPublishedAt_ASC]
-    ) {
-      items {
-        title
-        answer {
-          json
+    globalSponsors (order: sys_firstPublishedAt_ASC) {
+      items{
+        link
+        name
+        type
+        logo{
+          url(transform:{height: 60})
+          small: url(transform:{height: 20})
         }
       }
     }
-  }
-}`;
 
-export async function getStaticProps() {
-  const data = await apiFetch(query());
-  return {
-    props: {
-      upcoming: data?.cms?.events?.items[0] || null,
-      faqs: data?.cms?.faqs?.items || [],
-    },
-    revalidate: 120,
-  }
-};
+      faqs (
+        where: {
+          program: {webname:"virtual"},
+          audience_contains_all: ["Student"]
+        },
+        order: [featured_DESC, sys_firstPublishedAt_ASC]
+      ) {
+        items {
+          title
+          answer {
+            json
+          }
+        }
+      }
+    }
+  }`;
+
+  export async function getStaticProps() {
+    const data = await apiFetch(query());
+    return {
+      props: {
+        upcoming: data?.cms?.events?.items[0] || null,
+        globalSponsors: data?.cms?.globalSponsors?.items || [],
+        faqs: data?.cms?.faqs?.items || [],
+      },
+      revalidate: 120,
+    }
+  };
