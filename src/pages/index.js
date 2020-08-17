@@ -1,4 +1,5 @@
 import moment from 'moment';
+import truncate from 'truncate';
 import { apiFetch } from '@codeday/topo/utils';
 import Box, { Grid } from '@codeday/topo/Atom/Box';
 import Image from '@codeday/topo/Atom/Image';
@@ -10,8 +11,9 @@ import Slides from '@codeday/topo/Molecule/Slides';
 import CognitoForm from '@codeday/topo/Molecule/CognitoForm';
 import Page from '../components/Page';
 import FaqAnswer from '../components/FaqAnswer';
+import ShowN from '../components/ShowN';
 
-export default function Home({ upcoming, globalSponsors, faqs }) {
+export default function Home({ upcoming, globalSponsors, faqs, showYourWork }) {
   if (!upcoming || upcoming.length === 0) {
     return (
       <Page slug="/">
@@ -90,6 +92,39 @@ export default function Home({ upcoming, globalSponsors, faqs }) {
             </Box>
         </Content>
       )}
+
+
+      {startsAt.isBefore(moment()) && endsAt.isAfter(moment()) && showYourWork?.length > 0 && (
+        <Box bg="gray.50">
+          <Content pb={8} pt={8}>
+            <Heading as="h3" fontSize="4xl" textAlign="center" mb={4} bold>Recent Progress:</Heading>
+            <Grid templateColumns="repeat(4, 1fr)" d={{ base: 'none', lg: 'block' }} gap={4}>
+              <ShowN n={4} duration={5000}>
+                {showYourWork.map((msg) => (
+                  <Box bg="white" p={4}>
+                    <Box pb={4}>
+                      <Image
+                        src={msg.author.picture.replace('256x256', '32x32')}
+                        alt=""
+                        float="left"
+                        w={6}
+                        h={6}
+                        mr={2}
+                        rounded="full"
+                      />
+                      <Text mb={0}>{msg.author.name}</Text>
+                    </Box>
+                    <Image pb={4} src={msg.imageUrl} alt="" />
+                    <Text>{truncate(msg.text, 140)}</Text>
+                  </Box>
+                ))}
+              </ShowN>
+            </Grid>
+          </Content>
+        </Box>
+      )}
+
+
       <Content paddingBottom={8} textAlign="center">
         <Heading as="h3" fontSize="4xl" bold>FAQ:</Heading>
         <Grid templateColumns={{ base: '1fr', md: '1fr 1fr 1fr' }} gap={6} paddingTop={3} paddingBottom={3} textAlign="left">
@@ -180,6 +215,18 @@ const query = () => `{
         }
       }
     }
+
+    showYourWork {
+      messages (take: 16) {
+        text
+        imageUrl(width: 300, height: 200, strategy: FILL, fillBlur: true)
+        author {
+          name
+          pronoun
+          picture
+        }
+      }
+    }
   }`;
 
   export async function getStaticProps() {
@@ -189,6 +236,7 @@ const query = () => `{
         upcoming: data?.cms?.events?.items[0] || null,
         globalSponsors: data?.cms?.globalSponsors?.items || [],
         faqs: data?.cms?.faqs?.items || [],
+        showYourWork: data?.showYourWork?.messages || [],
       },
       revalidate: 120,
     }
