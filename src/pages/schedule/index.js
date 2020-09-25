@@ -8,7 +8,7 @@ import getConfig from 'next/config';
 import Page from '../../components/Page';
 import Calendar from '../../components/Calendar';
 import {getEvents} from '../../utils/gcal';
-
+import MailingListSubscribe from '@codeday/topo/Organism/MailingListSubscribe'
 const { publicRuntimeConfig } = getConfig();
 
 export default function Home({ calendar, upcoming, photo }) {
@@ -26,6 +26,8 @@ export default function Home({ calendar, upcoming, photo }) {
               ? 'We\'ll have it up on '+moment(upcoming.calendarReleaseDate).format('MMMM DD')
               : 'Check back soon' }.
           </Text>
+          <Text>Be notified when the schedule goes live:</Text>
+          <MailingListSubscribe emailList="iiLfS763Z1TgytXns56X08OQ"/>
         </Content>
       </Page>
     );
