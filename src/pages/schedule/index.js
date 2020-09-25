@@ -13,13 +13,14 @@ const { publicRuntimeConfig } = getConfig();
 export default function Home({ calendar, upcoming }) {
   const calendarHydrated = calendar.map((e) => ({ ...e, Date: moment(e.Date) }));
 
-  if (calendar.length === 0) {
+  if (moment() > moment(upcoming.calendarReleaseDate || upcoming.startsAt)) {
     return (
       <Page slug="/schedule" title="Schedule">
         <Content>
           <Text mb={16}>
-            The schedule is not currently available. Check back soon.
+            The CodeDay team is still working on the schedule! {upcoming.calendarReleaseDate ? 'We\'ll have it up on '+upcoming.calendarReleaseDate.format('MMMM DD'): 'Check back soon'}.
           </Text>
+
         </Content>
       </Page>
     );
@@ -52,6 +53,7 @@ const query = () => `{
       items {
         startsAt
         endsAt
+        calendarReleaseDate
       }
     }
   }
