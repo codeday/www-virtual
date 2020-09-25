@@ -8,7 +8,7 @@
     "start": "next start"
   },
   "dependencies": {
-    "@codeday/topo": "^3.21.0",
+    "@codeday/topo": "^3.22.0",
     "@codeday/topocons": "^1.3.0",
     "@emotion/core": "^10.0.28",
     "@emotion/styled": "^10.0.27",
@@ -33,8 +33,5 @@
   "devDependencies": {
     "@codeday/eslint-config": "^1.3.0",
     "eslint": "^7.6.0"
-  },
-  "resolutions": {
-    "webpack": "^5.0.0-beta.22"
   }
 }
