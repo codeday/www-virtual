@@ -1,13 +1,13 @@
 import React from 'react';
 import moment from 'moment-timezone';
-import { apiFetch } from '@codeday/topo/utils';
+import {apiFetch} from '@codeday/topo/utils';
 import Content from '@codeday/topo/Molecule/Content';
-import Text, { Link, Heading } from '@codeday/topo/Atom/Text';
+import Text, {Heading, Link} from '@codeday/topo/Atom/Text';
 import Image from '@codeday/topo/Atom/Image';
 import getConfig from 'next/config';
 import Page from '../../components/Page';
 import Calendar from '../../components/Calendar';
-import { getEvents } from '../../utils/gcal';
+import {getEvents} from '../../utils/gcal';
 
 const { publicRuntimeConfig } = getConfig();
 
@@ -16,11 +16,16 @@ export default function Home({ calendar, upcoming, photo }) {
   if (moment().isBefore(moment(upcoming.calendarReleaseDate || upcoming.startsAt))) {
     return (
       <Page slug="/schedule" title="Schedule">
-        <Content>
-          <Heading size="md">
-            <Image src={photo.url}/>
-            The CodeDay team is still working on the schedule! { upcoming.calendarReleaseDate ? 'We\'ll have it up on '+moment(upcoming.calendarReleaseDate).format('MMMM DD'): 'Check back soon' }.
+        <Content textAlign="center">
+          <Image src={photo.url}/>
+          <Heading size="lg" fontWeight="bold">
+            The CodeDay team is still working on the schedule!
           </Heading>
+          <Text>
+            { upcoming.calendarReleaseDate
+              ? 'We\'ll have it up on '+moment(upcoming.calendarReleaseDate).format('MMMM DD')
+              : 'Check back soon' }.
+          </Text>
         </Content>
       </Page>
     );
