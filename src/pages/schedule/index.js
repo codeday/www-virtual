@@ -17,7 +17,7 @@ export default function Home({ calendar, upcoming, photo }) {
     return (
       <Page slug="/schedule" title="Schedule">
         <Content textAlign="center">
-          <Image src={photo.url}/>
+          <Image src={photo.url} objectFit="cover" h="25vh" w="50vw"/>
           <Heading size="lg" fontWeight="bold">
             The CodeDay team is still working on the schedule!
           </Heading>
