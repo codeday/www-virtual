@@ -29,7 +29,7 @@ export default function Home({ calendar, upcoming, photo }) {
           </Text>
           <Grid templateColumns="max-content 1fr" gap={8} alignItems="center">
           <Text mb={0}>Get an email when it's live: </Text>
-          <MailingListSubscribe emailList="iiLfS763Z1TgytXns56X08OQ"/>
+          <MailingListSubscribe maxWidth={24} emailList="iiLfS763Z1TgytXns56X08OQ"/>
           </Grid>
           </Content>
       </Page>
