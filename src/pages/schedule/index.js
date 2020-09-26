@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid } from '@codeday/topo/Atom/Box'
+import Box, { Flex } from '@codeday/topo/Atom/Box'
 import moment from 'moment-timezone';
 import {apiFetch} from '@codeday/topo/utils';
 import Content from '@codeday/topo/Molecule/Content';
@@ -18,8 +18,8 @@ export default function Home({ calendar, upcoming, photo }) {
     return (
       <Page slug="/schedule" title="Schedule">
         <Content textAlign="center">
-          <Image src={photo.url} objectFit="cover" h="25vh" w="100%"/>
-          <Heading size="lg" fontWeight="bold">
+          <Image src={photo.url} objectFit="cover" h="xs" w="100%" rounded={2} mt={-8} />
+          <Heading size="lg" fontWeight="bold" mt={8}>
             The CodeDay team is still working on the schedule!
           </Heading>
           <Text>
@@ -27,10 +27,10 @@ export default function Home({ calendar, upcoming, photo }) {
               ? 'We\'ll have it up on '+moment(upcoming.calendarReleaseDate).format('MMMM DD')
               : 'Check back soon' }.
           </Text>
-          <Grid templateColumns="max-content 1fr" gap={8} alignItems="center">
-          <Text mb={0}>Get an email when it's live: </Text>
-          <MailingListSubscribe maxWidth={24} emailList="iiLfS763Z1TgytXns56X08OQ"/>
-          </Grid>
+          <Flex align="center" justify="center">
+            <Text mb={0} pr={2}>Get an email when it's live:</Text>
+            <MailingListSubscribe emailList="iiLfS763Z1TgytXns56X08OQ"/>
+          </Flex>
           </Content>
       </Page>
     );
