@@ -1,4 +1,5 @@
 import React from 'react';
+import { Grid } from '@codeday/topo/Atom/Box'
 import moment from 'moment-timezone';
 import {apiFetch} from '@codeday/topo/utils';
 import Content from '@codeday/topo/Molecule/Content';
@@ -17,7 +18,7 @@ export default function Home({ calendar, upcoming, photo }) {
     return (
       <Page slug="/schedule" title="Schedule">
         <Content textAlign="center">
-          <Image src={photo.url} objectFit="cover" h="25vh" w="50vw"/>
+          <Image src={photo.url} objectFit="cover" h="25vh" w="100%"/>
           <Heading size="lg" fontWeight="bold">
             The CodeDay team is still working on the schedule!
           </Heading>
@@ -26,9 +27,11 @@ export default function Home({ calendar, upcoming, photo }) {
               ? 'We\'ll have it up on '+moment(upcoming.calendarReleaseDate).format('MMMM DD')
               : 'Check back soon' }.
           </Text>
-          <Text>Be notified when the schedule goes live:</Text>
+          <Grid templateColumns="max-content 1fr" gap={8} alignItems="center">
+          <Text mb={0}>Get an email when it's live: </Text>
           <MailingListSubscribe emailList="iiLfS763Z1TgytXns56X08OQ"/>
-        </Content>
+          </Grid>
+          </Content>
       </Page>
     );
   }
