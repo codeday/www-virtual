@@ -20,7 +20,7 @@
     "moment": "^2.25.3",
     "moment-timezone": "^0.5.31",
     "mysql": "^2.18.1",
-    "next": "^9.5.1",
+    "next": "^9.5.4",
     "next-absolute-url": "^1.2.2",
     "next-seo": "^4.7.3",
     "prop-types": "^15.7.2",
