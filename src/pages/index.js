@@ -94,11 +94,9 @@ export default function Home({ upcoming, globalSponsors, faqs, showYourWork }) {
       )}
 
       <Content textAlign="center">
-        <a href="#registerSection">
-          <Button variant="solid" variantColor="red" size="lg">
+          <Button onClick={smoothScroll} variant="solid" variantColor="red" size="lg">
             Register Now
           </Button>
-        </a>
       </Content>
 
       {startsAt.isBefore(moment()) && endsAt.isAfter(moment()) && showYourWork?.length > 0 && (
@@ -144,7 +142,7 @@ export default function Home({ upcoming, globalSponsors, faqs, showYourWork }) {
         </Grid>
         More questions? <Button as="a" href="mailto:team@codeday.org">Contact us!</Button>
       </Content>
-      <Content id="registerSection">
+      <Content id="register">
         <Heading as="h3" fontSize="4xl" bold textAlign="center" mb={8}>Register Now:</Heading>
         <Grid templateColumns={{ base: '1fr', md: '8fr 4fr' }} gap={8}>
           <Box>
@@ -167,6 +165,12 @@ export default function Home({ upcoming, globalSponsors, faqs, showYourWork }) {
       </Content>
     </Page>
   );
+}
+
+function smoothScroll() {
+  document.querySelector('#register').scrollIntoView({
+      behavior: 'smooth'
+  });
 }
 
 const query = () => `{
