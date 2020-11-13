@@ -140,7 +140,10 @@ export default function Home({ upcoming, globalSponsors, faqs, showYourWork }) {
             </Box>
           ))}
         </Grid>
-        More questions? <Button as="a" href="mailto:team@codeday.org">Contact us!</Button>
+        More questions?<br />
+        <Button as="a" href="https://www.codeday.org/help/virtual" target="_blank">View all FAQs</Button>
+        {' '}or{' '}
+        <Button as="a" href="mailto:team@codeday.org">contact us!</Button>
       </Content>
       <Content id="register">
         <Heading as="h3" fontSize="4xl" bold textAlign="center" mb={8}>Register Now:</Heading>
@@ -216,7 +219,8 @@ const query = () => `{
           program: {webname:"virtual"},
           audience_contains_all: ["Student"]
         },
-        order: [featured_DESC, sys_firstPublishedAt_ASC]
+        order: [featured_DESC, sys_firstPublishedAt_ASC],
+        limit: 3,
       ) {
         items {
           title
