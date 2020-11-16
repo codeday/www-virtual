@@ -37,7 +37,10 @@ export default function Home({ upcoming, globalSponsors, faqs, showYourWork }) {
         <Heading as="h2" fontSize="5xl" textAlign="center">{title}</Heading>
         <Text fontSize="2xl" textAlign="center" fontWeight="bold" color="current.textLight">
           Join thousands of students to make new friends, and make an amazing app or game.<br />
-          (Plus a virtual gaming tournament, workshops, prizes, and more!)
+          (Plus a virtual gaming tournament, workshops, prizes, and more!)<br />
+          <Text d="inline-block" color="current.bg" bg="current.textLight" p={1} pl={4} pr={4} rounded="md">
+            No prior experience needed!
+          </Text>
         </Text>
       </Content>
       {theme && (
