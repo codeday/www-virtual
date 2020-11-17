@@ -11,10 +11,6 @@ import axios from 'axios';
 import { eventColors } from './Calendar';
 import { useTheme } from '@codeday/topo/utils';
 import seed from 'random-seed';
-const renderMultiline = (str) => str && str
-  .replace(/</g, '&lt;').replace(/>/g, '&gt;')
-  .replace(/\n/g, '<br />')
-  .replace(/(https?:\/\/[^\s]+)/g, (url) => `<a href="${url}" style="text-decoration: underline" target="_blank">${url}</a>`);
 
 export default function Event({ event }) {
   const [phone, setPhone] = useState('');
@@ -75,7 +71,7 @@ export default function Event({ event }) {
         </Text>
         <Heading as="h2" fontSize="4xl">{event.Title || 'TBA'}</Heading>
         <Link fontSize="xl" mb={8} href={event.Location}>{event.Location}</Link>
-        <Text fontSize="xl" mb={8} dangerouslySetInnerHTML={{ __html: renderMultiline(event.Description) }} />
+        <Text fontSize="xl" mb={8} dangerouslySetInnerHTML={{ __html: event.Description }} />
 
         {(
           start.clone().subtract(1, 'hours').isBefore(moment.now())
