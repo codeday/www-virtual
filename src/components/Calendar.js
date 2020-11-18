@@ -30,8 +30,6 @@ export default ({
     day = day.clone().add(1, 'day');
   }
 
-  console.log(displayStarts, displayEnds);
-
   return (
     <>
       <Content maxWidth="containers.xl">
