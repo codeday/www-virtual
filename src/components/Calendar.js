@@ -22,12 +22,7 @@ export default ({
     if (!(day in eventsByDay)) eventsByDay[day] = [];
     eventsByDay[day].push(e);
   });
-  while (displayStarts.isoWeekday() !== 7) {
-    displayStarts.subtract(1, 'd');
-  }
-  while (displayEnds.isoWeekday() !== 6) {
-    displayEnds.add(1, 'd');
-  }
+
   const drawDays = [];
   let day = displayStarts.clone();
   while (day.isSameOrBefore(displayEnds)) {
@@ -39,12 +34,12 @@ export default ({
     <>
       <Content maxWidth="containers.xl">
         <Grid
-          templateColumns={{ base: '1fr', md: 'repeat(7, 1fr)' }}
+          templateColumns={{ base: '1fr', md: 'repeat(3, 1fr)' }}
           borderWidth={{ base: 0, md: border ? 1 : 0 }}
           borderBottom={0}
           borderColor="gray.100"
         >
-          {['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'].map((day) => (
+          {['Friday', 'Saturday', 'Sunday'].map((day) => (
             <Box
               fontSize="sm"
               display={{ base: 'none', md: 'block' }}
