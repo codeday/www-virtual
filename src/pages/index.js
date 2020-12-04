@@ -108,7 +108,7 @@ export default function Home({ upcoming, globalSponsors, faqs, showYourWork }) {
             <Heading as="h3" fontSize="4xl" textAlign="center" mb={4} bold>Recent Progress:</Heading>
             <Grid templateColumns="repeat(4, 1fr)" d={{ base: 'none', lg: 'grid' }} gap={4}>
               <ShowN n={4} duration={5000}>
-                {showYourWork.map((msg) => (
+                {showYourWork.filter((msg) => !!msg.author).map((msg) => (
                   <Box bg="white" p={4}>
                     <Box pb={4}>
                       <Image
