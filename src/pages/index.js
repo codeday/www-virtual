@@ -162,7 +162,7 @@ export default function Home({ upcoming, globalSponsors, faqs, showYourWork }) {
             <Text>100% online, using Discord and Twitch.</Text>
 
             <Heading as="h3" fontSize="lg" bold>Eligibility</Heading>
-            <Text>Anyone enrolled in a middle school, high school, or college.</Text>
+            <Text>Anyone enrolled in a high school or college.</Text>
 
             <Heading as="h3" fontSize="lg" bold>Cost</Heading>
             <Text>Free!</Text>
