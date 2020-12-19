@@ -24,7 +24,7 @@ export default function Home({ calendar, upcoming, photo }) {
           </Heading>
           <Text>
             { upcoming.calendarReleaseDate
-              ? 'We\'ll have it up on '+moment(upcoming.calendarReleaseDate).format('MMMM DD')
+              ? 'We\'ll have it up on '+ moment(upcoming.calendarReleaseDate).add(1, 'd').format('MMMM DD')
               : 'Check back soon' }.
           </Text>
           <Flex align="center" justify="center">
