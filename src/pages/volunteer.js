@@ -58,8 +58,8 @@ export default function Volunteer({ faqs, volunteer }) {
           ))}
 
         </Box>
-        <Box m="auto" >
-          <Button onClick={smoothScroll} variant="solid" variantColor="red" size="lg">Volunteer Now</Button>
+        <Box m="auto" textAlign="center">
+          <Button onClick={smoothScroll} variant="solid" variantColor="red" size="lg" mt={10}>Volunteer Now</Button>
         </Box>
 
 
