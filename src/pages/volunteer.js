@@ -39,7 +39,7 @@ export default function Volunteer({ faqs, volunteer }) {
         />
       <Content>
         <Heading as="h2">Make a Difference. Volunteer for Virtual CodeDay.</Heading>
-        <Box textAlign="center" position="relative" >
+        <Box position="relative" >
           <Text d="inline-block" mr={1}>Current positions open: </Text>
 
           {volunteer[0].volunteerPositions?.map((pos) => (
@@ -58,7 +58,7 @@ export default function Volunteer({ faqs, volunteer }) {
           ))}
 
         </Box>
-        <Box m="auto" textAlign="center">
+        <Box m="auto" >
           <Button onClick={smoothScroll} variant="solid" variantColor="red" size="lg">Volunteer Now</Button>
         </Box>
 
