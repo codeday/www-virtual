@@ -13,6 +13,7 @@ import MailingListSubscribe from '@codeday/topo/Organism/MailingListSubscribe'
 const { publicRuntimeConfig } = getConfig();
 
 export default function Home({ calendar, upcoming, photo }) {
+  console.log(upcoming.calendarReleaseDate);
   const calendarHydrated = calendar.map((e) => ({ ...e, Date: moment(e.Date) }));
   if (moment().isBefore(moment(upcoming.calendarReleaseDate || upcoming.startsAt))) {
     return (
@@ -24,7 +25,7 @@ export default function Home({ calendar, upcoming, photo }) {
           </Heading>
           <Text>
             { upcoming.calendarReleaseDate
-              ? 'We\'ll have it up on '+ moment(upcoming.calendarReleaseDate).add(1, 'd').format('MMMM DD')
+              ? 'We\'ll have it up on '+ moment.utc(upcoming.calendarReleaseDate).format('MMMM DD')
               : 'Check back soon' }.
           </Text>
           <Flex align="center" justify="center">

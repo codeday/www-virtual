@@ -25,7 +25,7 @@ const ROLE_COLORS = {
 };
 
 export default function Volunteer({ faqs, volunteer }) {
-  const [blurbVisible, setBlurbVisible] = useState(false);
+  const [blurbVisible, setBlurbVisible] = useState(true);
 
   return (
     <Page slug="/volunteer" title="Volunteer">
@@ -58,23 +58,9 @@ export default function Volunteer({ faqs, volunteer }) {
           ))}
 
         </Box>
-        <Box m="auto" textAlign="center">
+        <Box m="auto" textAlign="left">
           <Button onClick={smoothScroll} variant="solid" variantColor="red" size="lg" mt={10}>Volunteer Now</Button>
         </Box>
-
-
-      </Content>
-      {faqs.length > 0 && (
-        <Content paddingBottom={8}>
-          <Heading as="h3" fontSize="2xl" bold>FAQ:</Heading>
-          <Grid templateColumns={{ base: '1fr', md: '1fr 1fr 1fr' }} gap={6} paddingTop={3} paddingBottom={3}>
-            {faqs.map((faq) => (
-              <Box borderColor="current.border" borderWidth={1} borderRadius="sm" padding={8} key={faq.title}>
-                <Text fontSize="lg" bold>{faq.title}</Text>
-                <Text><FaqAnswer json={faq.answer.json} /></Text>
-              </Box>
-            ))}
-          </Grid>
 
         {volunteer[0].volunteerBlurb && (
         <>
@@ -137,6 +123,19 @@ export default function Volunteer({ faqs, volunteer }) {
           </Grid>
         </>
       )}
+
+      </Content>
+      {faqs.length > 0 && (
+        <Content paddingBottom={8}>
+          <Heading as="h3" fontSize="2xl" bold>FAQ:</Heading>
+          <Grid templateColumns={{ base: '1fr', md: '1fr 1fr 1fr' }} gap={6} paddingTop={3} paddingBottom={3}>
+            {faqs.map((faq) => (
+              <Box borderColor="current.border" borderWidth={1} borderRadius="sm" padding={8} key={faq.title}>
+                <Text fontSize="lg" bold>{faq.title}</Text>
+                <Text><FaqAnswer json={faq.answer.json} /></Text>
+              </Box>
+            ))}
+          </Grid>
 
           More questions? <Button as="a" href="mailto:team@codeday.org">Contact us!</Button>
         </Content>

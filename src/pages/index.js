@@ -151,8 +151,10 @@ export default function Home({ upcoming, globalSponsors, faqs, showYourWork }) {
       <Content id="register">
         <Heading as="h3" fontSize="4xl" bold textAlign="center" mb={8}>Register Now:</Heading>
         <Grid templateColumns={{ base: '1fr', md: '8fr 4fr' }} gap={8}>
-          <Box>
-            <CognitoForm formId={53} fallback />
+          <Box textAlign="center">
+            <Button onClick={smoothScroll} variant="solid" variantColor="red" size="lg">
+              Register Now
+            </Button>
           </Box>
           <Box backgroundColor="red.50" borderRadius="sm" padding={4}>
             <Heading as="h3" fontSize="lg" bold>Date</Heading>
