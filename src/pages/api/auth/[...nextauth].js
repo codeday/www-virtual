@@ -17,7 +17,7 @@ const options = {
   ],
   callbacks: {
     signIn: async (user, account, profile) => {
-      return Promise.resolve('http://localhost:3000/schedule');
+      return Promise.resolve(true);
     },
     redirect: async (url, baseUrl) => {
       return url.startsWith(baseUrl)
