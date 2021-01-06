@@ -13,7 +13,6 @@ import MailingListSubscribe from '@codeday/topo/Organism/MailingListSubscribe'
 const { publicRuntimeConfig } = getConfig();
 
 export default function Home({ calendar, upcoming, photo }) {
-  console.log(upcoming.calendarReleaseDate);
   const calendarHydrated = calendar.map((e) => ({ ...e, Date: moment(e.Date) }));
   if (moment().isBefore(moment(upcoming.calendarReleaseDate || upcoming.startsAt))) {
     return (

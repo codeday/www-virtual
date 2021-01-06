@@ -12,6 +12,7 @@ import CognitoForm from '@codeday/topo/Molecule/CognitoForm';
 import Page from '../components/Page';
 import FaqAnswer from '../components/FaqAnswer';
 import ShowN from '../components/ShowN';
+import Auth0Button from '../components/Auth0Button';
 
 export default function Home({ upcoming, globalSponsors, faqs, showYourWork }) {
   if (!upcoming || upcoming.length === 0) {
@@ -30,6 +31,7 @@ export default function Home({ upcoming, globalSponsors, faqs, showYourWork }) {
 
   return (
     <Page slug="/">
+      <Auth0Button></Auth0Button>
       <Content>
         <Text fontSize="2xl" textAlign="center" fontWeight="bold" color="current.textLight">
           {startsAt.format('MMMM D')} - {endsAt.format('MMMM D, YYYY')}
