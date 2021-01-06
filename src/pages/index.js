@@ -12,9 +12,11 @@ import CognitoForm from '@codeday/topo/Molecule/CognitoForm';
 import Page from '../components/Page';
 import FaqAnswer from '../components/FaqAnswer';
 import ShowN from '../components/ShowN';
-import Auth0Button from '../components/Auth0Button';
+import { signIn, signOut, useSession } from 'next-auth/client';
 
 export default function Home({ upcoming, globalSponsors, faqs, showYourWork }) {
+  const [ session, loading ] = useSession()
+
   if (!upcoming || upcoming.length === 0) {
     return (
       <Page slug="/">
@@ -31,7 +33,6 @@ export default function Home({ upcoming, globalSponsors, faqs, showYourWork }) {
 
   return (
     <Page slug="/">
-      <Auth0Button></Auth0Button>
       <Content>
         <Text fontSize="2xl" textAlign="center" fontWeight="bold" color="current.textLight">
           {startsAt.format('MMMM D')} - {endsAt.format('MMMM D, YYYY')}
@@ -99,9 +100,18 @@ export default function Home({ upcoming, globalSponsors, faqs, showYourWork }) {
       )}
 
       <Content textAlign="center">
-          <Button onClick={smoothScroll} variant="solid" variantColor="red" size="lg">
-            Register Now
-          </Button>
+        <Button onClick={() => signIn(null, { callbackUrl: "https://localhost:3000/schedule" })} variant="solid" variantColor="red" size="lg">
+          Register Now
+        </Button>
+        <br></br>
+        <>
+          {!session && <>
+            Not signed in <br/>
+          </>}
+          {session && <>
+            Signed in as {session.user.name} <br/>
+          </>}
+        </>
       </Content>
 
       {startsAt.isBefore(moment()) && endsAt.isAfter(moment()) && showYourWork?.length > 0 && (
