@@ -4,7 +4,6 @@ import getConfig from 'next/config';
 
 const { serverRuntimeConfig, publicRuntimeConfig } = getConfig();
 
-
 const options = {
   // Configure one or more authentication providers
   providers: [
