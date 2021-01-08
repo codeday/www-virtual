@@ -100,7 +100,7 @@ export default function Home({ upcoming, globalSponsors, faqs, showYourWork }) {
       )}
 
       <Content textAlign="center">
-        <Button onClick={() => signIn(null, { callbackUrl: "http://localhost:3000/registration/address" })} variant="solid" variantColor="red" size="lg">
+        <Button onClick={() => signIn('auth0', { callbackUrl: "http://localhost:3000/registration/address" })} variant="solid" variantColor="red" size="lg">
           Register Now
         </Button>
         <br></br>
