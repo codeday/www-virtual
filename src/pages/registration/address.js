@@ -11,6 +11,7 @@ import { useSession } from 'next-auth/client';
 export default function Address() {
   const [ session, loading ] = useSession()
   console.log(session);
+  if (session) 
   return (
     <Page slug="/registration/address" title="Address">
       <Content>
@@ -28,3 +29,11 @@ export default function Address() {
     </Page>
   );
 }
+
+const query = (userId, roleId) => `{
+  mutation {
+    account {
+      addRole (id: "${userId}", roleId: "${roleId}")
+    }
+  }
+}`;
