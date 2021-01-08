@@ -100,7 +100,7 @@ export default function Home({ upcoming, globalSponsors, faqs, showYourWork }) {
       )}
 
       <Content textAlign="center">
-        <Button onClick={() => signIn(null, { callbackUrl: "https://localhost:3000/schedule" })} variant="solid" variantColor="red" size="lg">
+        <Button onClick={() => signIn(null, { callbackUrl: "http://localhost:3000/registration/address" })} variant="solid" variantColor="red" size="lg">
           Register Now
         </Button>
         <br></br>
@@ -161,11 +161,7 @@ export default function Home({ upcoming, globalSponsors, faqs, showYourWork }) {
         <Button as="a" href="mailto:team@codeday.org">contact us!</Button>
       </Content>
       <Content id="register">
-        <Heading as="h3" fontSize="4xl" bold textAlign="center" mb={8}>Register Now:</Heading>
         <Grid templateColumns={{ base: '1fr', md: '8fr 4fr' }} gap={8}>
-          <Box>
-            <CognitoForm formId={53} fallback />
-          </Box>
           <Box backgroundColor="red.50" borderRadius="sm" padding={4}>
             <Heading as="h3" fontSize="lg" bold>Date</Heading>
             <Text>{startsAt.format('MMMM DD')} - {endsAt.format('MMMM DD, YYYY')}</Text>

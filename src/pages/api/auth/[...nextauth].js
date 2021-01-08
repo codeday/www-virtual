@@ -24,6 +24,7 @@ const options = {
         : Promise.resolve(baseUrl)
     },
     session: async (session, user) => {
+      
       return Promise.resolve(session)
     },
     jwt: async (token, user, account, profile, isNewUser) => {

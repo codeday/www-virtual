@@ -10,9 +10,11 @@ import IconBox, {HeaderIcon, HeaderText, Body} from '@codeday/topo/Molecule/Icon
 import Button from '@codeday/topo/Atom/Button';
 import Page from '../../components/Page';
 import CognitoForm from '@codeday/topo/Molecule/CognitoForm';
+import { useSession } from 'next-auth/client';
 
 
 export default function CheckList() {
+  const [ session, loading ] = useSession()
 
   return (
     <Page slug="/registration/checklist" title="Address">
@@ -20,31 +22,38 @@ export default function CheckList() {
         <Heading as="h1">Now, prepare yourself for fun!</Heading>
 
         <Text fontSize="xl" mb={16}>
-          Make sure to join our discord because that is where the event is happening and get yourself ahead by checking off some of the boxes below!
+          Make sure to join our Discord because that is where the event is happening, simply click the button below and you will be taken to link your Discord account to your Codeday account!
         </Text>
 
-          <Flex size="100%" justify="left" alignItems="left" flexDirection="column" flexWrap="wrap">
-
-          <Checkbox spacing="1rem" iconSize="3rem" colorScheme="green" defaultIsChecked>
-            Link Your Discord
-          </Checkbox>
-
-          <Checkbox mt={2} spacing="1rem" iconSize="3rem" colorScheme="green" defaultIsChecked>
-            Add 5 Events to Your Calendar
-          </Checkbox>
-          
-          <Checkbox mt={2} spacing="1rem" iconSize="3rem" colorScheme="green" defaultIsChecked>
-            Refer a friend and receive a free t-shirt!
-          </Checkbox>
-
-          </Flex>
+        <Button as="a" href="https://discord0.codeday.org/" variant="solid" variantColor="purple">Link Your Discord</Button>
         
-
+        
         <Text mt={5} mb={0}>Have Questions?</Text>
         <Button as="a" href="https://www.codeday.org/help/virtual" target="_blank">View all FAQs</Button>
         {' '}or{' '}
         <Button as="a" href="mailto:team@codeday.org">contact us!</Button>
+
       </Content>
     </Page>
   );
 }
+
+/*
+const query = () => `{
+  account {
+    getUser(where: {email: "bobcat4848@gmail.com"}) {
+      discordId
+    }
+  }
+}`;
+
+export async function getStaticProps() {
+  const data = await apiFetch(query());
+  console.log(data);
+  return {
+    props: {
+      upcoming: data?.cms?.events?.items[0] || null,
+    },
+    revalidate: 10,
+  }
+};*/

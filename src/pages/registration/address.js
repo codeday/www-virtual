@@ -6,9 +6,11 @@ import Text, {Heading, Link} from '@codeday/topo/Atom/Text';
 import Image from '@codeday/topo/Atom/Image';
 import Page from '../../components/Page';
 import CognitoForm from '@codeday/topo/Molecule/CognitoForm';
+import { useSession } from 'next-auth/client';
 
 export default function Address() {
-
+  const [ session, loading ] = useSession()
+  console.log(session);
   return (
     <Page slug="/registration/address" title="Address">
       <Content>
