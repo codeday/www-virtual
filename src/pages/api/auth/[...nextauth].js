@@ -6,6 +6,14 @@ const { serverRuntimeConfig, publicRuntimeConfig } = getConfig();
 
 const options = {
   // Configure one or more authentication providers
+
+  profile: (p) => p,
+  session: {
+    // Use JSON Web Tokens for session instead of database sessions.
+    // This option can be used with or without a database for users/accounts.
+    // Note: `jwt` is automatically set to `true` if no database is specified.
+    jwt: true,
+  },
   providers: [
     Providers.Auth0({
       clientId: serverRuntimeConfig.auth0.clientId,
@@ -16,6 +24,7 @@ const options = {
   ],
   callbacks: {
     signIn: async (user, account, profile) => {
+      console.log(profile)
       return Promise.resolve(true);
     },
     redirect: async (url, baseUrl) => {
@@ -24,10 +33,10 @@ const options = {
         : Promise.resolve(baseUrl)
     },
     session: async (session, user) => {
-      
       return Promise.resolve(session)
     },
     jwt: async (token, user, account, profile, isNewUser) => {
+      if (profile) user.profile = profile
       return Promise.resolve(token)
     }
   }

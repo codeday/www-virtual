@@ -7,11 +7,27 @@ import Image from '@codeday/topo/Atom/Image';
 import Page from '../../components/Page';
 import CognitoForm from '@codeday/topo/Molecule/CognitoForm';
 import { useSession } from 'next-auth/client';
+import useSWR, { mutate } from 'swr'
+
+
+const query = (userId, roleId) => `{
+  mutation {
+    account {
+      addRole (id: "${userId}", roleId: "${roleId}")
+    }
+  }
+}`;
 
 export default function Address() {
   const [ session, loading ] = useSession()
-  console.log(session);
-  if (session) 
+  if (!loading) console.log(session);
+
+  // Update this variable to the roleID of the next latest CodeDay
+  const latestCodeDayRoleID = "rol_0ycGdcN2hV3K7Rx2";
+
+
+
+
   return (
     <Page slug="/registration/address" title="Address">
       <Content>
@@ -23,17 +39,10 @@ export default function Address() {
         </Text>
 
         <Box>
-          <CognitoForm formId={53} fallback />
+          <CognitoForm formId={86}  fallback />
         </Box>
       </Content>
     </Page>
   );
 }
 
-const query = (userId, roleId) => `{
-  mutation {
-    account {
-      addRole (id: "${userId}", roleId: "${roleId}")
-    }
-  }
-}`;

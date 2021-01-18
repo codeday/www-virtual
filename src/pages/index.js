@@ -16,7 +16,6 @@ import { signIn, signOut, useSession } from 'next-auth/client';
 
 export default function Home({ upcoming, globalSponsors, faqs, showYourWork }) {
   const [ session, loading ] = useSession()
-
   if (!upcoming || upcoming.length === 0) {
     return (
       <Page slug="/">
