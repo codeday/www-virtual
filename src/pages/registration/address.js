@@ -7,9 +7,17 @@ import Image from '@codeday/topo/Atom/Image';
 import Page from '../../components/Page';
 import CognitoForm from '@codeday/topo/Molecule/CognitoForm';
 import { useSession } from 'next-auth/client';
-import useSWR, { mutate } from 'swr'
+import { GraphQLClient, gql } from 'graphql-request'
 
-const query = (userId, roleId) => `{
+const endpoint = 'https://api.graph.cool/simple/v1/cixos23120m0n0173veiiwrjr'
+
+const graphQLClient = new GraphQLClient(endpoint, {
+  headers: {
+    authorization: 'Bearer MY_TOKEN',
+  },
+})
+
+const mutation = gql`
   mutation {
     account {
       addRole (id: "${userId}", roleId: "${roleId}")
@@ -17,11 +25,21 @@ const query = (userId, roleId) => `{
   }
 }`;
 
-export default function Address() {
+export default async function Address() {
   const [ session, loading ] = useSession()
-  if (!loading) console.log(session);
   // Update this variable to the roleID of the next latest CodeDay
   const latestCodeDayRoleID = "rol_0ycGdcN2hV3K7Rx2";
+
+  if (!loading) {
+    console.log(session);
+
+    const userID = session.user.sub
+    const variables = {userId: userID, roleId: latestCodeDayRoleID}
+    const data = await graphQLClient.request(mutation, variables)
+
+    console.log(JSON.stringify(data, undefined, 2))
+  }
+
 
   return (
     <Page slug="/registration/address" title="Address">
