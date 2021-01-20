@@ -9,7 +9,6 @@ import CognitoForm from '@codeday/topo/Molecule/CognitoForm';
 import { useSession } from 'next-auth/client';
 import useSWR, { mutate } from 'swr'
 
-
 const query = (userId, roleId) => `{
   mutation {
     account {
@@ -21,12 +20,8 @@ const query = (userId, roleId) => `{
 export default function Address() {
   const [ session, loading ] = useSession()
   if (!loading) console.log(session);
-
   // Update this variable to the roleID of the next latest CodeDay
   const latestCodeDayRoleID = "rol_0ycGdcN2hV3K7Rx2";
-
-
-
 
   return (
     <Page slug="/registration/address" title="Address">

@@ -102,9 +102,6 @@ export default function Home({ upcoming, globalSponsors, faqs, showYourWork }) {
         <Button onClick={() => signIn('auth0', { callbackUrl: "http://localhost:3000/registration/address" })} variant="solid" variantColor="red" size="lg">
           Register Now
         </Button>
-        <Button onClick={() => signOut()} variant="solid" variantColor="red" size="lg">
-          Sign out
-        </Button>
         <br></br>
         <>
           {!session && <>
