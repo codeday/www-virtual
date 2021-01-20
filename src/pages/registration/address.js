@@ -34,7 +34,9 @@ export default function Address() {
         </Text>
 
         <Box>
-          <CognitoForm formId={86}  fallback />
+          {session && (
+            <CognitoForm formId={86} prefill={{ Username: session.user.nickname, Name: { First: session.user.given_name, Last: session.user.family_name } }} fallback />
+          )}
         </Box>
       </Content>
     </Page>
