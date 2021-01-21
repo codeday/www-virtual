@@ -25,7 +25,7 @@ const mutation = gql`
   }
 }`;
 
-export default async function Address() {
+export default function Address() {
   const [ session, loading ] = useSession()
   // Update this variable to the roleID of the next latest CodeDay
   const latestCodeDayRoleID = "rol_0ycGdcN2hV3K7Rx2";
