@@ -6,30 +6,25 @@ import Text, {Heading, Link} from '@codeday/topo/Atom/Text';
 import Image from '@codeday/topo/Atom/Image';
 import Page from '../../components/Page';
 import CognitoForm from '@codeday/topo/Molecule/CognitoForm';
-import { useSession } from 'next-auth/client';
+import getConfig from 'next/config';
+import { sign } from 'jsonwebtoken'
+import { getSession, useSession } from 'next-auth/client';
 
-const mutation = (userId, roleId) => `{
+const { serverRuntimeConfig } = getConfig();
+
+
+const mutation = (userId, roleId) => `
   mutation {
     account {
       addRole (id: "${userId}", roleId: "${roleId}")
     }
-  }
-}`;
+  }`;
 
-export default function Address({ session }) {
+export default function Address() {
+  const [ session, loading ] = useSession()
+
   // Update this variable to the roleID of the next latest CodeDay
   const latestCodeDayRoleID = "rol_0ycGdcN2hV3K7Rx2";
-
-  // if (!loading) {
-  //   console.log(session);
-
-  //   const userID = session.user.sub
-  //   const variables = {userId: userID, roleId: latestCodeDayRoleID}
-  //   const data = await graphQLClient.request(mutation, variables)
-
-  //   console.log(JSON.stringify(data, undefined, 2))
-  // }
-
 
   return (
     <Page slug="/registration/address" title="Address">
@@ -43,7 +38,7 @@ export default function Address({ session }) {
 
         <Box>
           {session && (
-            <CognitoForm formId={86} prefill={{ Username: session.user.nickname, Name: { First: session.user.given_name, Last: session.user.family_name } }} fallback />
+            <CognitoForm onSubmit={() => {window.location.href = "/registration/checklist"}} formId={86} prefill={{ Username: session.user.nickname, Name: { First: session.user.given_name, Last: session.user.family_name }, Phone: session.user["https://codeday.xyz/phone_number"] || null }} fallback />
           )}
         </Box>
       </Content>
@@ -51,19 +46,18 @@ export default function Address({ session }) {
   );
 }
 
+export async function getServerSideProps({req, res}) {
+  const session = await getSession({req})
+  const gqltoken = serverRuntimeConfig.auth0.ACCOUNT_ADMIN_TOKEN
+  const token = sign({ scopes: 'write:users' }, gqltoken, { expiresIn: '30s' })
+  console.log(session)
 
-export async function getStaticProps() {
-  const [ session, loading ] = useSession()
-  if (!loading) {
-    const userID = session.user.sub
-
-    const data = await apiFetch(mutation(userID, "rol_0ycGdcN2hV3K7Rx2"));
-  }
+  await apiFetch(mutation(session.user.sub, "rol_0ycGdcN2hV3K7Rx2"), null, { Authorization: `Bearer ${token}` })
 
   return {
     props: {
       session: session || null,
     },
   }
-};
+}
 
