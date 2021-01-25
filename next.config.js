@@ -3,6 +3,7 @@ module.exports = {
     auth0: {
       clientId: process.env.AUTH0_CLIENT_ID,
       clientSecret: process.env.AUTH0_CLIENT_SECRET,
+      ACCOUNT_ADMIN_TOKEN: process.env.ACCOUNT_ADMIN_TOKEN,
     },
     contentful: {
       spaceId: process.env.CONTENTFUL_SPACE_ID,
