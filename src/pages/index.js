@@ -159,23 +159,7 @@ export default function Home({ upcoming, globalSponsors, faqs, showYourWork }) {
         {' '}or{' '}
         <Button as="a" href="mailto:team@codeday.org">contact us!</Button>
       </Content>
-      <Content id="register">
-        <Grid templateColumns={{ base: '1fr', md: '8fr 4fr' }} gap={8}>
-          <Box backgroundColor="red.50" borderRadius="sm" padding={4}>
-            <Heading as="h3" fontSize="lg" bold>Date</Heading>
-            <Text>{startsAt.format('MMMM DD')} - {endsAt.format('MMMM DD, YYYY')}</Text>
-
-            <Heading as="h3" fontSize="lg" bold>Location</Heading>
-            <Text>100% online, using Discord and Twitch.</Text>
-
-            <Heading as="h3" fontSize="lg" bold>Eligibility</Heading>
-            <Text>Anyone enrolled in a middle school, high school, or college.</Text>
-
-            <Heading as="h3" fontSize="lg" bold>Cost</Heading>
-            <Text>Free!</Text>
-          </Box>
-        </Grid>
-      </Content>
+      
     </Page>
   );
 }
