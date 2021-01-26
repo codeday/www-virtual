@@ -16,6 +16,7 @@ export const eventColors = {
 export default ({
   calendar, border, displayStarts, displayEnds,
 }) => {
+  if (typeof window === 'undefined') return null;
   const eventsByDay = {};
   calendar.forEach((e) => {
     const day = e.Date.clone().tz('America/Los_Angeles').startOf('day').format('YYYY-MM-DD');

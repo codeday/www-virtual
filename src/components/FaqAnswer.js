@@ -13,7 +13,7 @@ function mapRichText({
   if (nodeType === 'text') {
     if (marks && marks.length > 0) {
       return (
-        <Text as="span" fontWeight={markMap.bold && 'bold'} fontStyle={markMap.italic && 'italic'}>
+        <Text key={value} as="span" fontWeight={markMap.bold && 'bold'} fontStyle={markMap.italic && 'italic'}>
           {value}
         </Text>
       );
@@ -24,11 +24,11 @@ function mapRichText({
   const innerContent = content && content.map((c) => mapRichText(c));
 
   if (nodeType === 'hyperlink') {
-    return <Link href={data.uri} target="_blank" rel="noopener">{innerContent}</Link>;
+    return <Link key={data.uri} href={data.uri} target="_blank" rel="noopener">{innerContent}</Link>;
   }
 
   if (nodeType === 'paragraph') {
-    return <Text>{innerContent}</Text>;
+    return <Text key={innerContent}>{innerContent}</Text>;
   }
 
   if (nodeType === 'document') {

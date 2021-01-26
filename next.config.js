@@ -1,5 +1,10 @@
 module.exports = {
   serverRuntimeConfig: {
+    auth0: {
+      clientId: process.env.AUTH0_CLIENT_ID,
+      clientSecret: process.env.AUTH0_CLIENT_SECRET,
+      ACCOUNT_ADMIN_TOKEN: process.env.ACCOUNT_ADMIN_TOKEN,
+    },
     contentful: {
       spaceId: process.env.CONTENTFUL_SPACE_ID,
       token: process.env.CONTENTFUL_TOKEN,
@@ -16,6 +21,9 @@ module.exports = {
     },
   },
   publicRuntimeConfig: {
+    auth0: {
+      domain: process.env.AUTH0_DOMAIN,
+    },
     appUrl: process.env.APP_URL,
     scheduleEnabled: !!(process.env.CALENDAR_ID),
     icsUrl: `https://calendar.google.com/calendar/ical/${process.env.CALENDAR_ID}/public/basic.ics`,

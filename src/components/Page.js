@@ -3,6 +3,7 @@ import { DefaultSeo } from 'next-seo';
 import Box from '@codeday/topo/Atom/Box';
 import Text, { Link } from '@codeday/topo/Atom/Text';
 import Header, { SiteLogo, Menu } from '@codeday/topo/Organism/Header';
+import Image from '@codeday/topo/Atom/Image';
 import Footer from '@codeday/topo/Organism/Footer';
 import { CodeDay } from '@codeday/topo/Atom/Logo';
 import Button from '@codeday/topo/Atom/Button';
@@ -59,7 +60,7 @@ export default ({
             <Button variant="ghost" variantColor="brand" as="a" href="/schedule">Schedule</Button>
           )}
           <Button variant="ghost" variantColor="indigo" as="a" href="https://codeday.to/discord">
-            <img width="35" src="/discord.svg" alt="Discord" />
+            <Image width="35px" src="/discord.svg" alt="Discord"/>
           </Button>
         </Menu>
       </Header>
