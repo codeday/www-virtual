@@ -37,13 +37,15 @@ export default function Home({ upcoming, globalSponsors, faqs, showYourWork }) {
           {startsAt.format('MMMM D')} - {endsAt.format('MMMM D, YYYY')}
         </Text>
         <Heading as="h2" fontSize="5xl" textAlign="center">{title}</Heading>
-        <Text fontSize="2xl" textAlign="center" fontWeight="bold" color="current.textLight">
-          Join thousands of students to make new friends, and make an amazing app or game.<br />
-          (Plus a virtual gaming tournament, workshops, prizes, and more!)<br />
+        <Box fontSize="2xl" fontWeight="bold" textAlign="center">
+          <Text color="current.textLight" mb={0}>
+            Join thousands of students to make new friends, and make an amazing app or game.<br />
+            (Plus a virtual gaming tournament, workshops, prizes, and more!)<br />
+          </Text>
           <Text d="inline-block" color="current.bg" bg="current.textLight" p={1} pl={4} pr={4} rounded="md">
             No prior experience needed!
           </Text>
-        </Text>
+        </Box>
       </Content>
       {theme && (
         <Content wide paddingTop={8} paddingBottom={8}>
@@ -143,14 +145,13 @@ export default function Home({ upcoming, globalSponsors, faqs, showYourWork }) {
         </Box>
       )}
 
-
       <Content paddingBottom={8} textAlign="center">
         <Heading as="h3" fontSize="4xl" bold>FAQ:</Heading>
         <Grid templateColumns={{ base: '1fr', md: '1fr 1fr 1fr' }} gap={6} paddingTop={3} paddingBottom={3} textAlign="left">
           {faqs.map((faq) => (
             <Box borderColor="current.border" borderWidth={1} borderRadius="sm" padding={8} key={faq.title}>
               <Text fontSize="lg" bold>{faq.title}</Text>
-              <Text><FaqAnswer json={faq.answer.json} /></Text>
+              <FaqAnswer json={faq.answer.json} />
             </Box>
           ))}
         </Grid>
