@@ -83,14 +83,14 @@ export default function Home({ upcoming, globalSponsors, faqs, showYourWork }) {
             <Heading as="h3" color="current.textLight" fontSize="2xl" pb={4}>With support from...</Heading>
             <Box mb={8}>
               {globalSponsors.filter((sponsor) => sponsor.type === "major").map((sponsor, i) => (
-                <Link to={sponsor.link}>
+                <Link key={sponsor.name} to={sponsor.link}>
                   <Image d="inline-block" src={sponsor.logo.url} pr={i+1 === globalSponsors.length ? 0 : 8} />
                 </Link>
               ))}
             </Box>
             <Box>
               {globalSponsors.filter((sponsor) => sponsor.type === "minor").map((sponsor, i) => (
-                <Link to={sponsor.link}>
+                <Link key={sponsor.name} to={sponsor.link}>
                   <Image d="inline-block" src={sponsor.logo.small} pr={i+1 === globalSponsors.length ? 0 : 8} />
                 </Link>
               ))}
