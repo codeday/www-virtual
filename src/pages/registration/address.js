@@ -50,7 +50,8 @@ export async function getServerSideProps({req, res}) {
   const session = await getSession({req})
   const gqltoken = serverRuntimeConfig.auth0.ACCOUNT_ADMIN_TOKEN
   const token = sign({ scopes: 'write:users' }, gqltoken, { expiresIn: '30s' })
-  console.log(session)
+  
+  // DEBUG: console.log(session)
 
   await apiFetch(mutation(session.user.sub, "rol_0ycGdcN2hV3K7Rx2"), null, { Authorization: `Bearer ${token}` })
 
