@@ -101,7 +101,7 @@ export default function Home({ upcoming, globalSponsors, faqs, showYourWork }) {
       )}
 
       <Content textAlign="center">
-        <Button onClick={() => signIn('auth0', { callbackUrl: "http://localhost:3000/registration/address" })} variant="solid" variantColor="red" size="lg">
+        <Button onClick={() => signIn('auth0', { callbackUrl: "https://virtual.codeday.org/registration/address" })} variant="solid" variantColor="red" size="lg">
           Register Now
         </Button>
         <br></br>
