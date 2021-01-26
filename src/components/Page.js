@@ -1,7 +1,7 @@
 import React from 'react';
 import { DefaultSeo } from 'next-seo';
 import Box from '@codeday/topo/Atom/Box';
-import { Link } from '@codeday/topo/Atom/Text';
+import Text, { Link } from '@codeday/topo/Atom/Text';
 import Header, { SiteLogo, Menu } from '@codeday/topo/Organism/Header';
 import Image from '@codeday/topo/Atom/Image';
 import Footer from '@codeday/topo/Organism/Footer';
@@ -34,11 +34,27 @@ export default ({
     <Box position="relative">
       <Header darkBackground={darkHeader} gradAmount={darkHeader && 'lg'} underscore position="relative" zIndex="1000">
         <SiteLogo>
-          <a href="/">
+          <a href="https://www.codeday.org/">
             <CodeDay withText />
+          </a>
+          <a href="/">
+            <Text
+              as="span"
+              d="inline"
+              letterSpacing="-2px"
+              fontFamily="heading"
+              position="relative"
+              top={1}
+              ml={1}
+              textDecoration="underline"
+              bold
+            >
+              Virtual
+            </Text>
           </a>
         </SiteLogo>
         <Menu>
+          <Button variant="ghost" variantColor="brand" as="a" href="/sponsor">Sponsor</Button>
           <Button variant="ghost" variantColor="brand" as="a" href="/volunteer">Volunteer</Button>
           {publicRuntimeConfig.scheduleEnabled && (
             <Button variant="ghost" variantColor="brand" as="a" href="/schedule">Schedule</Button>
@@ -46,7 +62,6 @@ export default ({
           <Button variant="ghost" variantColor="indigo" as="a" href="https://codeday.to/discord">
             <Image width="35px" src="/discord.svg" alt="Discord"/>
           </Button>
-          <Button variantColor="brand" as="a" href="https://www.codeday.org/">Back to Main Site</Button>
         </Menu>
       </Header>
       {children}

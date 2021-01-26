@@ -115,36 +115,6 @@ export default function Home({ upcoming, globalSponsors, faqs, showYourWork }) {
         </>
       </Content>
 
-      {startsAt.isBefore(moment()) && endsAt.isAfter(moment()) && showYourWork?.length > 0 && (
-        <Box bg="gray.50">
-          <Content pb={8} pt={8}>
-            <Heading as="h3" fontSize="4xl" textAlign="center" mb={4} bold>Recent Progress:</Heading>
-            <Grid templateColumns="repeat(4, 1fr)" d={{ base: 'none', lg: 'grid' }} gap={4}>
-              <ShowN n={4} duration={5000}>
-                {showYourWork.map((msg) => (
-                  <Box bg="white" p={4}>
-                    <Box pb={4}>
-                      <Image
-                        src={msg.author.picture.replace('256x256', '32x32')}
-                        alt=""
-                        float="left"
-                        w={6}
-                        h={6}
-                        mr={2}
-                        rounded="full"
-                      />
-                      <Text mb={0}>{msg.author.name}</Text>
-                    </Box>
-                    <Image pb={4} src={msg.imageUrl} alt="" />
-                    <Text>{truncate(msg.text, 140)}</Text>
-                  </Box>
-                ))}
-              </ShowN>
-            </Grid>
-          </Content>
-        </Box>
-      )}
-
       <Content paddingBottom={8} textAlign="center">
         <Heading as="h3" fontSize="4xl" bold>FAQ:</Heading>
         <Grid templateColumns={{ base: '1fr', md: '1fr 1fr 1fr' }} gap={6} paddingTop={3} paddingBottom={3} textAlign="left">
@@ -160,7 +130,6 @@ export default function Home({ upcoming, globalSponsors, faqs, showYourWork }) {
         {' '}or{' '}
         <Button as="a" href="mailto:team@codeday.org">contact us!</Button>
       </Content>
-      
     </Page>
   );
 }
