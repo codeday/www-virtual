@@ -12,8 +12,10 @@ import CognitoForm from '@codeday/topo/Molecule/CognitoForm';
 import Page from '../components/Page';
 import FaqAnswer from '../components/FaqAnswer';
 import ShowN from '../components/ShowN';
+import { signIn, signOut, useSession } from 'next-auth/client';
 
 export default function Home({ upcoming, globalSponsors, faqs, showYourWork }) {
+  const [ session, loading ] = useSession()
   if (!upcoming || upcoming.length === 0) {
     return (
       <Page slug="/">
@@ -97,9 +99,18 @@ export default function Home({ upcoming, globalSponsors, faqs, showYourWork }) {
       )}
 
       <Content textAlign="center">
-          <Button onClick={smoothScroll} variant="solid" variantColor="red" size="lg">
-            Register Now
-          </Button>
+        <Button onClick={() => signIn('auth0', { callbackUrl: "http://localhost:3000/registration/address" })} variant="solid" variantColor="red" size="lg">
+          Register Now
+        </Button>
+        <br></br>
+        <>
+          {!session && <>
+            Not signed in <br/>
+          </>}
+          {session && <>
+            Signed in as {session.user.name} <br/>
+          </>}
+        </>
       </Content>
 
       {startsAt.isBefore(moment()) && endsAt.isAfter(moment()) && showYourWork?.length > 0 && (
@@ -148,29 +159,7 @@ export default function Home({ upcoming, globalSponsors, faqs, showYourWork }) {
         {' '}or{' '}
         <Button as="a" href="mailto:team@codeday.org">contact us!</Button>
       </Content>
-      <Content id="register">
-        <Heading as="h3" fontSize="4xl" bold textAlign="center" mb={8}>Register Now:</Heading>
-        <Grid templateColumns={{ base: '1fr', md: '8fr 4fr' }} gap={8}>
-          <Box textAlign="center">
-            <Button onClick={smoothScroll} variant="solid" variantColor="red" size="lg">
-              Register Now
-            </Button>
-          </Box>
-          <Box backgroundColor="red.50" borderRadius="sm" padding={4}>
-            <Heading as="h3" fontSize="lg" bold>Date</Heading>
-            <Text>{startsAt.format('MMMM DD')} - {endsAt.format('MMMM DD, YYYY')}</Text>
-
-            <Heading as="h3" fontSize="lg" bold>Location</Heading>
-            <Text>100% online, using Discord and Twitch.</Text>
-
-            <Heading as="h3" fontSize="lg" bold>Eligibility</Heading>
-            <Text>Anyone enrolled in a middle school, high school, or college.</Text>
-
-            <Heading as="h3" fontSize="lg" bold>Cost</Heading>
-            <Text>Free!</Text>
-          </Box>
-        </Grid>
-      </Content>
+      
     </Page>
   );
 }
