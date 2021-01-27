@@ -20,11 +20,25 @@ export default function CheckList() {
       <Content>
         <Heading as="h1">Now, prepare yourself for fun!</Heading>
 
-        <Text fontSize="xl" mb={16}>
-          CodeDay takes place on Discord, and joining our Discord is your final step. Just click the button below!
+        <Text fontSize="xl">
+          Virtual CodeDay takes place on Discord (a community chat platform). Once the event starts, you&apos;ll use
+          Discord to find an idea to work on, form a team, get help from mentors, and participate in fun activities.
         </Text>
 
-        <Button as="a" href="https://discord.gg/codeday" variant="solid" variantColor="purple">CodeDay Discord</Button>
+        <Text fontSize="xl">
+          We recommend you join the Discord right now so you&apos;re ready for the event kickoff:
+        </Text>
+
+        <Box textAlign="center" mb={8}>
+          <Button
+            as="a"
+            href="https://discord.gg/codeday"
+            variant="solid"
+            variantColor="purple"
+          >
+            Join the CodeDay Discord
+          </Button>
+        </Box>
 
         <Text mt={5} mb={0}>Have Questions?</Text>
         <Button as="a" href="https://www.codeday.org/help/virtual" target="_blank">View all FAQs</Button>

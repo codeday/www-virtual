@@ -28,9 +28,7 @@ export default function Address() {
         <Heading as="h1">Almost done...</Heading>
 
         <Text fontSize="xl" mb={16}>
-          After this step, you are officially signed up for this coming Virtual CodeDay.
-          The form below will allow you to get <strong>FREE</strong> swag packs from sponsoring companies upon
-          registration and throughout the event.
+          Just a few more questions before we finalize your Virtual CodeDay registration:
         </Text>
 
         <Box>
