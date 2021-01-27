@@ -104,15 +104,9 @@ export default function Home({ upcoming, globalSponsors, faqs, showYourWork }) {
         <Button onClick={() => signIn('auth0', { callbackUrl: "https://virtual.codeday.org/registration/address" })} variant="solid" variantColor="red" size="lg">
           Register Now
         </Button>
-        <br></br>
-        <>
-          {!session && <>
-            Not signed in <br/>
-          </>}
-          {session && <>
-            Signed in as {session.user.name} <br/>
-          </>}
-        </>
+        <Box mt={2} mb={4} color="current.textLight">
+          {session ? `Signed in to CodeDay as ${session.user.name}` : `You'll need to create a CodeDay account.`}
+        </Box>
       </Content>
 
       <Content paddingBottom={8} textAlign="center">
