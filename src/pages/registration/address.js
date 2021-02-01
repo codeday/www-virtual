@@ -25,7 +25,7 @@ export default function Address() {
   return (
     <Page slug="/registration/address" title="Address">
       <Content>
-        <Heading as="h1">Almost done...</Heading>
+        <Heading as="h1">Your registration is not yet complete...</Heading>
 
         <Text fontSize="xl" mb={16}>
           Just a few more questions before we finalize your Virtual CodeDay registration:

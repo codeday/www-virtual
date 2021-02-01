@@ -18,7 +18,7 @@ export default function CheckList() {
   return (
     <Page slug="/registration/checklist" title="Address">
       <Content>
-        <Heading as="h1">Now, prepare yourself for fun!</Heading>
+        <Heading as="h1">Your registration is confirmed! Now, prepare yourself for fun!</Heading>
 
         <Text fontSize="xl">
           Virtual CodeDay takes place on Discord (a community chat platform). Once the event starts, you&apos;ll use

@@ -40,7 +40,7 @@ export default function Home({ upcoming, globalSponsors, faqs, showYourWork }) {
         <Box fontSize="2xl" fontWeight="bold" textAlign="center">
           <Text color="current.textLight" mb={0}>
             Join thousands of students to make new friends, and make an amazing app or game.<br />
-            (Plus a virtual gaming tournament, workshops, prizes, and more!)<br />
+            (Plus a virtual gaming tournament, workshops, swag, prizes, and more!)<br />
           </Text>
           <Text d="inline-block" color="current.bg" bg="current.textLight" p={1} pl={4} pr={4} rounded="md">
             No prior experience needed!
@@ -106,6 +106,20 @@ export default function Home({ upcoming, globalSponsors, faqs, showYourWork }) {
         </Button>
         <Box mt={2} mb={4} color="current.textLight">
           {session ? `Signed in to CodeDay as ${session.user.name}` : `You'll need to create a CodeDay account.`}
+        </Box>
+      </Content>
+
+      <Content textAlign="center">
+        <Box p={8} bg="blue.100" borderColor="blue.600" borderWidth={1} color="blue.900" rounded="sm">
+          <Heading as="h3" fontSize="3xl" mb={4}>Free Swag, Electronics Kits, and More!</Heading>
+          <Text fontSize="lg">
+            The first 600 registrants will get <strong>free limited-edition CodeDay stickers</strong>, and 100 eligible
+            participants will recieve a <strong>free swag box</strong> from our partner T-Mobile.
+          </Text>
+          <Text fontSize="lg">
+            Interested in electronics? Our partner Digi-Key is giving away 150 <strong>free electronics kits: </strong>
+            just fill out the application after you register. No prior electronics experience necessary!
+          </Text>
         </Box>
       </Content>
 
