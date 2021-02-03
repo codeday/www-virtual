@@ -1,12 +1,12 @@
-import React from "react";
-import Box, { Flex } from "@codeday/topo/Atom/Box";
-import { apiFetch } from "@codeday/topo/utils";
-import Content from "@codeday/topo/Molecule/Content";
-import Text, { Heading, Link } from "@codeday/topo/Atom/Text";
-import Image from "@codeday/topo/Atom/Image";
-import CognitoForm from "@codeday/topo/Molecule/CognitoForm";
-import { useSession } from "next-auth/client";
-import Page from "../../components/Page";
+import React from 'react';
+import Box, { Flex } from '@codeday/topo/Atom/Box';
+import { apiFetch } from '@codeday/topo/utils';
+import Content from '@codeday/topo/Molecule/Content';
+import Text, { Heading, Link } from '@codeday/topo/Atom/Text';
+import Image from '@codeday/topo/Atom/Image';
+import CognitoForm from '@codeday/topo/Molecule/CognitoForm';
+import { useSession } from 'next-auth/client';
+import Page from '../../components/Page';
 
 export default function Address() {
   const [session] = useSession();
@@ -25,7 +25,7 @@ export default function Address() {
           {session && (
             <CognitoForm
               onSubmit={() => {
-                window.location.href = "/registration/checklist";
+                window.location.href = '/registration/checklist';
               }}
               formId={86}
               prefill={{
@@ -34,7 +34,7 @@ export default function Address() {
                   First: session.user.given_name,
                   Last: session.user.family_name,
                 },
-                Phone: session.user["https://codeday.xyz/phone_number"] || null,
+                Phone: session.user['https://codeday.xyz/phone_number'] || null,
               }}
               fallback
             />

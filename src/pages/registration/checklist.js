@@ -1,21 +1,21 @@
-import React from "react";
-import Box, { Flex } from "@codeday/topo/Atom/Box";
-import { apiFetch } from "@codeday/topo/utils";
-import { Checkbox, CheckboxGroup } from "@chakra-ui/react";
-import Content from "@codeday/topo/Molecule/Content";
-import List, { Item } from "@codeday/topo/Atom/List";
-import Text, { Heading, Link } from "@codeday/topo/Atom/Text";
-import Image from "@codeday/topo/Atom/Image";
+import React from 'react';
+import Box, { Flex } from '@codeday/topo/Atom/Box';
+import { apiFetch } from '@codeday/topo/utils';
+import { Checkbox, CheckboxGroup } from '@chakra-ui/react';
+import Content from '@codeday/topo/Molecule/Content';
+import List, { Item } from '@codeday/topo/Atom/List';
+import Text, { Heading, Link } from '@codeday/topo/Atom/Text';
+import Image from '@codeday/topo/Atom/Image';
 import IconBox, {
   HeaderIcon,
   HeaderText,
   Body,
-} from "@codeday/topo/Molecule/IconBox";
-import Button from "@codeday/topo/Atom/Button";
-import CognitoForm from "@codeday/topo/Molecule/CognitoForm";
-import { useSession } from "next-auth/client";
-import Page from "../../components/Page";
-import getConfig from "next/config";
+} from '@codeday/topo/Molecule/IconBox';
+import Button from '@codeday/topo/Atom/Button';
+import CognitoForm from '@codeday/topo/Molecule/CognitoForm';
+import { useSession } from 'next-auth/client';
+import getConfig from 'next/config';
+import Page from '../../components/Page';
 
 const { serverRuntimeConfig } = getConfig();
 
@@ -62,8 +62,8 @@ export default function CheckList() {
           target="_blank"
         >
           View all FAQs
-        </Button>{" "}
-        or{" "}
+        </Button>{' '}
+        or{' '}
         <Button as="a" href="mailto:team@codeday.org">
           contact us!
         </Button>
@@ -75,10 +75,10 @@ export default function CheckList() {
 export async function getServerSideProps({ req }) {
   const session = await getSession({ req });
   const gqltoken = serverRuntimeConfig.auth0.ACCOUNT_ADMIN_TOKEN;
-  const token = sign({ scopes: "write:users" }, gqltoken, { expiresIn: "30s" });
+  const token = sign({ scopes: 'write:users' }, gqltoken, { expiresIn: '30s' });
 
   // TODO(@tylermenezes) Move constants into an env file.
-  await apiFetch(mutation(session.user.sub, "rol_0ycGdcN2hV3K7Rx2"), null, {
+  await apiFetch(mutation(session.user.sub, 'rol_0ycGdcN2hV3K7Rx2'), null, {
     Authorization: `Bearer ${token}`,
   });
 

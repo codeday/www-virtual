@@ -8,9 +8,9 @@ import Form from '@codeday/topo/Molecule/CognitoForm';
 import Button from '@codeday/topo/Atom/Button';
 import moment from 'moment-timezone';
 import axios from 'axios';
-import { eventColors } from './Calendar';
 import { useTheme } from '@codeday/topo/utils';
 import seed from 'random-seed';
+import { eventColors } from './Calendar';
 
 export default function Event({ event }) {
   const [phone, setPhone] = useState('');
@@ -32,8 +32,8 @@ export default function Event({ event }) {
 
   const localIdentical = localStart.format(combinedFormat) === start.format(combinedFormat);
   const localDateMatches = localStart.format(dateFormat) === start.format(dateFormat);
-  const { colors } = useTheme()
-  const colorHues = Object.keys(colors)
+  const { colors } = useTheme();
+  const colorHues = Object.keys(colors);
   const baseColor = eventColors[event.Type || ''] || colorHues[seed(event.Type.toLowerCase()).intBetween(0, colorHues.length)];
   const calendarEventStart = moment.utc(event.Date);
   const calendarEventFormat = 'YYYYMMDDTHHmmSS';
@@ -78,56 +78,56 @@ export default function Event({ event }) {
           && start.clone().add(2, 'hours').isAfter(moment.now())
         ) ? null : (start.clone().add(2, 'hours').isAfter(moment.now()) && (
           <Box mb={12}>
-            {/*<Input*/}
-            {/*  placeholder="Phone Number"*/}
-            {/*  value={phone}*/}
-            {/*  onChange={(e) => setPhone(e.target.value)}*/}
-            {/*  size="lg"*/}
-            {/*  d="inline-block"*/}
-            {/*  w="md"*/}
-            {/*  verticalAlign="top"*/}
-            {/*  borderTopRightRadius={0}*/}
-            {/*  borderBottomRightRadius={0}*/}
-            {/*  borderRightWidth={0}*/}
-            {/*/>*/}
-            {/*<Button*/}
-            {/*  variantColor="green"*/}
-            {/*  variant="outline"*/}
-            {/*  onClick={async () => {*/}
-            {/*    try {*/}
-            {/*      const response = (await axios({*/}
-            {/*        method: 'POST',*/}
-            {/*        url: '/api/notify',*/}
-            {/*        headers: { 'Content-type': 'application/json' },*/}
-            {/*        data: JSON.stringify({ id: event.id, phone }),*/}
-            {/*        responseType: 'json',*/}
-            {/*      })).data;*/}
-            {/*      if (response.error) {*/}
-            {/*        setError(response.error);*/}
-            {/*        setHasSubscribed(false);*/}
-            {/*      } else {*/}
-            {/*        setHasSubscribed(true);*/}
-            {/*        setPhone('');*/}
-            {/*        setError(null);*/}
-            {/*      }*/}
-            {/*    } catch (err) {*/}
-            {/*      setError(err);*/}
-            {/*      setHasSubscribed(false);*/}
-            {/*    }*/}
-            {/*  }}*/}
-            {/*  size="lg"*/}
-            {/*  borderTopLeftRadius={0}*/}
-            {/*  borderBottomLeftRadius={0}*/}
-            {/*>*/}
-            {/*  Text Me When This Starts*/}
-            {/*</Button>*/}
-            {/*{error && <Text color="red.700" bold mt={2}>{error.toString()}</Text>}*/}
-            {/*{hasSubscribed && <Text color="green.700" bold mt={2}>We&apos;ll text you when this starts!</Text>}*/}
+            {/* <Input */}
+            {/*  placeholder="Phone Number" */}
+            {/*  value={phone} */}
+            {/*  onChange={(e) => setPhone(e.target.value)} */}
+            {/*  size="lg" */}
+            {/*  d="inline-block" */}
+            {/*  w="md" */}
+            {/*  verticalAlign="top" */}
+            {/*  borderTopRightRadius={0} */}
+            {/*  borderBottomRightRadius={0} */}
+            {/*  borderRightWidth={0} */}
+            {/* /> */}
+            {/* <Button */}
+            {/*  variantColor="green" */}
+            {/*  variant="outline" */}
+            {/*  onClick={async () => { */}
+            {/*    try { */}
+            {/*      const response = (await axios({ */}
+            {/*        method: 'POST', */}
+            {/*        url: '/api/notify', */}
+            {/*        headers: { 'Content-type': 'application/json' }, */}
+            {/*        data: JSON.stringify({ id: event.id, phone }), */}
+            {/*        responseType: 'json', */}
+            {/*      })).data; */}
+            {/*      if (response.error) { */}
+            {/*        setError(response.error); */}
+            {/*        setHasSubscribed(false); */}
+            {/*      } else { */}
+            {/*        setHasSubscribed(true); */}
+            {/*        setPhone(''); */}
+            {/*        setError(null); */}
+            {/*      } */}
+            {/*    } catch (err) { */}
+            {/*      setError(err); */}
+            {/*      setHasSubscribed(false); */}
+            {/*    } */}
+            {/*  }} */}
+            {/*  size="lg" */}
+            {/*  borderTopLeftRadius={0} */}
+            {/*  borderBottomLeftRadius={0} */}
+            {/* > */}
+            {/*  Text Me When This Starts */}
+            {/* </Button> */}
+            {/* {error && <Text color="red.700" bold mt={2}>{error.toString()}</Text>} */}
+            {/* {hasSubscribed && <Text color="green.700" bold mt={2}>We&apos;ll text you when this starts!</Text>} */}
             <Text>
               <Link href={calendarInviteURL} target="_blank">add to Google Calendar</Link>
             </Text>
           </Box>
-        ))}
+          ))}
       </Box>
     </Content>
   );

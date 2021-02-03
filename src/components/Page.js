@@ -60,7 +60,7 @@ export default ({
             <Button variant="ghost" variantColor="brand" as="a" href="/schedule">Schedule</Button>
           )}
           <Button variant="ghost" variantColor="indigo" as="a" href="https://codeday.to/discord">
-            <Image width="35px" src="/discord.svg" alt="Discord"/>
+            <Image width="35px" src="/discord.svg" alt="Discord" />
           </Button>
         </Menu>
       </Header>
