@@ -1,48 +1,77 @@
-import moment from 'moment';
-import truncate from 'truncate';
-import { apiFetch } from '@codeday/topo/utils';
-import Box, { Grid } from '@codeday/topo/Atom/Box';
-import Image from '@codeday/topo/Atom/Image';
-import Text, { Link, Heading } from '@codeday/topo/Atom/Text';
-import Skelly from '@codeday/topo/Atom/Skelly';
-import Button from '@codeday/topo/Atom/Button';
-import Content from '@codeday/topo/Molecule/Content';
-import Slides from '@codeday/topo/Molecule/Slides';
-import CognitoForm from '@codeday/topo/Molecule/CognitoForm';
-import Page from '../components/Page';
-import FaqAnswer from '../components/FaqAnswer';
-import ShowN from '../components/ShowN';
-import { signIn, signOut, useSession } from 'next-auth/client';
+import moment from "moment";
+import truncate from "truncate";
+import { apiFetch } from "@codeday/topo/utils";
+import Box, { Grid } from "@codeday/topo/Atom/Box";
+import Image from "@codeday/topo/Atom/Image";
+import Text, { Link, Heading } from "@codeday/topo/Atom/Text";
+import Skelly from "@codeday/topo/Atom/Skelly";
+import Button from "@codeday/topo/Atom/Button";
+import Content from "@codeday/topo/Molecule/Content";
+import Slides from "@codeday/topo/Molecule/Slides";
+import CognitoForm from "@codeday/topo/Molecule/CognitoForm";
+import Page from "../components/Page";
+import FaqAnswer from "../components/FaqAnswer";
+import ShowN from "../components/ShowN";
+import { signIn, signOut, useSession } from "next-auth/client";
 
 export default function Home({ upcoming, globalSponsors, faqs, showYourWork }) {
-  const [ session, loading ] = useSession()
+  const [session, loading] = useSession();
+
+  const hasLatestCodeDayRole =
+    session &&
+    session.user["https://codeday.xyz/roles"].includes(
+      "Attendee - Virtual CodeDay 2021 February"
+    );
+
   if (!upcoming || upcoming.length === 0) {
     return (
       <Page slug="/">
         <Content>
-          <Text fontSize="xl">There's no scheduled Virtual CodeDay. Check back later.</Text>
+          "Attendee - Virtual CodeDay 2021 February"
+          <Text fontSize="xl">
+            There's no scheduled Virtual CodeDay. Check back later.
+          </Text>
         </Content>
       </Page>
     );
   }
 
   const { theme, title, themeBackgrounds, kickoffVideo } = upcoming;
-  const startsAt = moment(upcoming.startsAt.replace('Z', ''));
-  const endsAt = moment(upcoming.endsAt.replace('Z', ''));
+  const startsAt = moment(upcoming.startsAt.replace("Z", ""));
+  const endsAt = moment(upcoming.endsAt.replace("Z", ""));
 
   return (
     <Page slug="/">
       <Content>
-        <Text fontSize="2xl" textAlign="center" fontWeight="bold" color="current.textLight">
-          {startsAt.format('MMMM D')} - {endsAt.format('MMMM D, YYYY')}
+        <Text
+          fontSize="2xl"
+          textAlign="center"
+          fontWeight="bold"
+          color="current.textLight"
+        >
+          {startsAt.format("MMMM D")} - {endsAt.format("MMMM D, YYYY")}
         </Text>
-        <Heading as="h2" fontSize="5xl" textAlign="center">{title}</Heading>
+        <Heading as="h2" fontSize="5xl" textAlign="center">
+          {title}
+        </Heading>
         <Box fontSize="2xl" fontWeight="bold" textAlign="center">
           <Text color="current.textLight" mb={0}>
-            Join thousands of students to make new friends, and make an amazing app or game.<br />
-            (Plus a virtual gaming tournament, workshops, swag, prizes, and more!)<br />
+            Join thousands of students to make new friends, and make an amazing
+            app or game.
+            <br />
+            (Plus a virtual gaming tournament, workshops, swag, prizes, and
+            more!)
+            <br />
           </Text>
-          <Text d="inline-block" color="current.bg" bg="current.textLight" p={1} pl={4} pr={4} rounded="md">
+          <Text
+            d="inline-block"
+            color="current.bg"
+            bg="current.textLight"
+            p={1}
+            pl={4}
+            pr={4}
+            rounded="md"
+          >
             No prior experience needed!
           </Text>
         </Box>
@@ -50,7 +79,15 @@ export default function Home({ upcoming, globalSponsors, faqs, showYourWork }) {
       {theme && (
         <Content wide paddingTop={8} paddingBottom={8}>
           <Box position="relative" height="300px">
-            <Skelly position="absolute" top={0} left={0} right={0} height="300px" marginBottom={0} borderRadius={0} />
+            <Skelly
+              position="absolute"
+              top={0}
+              left={0}
+              right={0}
+              height="300px"
+              marginBottom={0}
+              borderRadius={0}
+            />
             {themeBackgrounds.items.length > 0 && (
               <Slides
                 height="300px"
@@ -59,7 +96,7 @@ export default function Home({ upcoming, globalSponsors, faqs, showYourWork }) {
                 top={0}
                 left={0}
                 right={0}
-                style={{ filter: 'brightness(50%)' }}
+                style={{ filter: "brightness(50%)" }}
                 duration={5}
               >
                 {themeBackgrounds.items.map((bg) => (
@@ -73,78 +110,167 @@ export default function Home({ upcoming, globalSponsors, faqs, showYourWork }) {
                 ))}
               </Slides>
             )}
-            <Box position="absolute" top={{ base: 0, sm: '5em' }} left={0} right={0} color="white">
-              <Text textAlign="center" fontSize="2xl" fontFamily="accent">The theme is...</Text>
-              <Text textAlign="center" fontSize="6xl" fontFamily="accent" bold>&ldquo;{theme}&rdquo;</Text>
+            <Box
+              position="absolute"
+              top={{ base: 0, sm: "5em" }}
+              left={0}
+              right={0}
+              color="white"
+            >
+              <Text textAlign="center" fontSize="2xl" fontFamily="accent">
+                The theme is...
+              </Text>
+              <Text textAlign="center" fontSize="6xl" fontFamily="accent" bold>
+                &ldquo;{theme}&rdquo;
+              </Text>
             </Box>
           </Box>
         </Content>
       )}
       {globalSponsors && (
         <Content paddingBottom={8} textAlign="center">
-            <Heading as="h3" color="current.textLight" fontSize="2xl" pb={4}>With support from...</Heading>
-            <Box mb={8}>
-              {globalSponsors.filter((sponsor) => sponsor.type === "major").map((sponsor, i) => (
+          <Heading as="h3" color="current.textLight" fontSize="2xl" pb={4}>
+            With support from...
+          </Heading>
+          <Box mb={8}>
+            {globalSponsors
+              .filter((sponsor) => sponsor.type === "major")
+              .map((sponsor, i) => (
                 <Link key={sponsor.name} to={sponsor.link}>
-                  <Image d="inline-block" src={sponsor.logo.url} pr={i+1 === globalSponsors.length ? 0 : 8} />
+                  <Image
+                    d="inline-block"
+                    src={sponsor.logo.url}
+                    pr={i + 1 === globalSponsors.length ? 0 : 8}
+                  />
                 </Link>
               ))}
-            </Box>
-            <Box>
-              {globalSponsors.filter((sponsor) => sponsor.type === "minor").map((sponsor, i) => (
+          </Box>
+          <Box>
+            {globalSponsors
+              .filter((sponsor) => sponsor.type === "minor")
+              .map((sponsor, i) => (
                 <Link key={sponsor.name} to={sponsor.link}>
-                  <Image d="inline-block" src={sponsor.logo.small} pr={i+1 === globalSponsors.length ? 0 : 8} />
+                  <Image
+                    d="inline-block"
+                    src={sponsor.logo.small}
+                    pr={i + 1 === globalSponsors.length ? 0 : 8}
+                  />
                 </Link>
               ))}
-            </Box>
+          </Box>
+        </Content>
+      )}
+
+      {!hasLatestCodeDayRole ? (
+        <Content textAlign="center">
+          <Button
+            onClick={() =>
+              signIn("auth0", {
+                callbackUrl: "https://virtual.codeday.org/registration/address",
+              })
+            }
+            variant="solid"
+            variantColor="red"
+            size="lg"
+          >
+            Register Now
+          </Button>
+          <Box mt={2} mb={4} color="current.textLight">
+            {session
+              ? `Signed in to CodeDay as ${session.user.name}`
+              : `You'll need to create a CodeDay account.`}
+          </Box>
+        </Content>
+      ) : (
+        <Content textAlign="center">
+          <Button
+            as="a"
+            href="https://discord.gg/codeday"
+            variant="solid"
+            variantColor="purple"
+          >
+            Join the CodeDay Discord
+          </Button>
+          <Box mt={2} mb={4} color="current.textLight">
+            {session && `You've already registered for this upcoming CodeDay.`}
+          </Box>
         </Content>
       )}
 
       <Content textAlign="center">
-        <Button onClick={() => signIn('auth0', { callbackUrl: "https://virtual.codeday.org/registration/address" })} variant="solid" variantColor="red" size="lg">
-          Register Now
-        </Button>
-        <Box mt={2} mb={4} color="current.textLight">
-          {session ? `Signed in to CodeDay as ${session.user.name}` : `You'll need to create a CodeDay account.`}
-        </Box>
-      </Content>
-
-      <Content textAlign="center">
-        <Box p={8} bg="blue.100" borderColor="blue.600" borderWidth={1} color="blue.900" rounded="sm">
-          <Heading as="h3" fontSize="3xl" mb={4}>Free Swag, Electronics Kits, and More!</Heading>
+        <Box
+          p={8}
+          bg="blue.100"
+          borderColor="blue.600"
+          borderWidth={1}
+          color="blue.900"
+          rounded="sm"
+        >
+          <Heading as="h3" fontSize="3xl" mb={4}>
+            Free Swag, Electronics Kits, and More!
+          </Heading>
           <Text fontSize="lg">
-            The first 600 registrants will get <strong>free limited-edition CodeDay stickers</strong>, and 100 eligible
-            participants will recieve a <strong>free swag box</strong> from our partner T-Mobile.
+            The first 600 registrants will get{" "}
+            <strong>free limited-edition CodeDay stickers</strong>, and 100
+            eligible participants will recieve a <strong>free swag box</strong>{" "}
+            from our partner T-Mobile.
           </Text>
           <Text fontSize="lg">
-            Interested in electronics? Our partner Digi-Key is giving away 150 <strong>free electronics kits: </strong>
-            just fill out the application after you register. No prior electronics experience necessary!
+            Interested in electronics? Our partner Digi-Key is giving away 150{" "}
+            <strong>free electronics kits: </strong>
+            just fill out the application after you register. No prior
+            electronics experience necessary!
           </Text>
         </Box>
       </Content>
 
       <Content paddingBottom={8} textAlign="center">
-        <Heading as="h3" fontSize="4xl" bold>FAQ:</Heading>
-        <Grid templateColumns={{ base: '1fr', md: '1fr 1fr 1fr' }} gap={6} paddingTop={3} paddingBottom={3} textAlign="left">
+        <Heading as="h3" fontSize="4xl" bold>
+          FAQ:
+        </Heading>
+        <Grid
+          templateColumns={{ base: "1fr", md: "1fr 1fr 1fr" }}
+          gap={6}
+          paddingTop={3}
+          paddingBottom={3}
+          textAlign="left"
+        >
           {faqs.map((faq) => (
-            <Box borderColor="current.border" borderWidth={1} borderRadius="sm" padding={8} key={faq.title}>
-              <Text fontSize="lg" bold>{faq.title}</Text>
+            <Box
+              borderColor="current.border"
+              borderWidth={1}
+              borderRadius="sm"
+              padding={8}
+              key={faq.title}
+            >
+              <Text fontSize="lg" bold>
+                {faq.title}
+              </Text>
               <FaqAnswer json={faq.answer.json} />
             </Box>
           ))}
         </Grid>
-        More questions?<br />
-        <Button as="a" href="https://www.codeday.org/help/virtual" target="_blank">View all FAQs</Button>
-        {' '}or{' '}
-        <Button as="a" href="mailto:team@codeday.org">contact us!</Button>
+        More questions?
+        <br />
+        <Button
+          as="a"
+          href="https://www.codeday.org/help/virtual"
+          target="_blank"
+        >
+          View all FAQs
+        </Button>{" "}
+        or{" "}
+        <Button as="a" href="mailto:team@codeday.org">
+          contact us!
+        </Button>
       </Content>
     </Page>
   );
 }
 
 function smoothScroll() {
-  document.querySelector('#register').scrollIntoView({
-      behavior: 'smooth'
+  document.querySelector("#register").scrollIntoView({
+    behavior: "smooth",
   });
 }
 
@@ -155,7 +281,9 @@ const query = () => `{
       order: startsAt_ASC,
       where: {
         program: { webname: "virtual" }
-        endsAt_gte: "${(new Date((new Date()).getTime() - (1000 * 60 * 60 * 24))).toISOString()}"
+        endsAt_gte: "${new Date(
+          new Date().getTime() - 1000 * 60 * 60 * 24
+        ).toISOString()}"
       }
     ) {
       items {
@@ -216,15 +344,15 @@ const query = () => `{
     }
   }`;
 
-  export async function getStaticProps() {
-    const data = await apiFetch(query());
-    return {
-      props: {
-        upcoming: data?.cms?.events?.items[0] || null,
-        globalSponsors: data?.cms?.globalSponsors?.items || [],
-        faqs: data?.cms?.faqs?.items || [],
-        showYourWork: data?.showYourWork?.messages || [],
-      },
-      revalidate: 120,
-    }
+export async function getStaticProps() {
+  const data = await apiFetch(query());
+  return {
+    props: {
+      upcoming: data?.cms?.events?.items[0] || null,
+      globalSponsors: data?.cms?.globalSponsors?.items || [],
+      faqs: data?.cms?.faqs?.items || [],
+      showYourWork: data?.showYourWork?.messages || [],
+    },
+    revalidate: 120,
   };
+}
