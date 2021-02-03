@@ -1,21 +1,14 @@
 import React from 'react';
-import Box, { Flex } from '@codeday/topo/Atom/Box';
+import { sign } from 'jsonwebtoken';
+import Box from '@codeday/topo/Atom/Box';
 import { apiFetch } from '@codeday/topo/utils';
-import { Checkbox, CheckboxGroup } from '@chakra-ui/react';
 import Content from '@codeday/topo/Molecule/Content';
-import List, { Item } from '@codeday/topo/Atom/List';
-import Text, { Heading, Link } from '@codeday/topo/Atom/Text';
-import Image from '@codeday/topo/Atom/Image';
-import IconBox, {
-  HeaderIcon,
-  HeaderText,
-  Body,
-} from '@codeday/topo/Molecule/IconBox';
+import Text, { Heading } from '@codeday/topo/Atom/Text';
 import Button from '@codeday/topo/Atom/Button';
-import CognitoForm from '@codeday/topo/Molecule/CognitoForm';
-import { useSession } from 'next-auth/client';
+import { getSession } from 'next-auth/client';
 import getConfig from 'next/config';
 import Page from '../../components/Page';
+import getRoleId from '../../utils/getRoleId';
 
 const { serverRuntimeConfig } = getConfig();
 
@@ -74,11 +67,15 @@ export default function CheckList() {
 
 export async function getServerSideProps({ req }) {
   const session = await getSession({ req });
+
+  const roleId = await getRoleId();
+  if (!roleId) throw new Error('Role ID is not set');
+
   const gqltoken = serverRuntimeConfig.auth0.ACCOUNT_ADMIN_TOKEN;
   const token = sign({ scopes: 'write:users' }, gqltoken, { expiresIn: '30s' });
 
   // TODO(@tylermenezes) Move constants into an env file.
-  await apiFetch(mutation(session.user.sub, 'rol_0ycGdcN2hV3K7Rx2'), null, {
+  await apiFetch(mutation(session.user.sub, roleId), null, {
     Authorization: `Bearer ${token}`,
   });
 

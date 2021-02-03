@@ -1,12 +1,11 @@
 import React from 'react';
-import Box, { Flex } from '@codeday/topo/Atom/Box';
-import { apiFetch } from '@codeday/topo/utils';
+import Box from '@codeday/topo/Atom/Box';
 import Content from '@codeday/topo/Molecule/Content';
-import Text, { Heading, Link } from '@codeday/topo/Atom/Text';
-import Image from '@codeday/topo/Atom/Image';
+import Text, { Heading } from '@codeday/topo/Atom/Text';
 import CognitoForm from '@codeday/topo/Molecule/CognitoForm';
 import { useSession } from 'next-auth/client';
 import Page from '../../components/Page';
+import checkHasRegistered from '../../utils/checkHasRegistered';
 
 export default function Address() {
   const [session] = useSession();
@@ -43,4 +42,12 @@ export default function Address() {
       </Content>
     </Page>
   );
+}
+
+export async function getServerSideProps({ req }) {
+  const hasRegistered = await checkHasRegistered(req);
+  if (hasRegistered) throw new Error('User has already registered');
+  return {
+    props: {},
+  };
 }

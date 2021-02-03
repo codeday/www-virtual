@@ -12,22 +12,24 @@ import CognitoForm from "@codeday/topo/Molecule/CognitoForm";
 import Page from "../components/Page";
 import FaqAnswer from "../components/FaqAnswer";
 import ShowN from "../components/ShowN";
-import { signIn, signOut, useSession } from "next-auth/client";
+import { signIn, signOut } from "next-auth/client";
+import useSwr from 'swr';
+import fetch from 'node-fetch';
+
+const fetcher = url => fetch(url).then(r => r.json())
 
 export default function Home({ upcoming, globalSponsors, faqs, showYourWork }) {
-  const [session, loading] = useSession();
+  const { data, isValidating } = useSwr('/api/registered', fetcher);
 
-  const hasLatestCodeDayRole =
-    session &&
-    session.user["https://codeday.xyz/roles"].includes(
-      "Attendee - Virtual CodeDay 2021 February"
-    );
+  const signedIn = Boolean(data?.signedIn);
+  const name = data?.name;
+  const registered = Boolean(data?.registered);
+
 
   if (!upcoming || upcoming.length === 0) {
     return (
       <Page slug="/">
         <Content>
-          "Attendee - Virtual CodeDay 2021 February"
           <Text fontSize="xl">
             There's no scheduled Virtual CodeDay. Check back later.
           </Text>
@@ -36,7 +38,7 @@ export default function Home({ upcoming, globalSponsors, faqs, showYourWork }) {
     );
   }
 
-  const { theme, title, themeBackgrounds, kickoffVideo } = upcoming;
+  const { theme, title, themeBackgrounds } = upcoming;
   const startsAt = moment(upcoming.startsAt.replace("Z", ""));
   const endsAt = moment(upcoming.endsAt.replace("Z", ""));
 
@@ -161,13 +163,15 @@ export default function Home({ upcoming, globalSponsors, faqs, showYourWork }) {
         </Content>
       )}
 
-      {!hasLatestCodeDayRole ? (
+      {!registered ? (
         <Content textAlign="center">
           <Button
-            onClick={() =>
+            href={signedIn && '/registration/address'}
+            as={signedIn && 'a'}
+            onClick={!signedIn && (() =>
               signIn("auth0", {
                 callbackUrl: "https://virtual.codeday.org/registration/address",
-              })
+              }))
             }
             variant="solid"
             variantColor="red"
@@ -176,8 +180,8 @@ export default function Home({ upcoming, globalSponsors, faqs, showYourWork }) {
             Register Now
           </Button>
           <Box mt={2} mb={4} color="current.textLight">
-            {session
-              ? `Signed in to CodeDay as ${session.user.name}`
+            {signedIn
+              ? `Signed in to CodeDay as ${name}`
               : `You'll need to create a CodeDay account.`}
           </Box>
         </Content>
@@ -192,7 +196,7 @@ export default function Home({ upcoming, globalSponsors, faqs, showYourWork }) {
             Join the CodeDay Discord
           </Button>
           <Box mt={2} mb={4} color="current.textLight">
-            {session && `You've already registered for this upcoming CodeDay.`}
+            You've already registered for this upcoming CodeDay.
           </Box>
         </Content>
       )}
@@ -291,6 +295,7 @@ const query = () => `{
         theme
         startsAt
         endsAt
+        participantRoleId
         themeBackgrounds {
           items {
             url(transform: { width: 1400, height: 400, quality: 90, resizeStrategy: FILL })

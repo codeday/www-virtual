@@ -37,6 +37,7 @@
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-load-script": "^0.0.6",
+    "swr": "^0.4.1",
     "truncate": "^2.1.0"
   },
   "devDependencies": {
