@@ -1,31 +1,21 @@
-import moment from "moment";
-import truncate from "truncate";
-import { apiFetch } from "@codeday/topo/utils";
-import Box, { Grid } from "@codeday/topo/Atom/Box";
-import Image from "@codeday/topo/Atom/Image";
-import Text, { Link, Heading } from "@codeday/topo/Atom/Text";
-import Skelly from "@codeday/topo/Atom/Skelly";
-import Button from "@codeday/topo/Atom/Button";
-import Content from "@codeday/topo/Molecule/Content";
-import Slides from "@codeday/topo/Molecule/Slides";
-import CognitoForm from "@codeday/topo/Molecule/CognitoForm";
-import Page from "../components/Page";
-import FaqAnswer from "../components/FaqAnswer";
-import ShowN from "../components/ShowN";
-import { signIn, signOut } from "next-auth/client";
-import useSwr from 'swr';
-import fetch from 'node-fetch';
+import moment from 'moment';
+import { print } from 'graphql';
+import { apiFetch } from '@codeday/topo/utils';
+import Box, { Grid } from '@codeday/topo/Atom/Box';
+import Text, { Heading } from '@codeday/topo/Atom/Text';
+import Skelly from '@codeday/topo/Atom/Skelly';
+import Button from '@codeday/topo/Atom/Button';
+import Content from '@codeday/topo/Molecule/Content';
+import Slides from '@codeday/topo/Molecule/Slides';
+import Divider from '@codeday/topo/Atom/Divider';
+import Sponsors from '../components/Sponsors';
+import Page from '../components/Page';
+import FaqAnswer from '../components/FaqAnswer';
+import PastProjects from '../components/PastProjects';
+import RegisterButton from '../components/RegisterButton';
+import { IndexQuery } from './index.gql';
 
-const fetcher = url => fetch(url).then(r => r.json())
-
-export default function Home({ upcoming, globalSponsors, faqs, showYourWork }) {
-  const { data, isValidating } = useSwr('/api/registered', fetcher);
-
-  const signedIn = Boolean(data?.signedIn);
-  const name = data?.name;
-  const registered = Boolean(data?.registered);
-
-
+export default function Home({ upcoming, query, faqs }) {
   if (!upcoming || upcoming.length === 0) {
     return (
       <Page slug="/">
@@ -44,39 +34,37 @@ export default function Home({ upcoming, globalSponsors, faqs, showYourWork }) {
 
   return (
     <Page slug="/">
-      <Content>
-        <Text
-          fontSize="2xl"
-          textAlign="center"
-          fontWeight="bold"
-          color="current.textLight"
-        >
-          {startsAt.format("MMMM D")} - {endsAt.format("MMMM D, YYYY")}
-        </Text>
-        <Heading as="h2" fontSize="5xl" textAlign="center">
-          {title}
-        </Heading>
-        <Box fontSize="2xl" fontWeight="bold" textAlign="center">
-          <Text color="current.textLight" mb={0}>
-            Join thousands of students to make new friends, and make an amazing
-            app or game.
-            <br />
-            (Plus a virtual gaming tournament, workshops, swag, prizes, and
-            more!)
-            <br />
-          </Text>
-          <Text
-            d="inline-block"
-            color="current.bg"
-            bg="current.textLight"
-            p={1}
-            pl={4}
-            pr={4}
-            rounded="md"
-          >
-            No prior experience needed!
-          </Text>
-        </Box>
+      <Content wide>
+        <Grid templateColumns={{ base: '1fr', md: '1fr 1fr' }} alignItems="center" gap={8} mt={-8} mb={12}>
+          <Box textAlign={{ base: 'center', md: 'left' }}>
+            <Text
+              fontSize="2xl"
+              fontWeight="bold"
+              color="current.textLight"
+              mb={0}
+            >
+              {startsAt.format("MMMM D")} - {endsAt.format("MMMM D, YYYY")}
+            </Text>
+            <Heading as="h2" fontSize="5xl" mb={2}>
+              {title}
+            </Heading>
+            <Text color="red.700" bold mb={2}>
+              No prior coding experience needed!
+            </Text>
+            <Text fontSize="2xl" fontWeight="bold" mb={0}>
+              Join thousands of students to make new friends, and make an amazing
+              app or game.
+            </Text>
+            <Text fontSize="lg">
+              Plus a virtual gaming tournament, workshops, awards, ...
+            </Text>
+            <RegisterButton />
+          </Box>
+          <Box>
+            <Divider d={{ base: 'block', md: 'none' }} mb={16} />
+            <PastProjects query={query} />
+          </Box>
+        </Grid>
       </Content>
       {theme && (
         <Content wide paddingTop={8} paddingBottom={8}>
@@ -129,85 +117,14 @@ export default function Home({ upcoming, globalSponsors, faqs, showYourWork }) {
           </Box>
         </Content>
       )}
-      {globalSponsors && (
-        <Content paddingBottom={8} textAlign="center">
-          <Heading as="h3" color="current.textLight" fontSize="2xl" pb={4}>
-            With support from...
-          </Heading>
-          <Box mb={8}>
-            {globalSponsors
-              .filter((sponsor) => sponsor.type === "major")
-              .map((sponsor, i) => (
-                <Link key={sponsor.name} to={sponsor.link}>
-                  <Image
-                    d="inline-block"
-                    src={sponsor.logo.url}
-                    pr={i + 1 === globalSponsors.length ? 0 : 8}
-                  />
-                </Link>
-              ))}
-          </Box>
-          <Box>
-            {globalSponsors
-              .filter((sponsor) => sponsor.type === "minor")
-              .map((sponsor, i) => (
-                <Link key={sponsor.name} to={sponsor.link}>
-                  <Image
-                    d="inline-block"
-                    src={sponsor.logo.small}
-                    pr={i + 1 === globalSponsors.length ? 0 : 8}
-                  />
-                </Link>
-              ))}
-          </Box>
-        </Content>
-      )}
-
-      {!registered ? (
-        <Content textAlign="center">
-          <Button
-            href={signedIn && '/registration/address'}
-            as={signedIn && 'a'}
-            onClick={!signedIn && (() =>
-              signIn("auth0", {
-                callbackUrl: "https://virtual.codeday.org/registration/address",
-              }))
-            }
-            variant="solid"
-            variantColor="red"
-            size="lg"
-          >
-            Register Now
-          </Button>
-          <Box mt={2} mb={4} color="current.textLight">
-            {signedIn
-              ? `Signed in to CodeDay as ${name}`
-              : `You'll need to create a CodeDay account.`}
-          </Box>
-        </Content>
-      ) : (
-        <Content textAlign="center">
-          <Button
-            as="a"
-            href="https://discord.gg/codeday"
-            variant="solid"
-            variantColor="purple"
-          >
-            Join the CodeDay Discord
-          </Button>
-          <Box mt={2} mb={4} color="current.textLight">
-            You've already registered for this upcoming CodeDay.
-          </Box>
-        </Content>
-      )}
 
       <Content textAlign="center">
         <Box
           p={8}
-          bg="blue.100"
-          borderColor="blue.600"
+          bg="purple.100"
+          borderColor="purple.600"
           borderWidth={1}
-          color="blue.900"
+          color="purple.900"
           rounded="sm"
         >
           <Heading as="h3" fontSize="3xl" mb={4}>
@@ -268,6 +185,8 @@ export default function Home({ upcoming, globalSponsors, faqs, showYourWork }) {
           contact us!
         </Button>
       </Content>
+
+      <Sponsors query={query} />
     </Page>
   );
 }
@@ -278,85 +197,15 @@ function smoothScroll() {
   });
 }
 
-const query = () => `{
-  cms {
-    events(
-      limit: 1,
-      order: startsAt_ASC,
-      where: {
-        program: { webname: "virtual" }
-        endsAt_gte: "${new Date(
-          new Date().getTime() - 1000 * 60 * 60 * 24
-        ).toISOString()}"
-      }
-    ) {
-      items {
-        title
-        theme
-        startsAt
-        endsAt
-        participantRoleId
-        themeBackgrounds {
-          items {
-            url(transform: { width: 1400, height: 400, quality: 90, resizeStrategy: FILL })
-          }
-        }
-        kickoffVideo {
-          url
-        }
-      }
-    }
-
-    globalSponsors (order: sys_firstPublishedAt_ASC) {
-      items{
-        link
-        name
-        type
-        logo{
-          url(transform:{height: 60})
-          small: url(transform:{height: 20})
-        }
-      }
-    }
-
-      faqs (
-        where: {
-          program: {webname:"virtual"},
-          audience_contains_all: ["Student"]
-        },
-        order: [featured_DESC, sys_firstPublishedAt_ASC],
-        limit: 3,
-      ) {
-        items {
-          title
-          answer {
-            json
-          }
-        }
-      }
-    }
-
-    showYourWork {
-      messages (take: 16) {
-        text
-        imageUrl(width: 300, height: 200, strategy: FILL, fillBlur: true)
-        author {
-          name
-          pronoun
-          picture
-        }
-      }
-    }
-  }`;
-
 export async function getStaticProps() {
-  const data = await apiFetch(query());
+  const data = await apiFetch(print(IndexQuery), {
+    endDate: (new Date(new Date().getTime() - 1000 * 60 * 60 * 24)).toISOString(),
+  });
   return {
     props: {
       upcoming: data?.cms?.events?.items[0] || null,
-      globalSponsors: data?.cms?.globalSponsors?.items || [],
       faqs: data?.cms?.faqs?.items || [],
-      showYourWork: data?.showYourWork?.messages || [],
+      query: data,
     },
     revalidate: 120,
   };

@@ -1,0 +1,52 @@
+#import "../components/PastProjects.gql"
+#import "../components/Sponsors.gql"
+
+query IndexQuery ($endDate: CmsDateTime!) {
+  cms {
+    events(
+      limit: 1,
+      order: startsAt_ASC,
+      where: {
+        program: { webname: "virtual" }
+        endsAt_gte: $endDate,
+      }
+    ) {
+      items {
+        title
+        theme
+        startsAt
+        endsAt
+        participantRoleId
+        themeBackgrounds {
+          items {
+            url(transform: { width: 1400, height: 400, quality: 90, resizeStrategy: FILL })
+          }
+        }
+        kickoffVideo {
+          url
+        }
+      }
+    }
+
+    ...Sponsors
+
+
+      faqs (
+        where: {
+          program: {webname:"virtual"},
+          audience_contains_all: ["Student"]
+        },
+        order: [featured_DESC, sys_firstPublishedAt_ASC],
+        limit: 3,
+      ) {
+        items {
+          title
+          answer {
+            json
+          }
+        }
+      }
+    }
+
+    ...PastProjects
+}

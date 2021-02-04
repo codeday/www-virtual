@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
+    "dev": "rm -rf ./.next; next dev",
+    "build": "rm -rf ./.next; next build",
     "start": "next start"
   },
   "dependencies": {
@@ -17,10 +17,14 @@
     "@emotion/styled": "^10.0.27",
     "auth0": "^2.31.1",
     "axios": "^0.21.1",
+    "babel-plugin-import-graphql": "^2.8.1",
+    "blobs": "^2.2.0",
     "chakra-ui": "^0.3.9",
     "emotion-theming": "^10.0.27",
     "framer-motion": "^3.1.4",
+    "graphql": "^15.5.0",
     "graphql-request": "^3.4.0",
+    "hash-sum": "^2.0.0",
     "jimp": "^0.14.0",
     "jsonwebtoken": "^8.5.1",
     "libphonenumber-js": "^1.7.55",
