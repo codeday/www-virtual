@@ -34,7 +34,7 @@ export default function PastProjects({ query }) {
           <BlobImage
             src={p.media.sort((a, b) => (2 * ((b.type === 'IMAGE') - (a.type === 'IMAGE'))) - 1)[0].image}
             height={{ base: 64, md: 'md'}}
-            width={{ base: 'lg', md: 'unset' }}
+            maxWidth={{ base: 'lg', md: 'unset' }}
             margin="0 auto"
           />
           <Text mb={0} textAlign="center" fontSize="lg" bold>{p.name}</Text>
