@@ -27,6 +27,7 @@ export default function PastProjects({ query }) {
           zIndex={i === j ? 500 : 400}
           target="_blank"
           rel="noopener"
+          bg="current.bg"
         >
           <Text textAlign="center" color="current.textLight" bold fontSize="lg" mb={-1}>
             We'll help you make something like...
