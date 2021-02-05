@@ -24,6 +24,11 @@ export default ({
         locale: 'en_US',
         site_name: 'Virtual CodeDay',
         url: `https://virtual.codeday.org${slug}`,
+        images: [
+          {
+            url: 'https://img.codeday.org/w=1104;h=736;fit=crop;crop=faces,edges/9/p/9p3ti4yxbj4xs99xbopc6mxixtivpcegmfj7qoev3ge5qqcapke622gxc6ui6g7p81.jpg',
+          },
+        ],
       }}
       twitter={{
         handle: '@codeday',
