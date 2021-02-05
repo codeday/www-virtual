@@ -37,7 +37,7 @@ export default function StudentQuotes({ query, ...props }) {
               opacity={i === j ? 1 : 0}
               transition="all 0.5s ease-in-out"
             >
-              <Box borderRightWidth={2} height={SIZE} />
+              <Box borderRightWidth={2} borderRightColor="purple.300" height={SIZE} />
               <Box pl={8}>
                 <Text italic>{quote.quote}</Text>
                 <Text mb={0} bold>

@@ -10,6 +10,7 @@ import Slides from '@codeday/topo/Molecule/Slides';
 import Divider from '@codeday/topo/Atom/Divider';
 import Sponsors from '../components/Sponsors';
 import Page from '../components/Page';
+import Explainer from '../components/Explainer';
 import FaqAnswer from '../components/FaqAnswer';
 import PastProjects from '../components/PastProjects';
 import RegisterButton from '../components/RegisterButton';
@@ -82,6 +83,12 @@ export default function Home({ upcoming, query, faqs, random }) {
             <PastProjects random={random} query={query} />
           </Box>
         </Grid>
+      </Content>
+
+      <Content wide mt={16} mb={16}>
+        <Divider />
+        <Explainer mt={12} mb={12} startsAt={startsAt} />
+        <Divider />
       </Content>
 
       <Content d={{ base: 'none', md: 'block' }} mb={12}>
