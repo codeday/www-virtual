@@ -13,6 +13,7 @@ import Page from '../components/Page';
 import FaqAnswer from '../components/FaqAnswer';
 import PastProjects from '../components/PastProjects';
 import RegisterButton from '../components/RegisterButton';
+import StudentQuotes from '../components/StudentQuotes';
 import { IndexQuery } from './index.gql';
 
 export default function Home({ upcoming, query, faqs, random }) {
@@ -34,8 +35,24 @@ export default function Home({ upcoming, query, faqs, random }) {
 
   return (
     <Page slug="/">
+      <Content mt={-8}>
+        <Box
+          p={4}
+          bg="purple.100"
+          borderColor="purple.600"
+          borderWidth={1}
+          color="purple.900"
+          rounded="sm"
+        >
+          <Text mb={0}>
+            <Text as="span" bold>Register soon &mdash;</Text> we have free stickers and swag while supplies last! You
+            can also apply for a Beginner Electronics Kit provided for free by our friends at Digi-Key!
+          </Text>
+        </Box>
+      </Content>
+
       <Content wide>
-        <Grid templateColumns={{ base: '1fr', md: '1fr 1fr' }} alignItems="center" gap={8} mt={-8} mb={12}>
+        <Grid templateColumns={{ base: '1fr', md: '1fr 1fr' }} alignItems="center" gap={8} mb={12}>
           <Box textAlign={{ base: 'center', md: 'left' }}>
             <Text
               fontSize="2xl"
@@ -66,8 +83,13 @@ export default function Home({ upcoming, query, faqs, random }) {
           </Box>
         </Grid>
       </Content>
+
+      <Content d={{ base: 'none', md: 'block' }} mb={12}>
+        <StudentQuotes query={query} />
+      </Content>
+
       {theme && (
-        <Content wide paddingTop={8} paddingBottom={8}>
+        <Content wide mb={12}>
           <Box position="relative" height="300px">
             <Skelly
               position="absolute"
@@ -117,33 +139,6 @@ export default function Home({ upcoming, query, faqs, random }) {
           </Box>
         </Content>
       )}
-
-      <Content textAlign="center">
-        <Box
-          p={8}
-          bg="purple.100"
-          borderColor="purple.600"
-          borderWidth={1}
-          color="purple.900"
-          rounded="sm"
-        >
-          <Heading as="h3" fontSize="3xl" mb={4}>
-            Free Swag, Electronics Kits, and More!
-          </Heading>
-          <Text fontSize="lg">
-            The first 600 registrants will get{" "}
-            <strong>free limited-edition CodeDay stickers</strong>, and 100
-            eligible participants will recieve a <strong>free swag box</strong>{" "}
-            from our partner T-Mobile.
-          </Text>
-          <Text fontSize="lg">
-            Interested in electronics? Our partner Digi-Key is giving away 150{" "}
-            <strong>free electronics kits: </strong>
-            just fill out the application after you register. No prior
-            electronics experience necessary!
-          </Text>
-        </Box>
-      </Content>
 
       <Content paddingBottom={8} textAlign="center">
         <Heading as="h3" fontSize="4xl" bold>

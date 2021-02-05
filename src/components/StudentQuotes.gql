@@ -1,0 +1,22 @@
+
+fragment StudentQuotes on CmsQuery {
+  testimonials (
+    where: {
+      program: { webname_in: ["virtual", "codeday"] },
+      type: "Student",
+    }
+  ) {
+    items {
+      firstName
+      lastName
+      region {
+        name
+      }
+      quote
+      experience
+      image {
+        url(transform: { width: 64, height: 64, resizeStrategy: FILL })
+      }
+    }
+  }
+}

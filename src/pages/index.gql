@@ -1,4 +1,5 @@
 #import "../components/PastProjects.gql"
+#import "../components/StudentQuotes.gql"
 #import "../components/Sponsors.gql"
 
 query IndexQuery ($endDate: CmsDateTime!) {
@@ -29,6 +30,7 @@ query IndexQuery ($endDate: CmsDateTime!) {
     }
 
     ...Sponsors
+    ...StudentQuotes
 
 
       faqs (
