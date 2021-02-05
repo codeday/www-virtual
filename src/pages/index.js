@@ -15,7 +15,7 @@ import PastProjects from '../components/PastProjects';
 import RegisterButton from '../components/RegisterButton';
 import { IndexQuery } from './index.gql';
 
-export default function Home({ upcoming, query, faqs }) {
+export default function Home({ upcoming, query, faqs, random }) {
   if (!upcoming || upcoming.length === 0) {
     return (
       <Page slug="/">
@@ -62,7 +62,7 @@ export default function Home({ upcoming, query, faqs }) {
           </Box>
           <Box>
             <Divider d={{ base: 'block', md: 'none' }} mb={16} />
-            <PastProjects query={query} />
+            <PastProjects random={random} query={query} />
           </Box>
         </Grid>
       </Content>
@@ -206,7 +206,8 @@ export async function getStaticProps() {
       upcoming: data?.cms?.events?.items[0] || null,
       faqs: data?.cms?.faqs?.items || [],
       query: data,
+      random: Math.random(),
     },
-    revalidate: 120,
+    revalidate: 300,
   };
 }

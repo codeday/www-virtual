@@ -1,10 +1,33 @@
+import { create } from 'random-seed';
 import Box from '@codeday/topo/Atom/Box';
 import BlobImage from './BlobImage';
 import Text, { Link } from '@codeday/topo/Atom/Text';
 import { useSlideshow } from '../slideshow';
 
-export default function PastProjects({ query }) {
-  const projects = (query?.showcase?.projects || []).filter((p) => p?.media[0]?.image || true);
+export function shuffle(randomSeed, array) {
+  const rng = create(randomSeed);
+  const arrayCopy = JSON.parse(JSON.stringify(array));
+
+  var currentIndex = arrayCopy.length, temporaryValue, randomIndex;
+
+  // While there remain elements to shuffle...
+  while (0 !== currentIndex) {
+
+    // Pick a remaining element...
+    randomIndex = rng.intBetween(0, currentIndex);
+    currentIndex -= 1;
+
+    // And swap it with the current element.
+    temporaryValue = arrayCopy[currentIndex];
+    arrayCopy[currentIndex] = arrayCopy[randomIndex];
+    arrayCopy[randomIndex] = temporaryValue;
+  }
+
+  return arrayCopy;
+}
+
+export default function PastProjects({ query, random }) {
+  const projects = shuffle(random, (query?.showcase?.projects || []).filter((p) => p?.media[0]?.image || true));
   const i = useSlideshow(projects.length, 5000);
 
   return (

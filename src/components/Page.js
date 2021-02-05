@@ -54,13 +54,13 @@ export default ({
           </a>
         </SiteLogo>
         <Menu>
-          <Button variant="ghost" variantColor="brand" as="a" href="/sponsor">Sponsor</Button>
-          <Button variant="ghost" variantColor="brand" as="a" href="/volunteer">Volunteer</Button>
+          <Button variant="ghost" variantColor="purple" as="a" href="/sponsor">Sponsor</Button>
+          <Button variant="ghost" variantColor="purple" as="a" href="/volunteer">Volunteer</Button>
           {publicRuntimeConfig.scheduleEnabled && (
-            <Button variant="ghost" variantColor="brand" as="a" href="/schedule">Schedule</Button>
+            <Button variant="ghost" variantColor="purple" as="a" href="/schedule">Schedule</Button>
           )}
-          <Button variant="ghost" variantColor="indigo" as="a" href="https://codeday.to/discord">
-            <Image width="35px" src="/discord.svg" alt="Discord" />
+          <Button variant="ghost" variantColor="purple" as="a" href="https://codeday.to/discord">
+            <Image width="35px" style={{ marginLeft: 0 }} mr={1} src="/discord.svg" alt="Discord" /> Discord
           </Button>
         </Menu>
       </Header>
