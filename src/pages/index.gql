@@ -39,7 +39,7 @@ query IndexQuery ($endDate: CmsDateTime!) {
           audience_contains_all: ["Student"]
         },
         order: [featured_DESC, sys_firstPublishedAt_ASC],
-        limit: 3,
+        limit: 6,
       ) {
         items {
           title
