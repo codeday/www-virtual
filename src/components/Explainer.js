@@ -12,6 +12,7 @@ export default function Explainer({ startsAt, ...props }) {
         <Box>
           <ReactPlayer
             url="https://stream.mux.com/FWHcR3a7Rlg2rocjx6Ly6Xnc00hxCh9Y8.m3u8"
+            width="100%"
             controls
           />
         </Box>
