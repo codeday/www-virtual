@@ -29,6 +29,7 @@ export default function Address() {
               formId={86}
               prefill={{
                 Username: session.user.nickname,
+                Email: session.user.email,
                 Name: {
                   First: session.user.given_name,
                   Last: session.user.family_name,
@@ -44,9 +45,14 @@ export default function Address() {
   );
 }
 
-export async function getServerSideProps({ req }) {
+export async function getServerSideProps({ req, res }) {
   const hasRegistered = await checkHasRegistered(req);
-  if (hasRegistered) throw new Error('User has already registered');
+  if (hasRegistered) {
+    res.writeHead(301, {
+      Location: '/registration/checklist'
+    });
+    res.end();
+  }
   return {
     props: {},
   };
