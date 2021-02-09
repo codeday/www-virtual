@@ -6,7 +6,7 @@ export default async function isRegistered(req, res) {
 
   res.send({
     registered: await checkHasRegistered(req),
-    name: session.user.name,
-    signedIn: Boolean(session.user),
+    name: session?.user?.name || null,
+    signedIn: Boolean(session?.user),
   });
 }

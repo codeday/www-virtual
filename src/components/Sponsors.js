@@ -18,7 +18,7 @@ export default function Sponsors({ query }) {
         {globalSponsors
           .filter((sponsor) => sponsor.type === "major")
           .map((sponsor, i) => (
-            <Link key={sponsor.name} to={sponsor.link}>
+            <Link key={sponsor.name} href={sponsor.link}>
               <Image
                 d="inline-block"
                 src={sponsor.logo.url}
