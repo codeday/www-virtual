@@ -1,4 +1,5 @@
 import React from 'react';
+import { print } from 'graphql';
 import { sign } from 'jsonwebtoken';
 import Box from '@codeday/topo/Atom/Box';
 import { apiFetch } from '@codeday/topo/utils';
@@ -9,43 +10,36 @@ import { getSession } from 'next-auth/client';
 import getConfig from 'next/config';
 import Page from '../../components/Page';
 import getRoleId from '../../utils/getRoleId';
+import ThemeNotifier from '../../components/ThemeNotifier';
+import { ChecklistQuery, AddRoleMutation } from './checklist.gql';
 
 const { serverRuntimeConfig } = getConfig();
 
-const mutation = (userId, roleId) => `
-  mutation {
-    account {
-      addRole (id: "${userId}", roleId: "${roleId}")
-    }
-  }`;
-
-export default function CheckList() {
+export default function CheckList({ upcoming }) {
   return (
     <Page slug="/registration/checklist" title="Address">
-      <Content>
-        <Heading as="h1">
-          Your registration is confirmed! Now, prepare yourself for fun!
+      <Content wide>
+        <ThemeNotifier event={upcoming} mb={12} mt={-6} />
+      </Content>
+      <Content textAlign="center" maxWidth="2xl" borderWidth={1} borderColor="purple.700" p={0}>
+        <Heading as="h1" mt={8} mb={8} fontSize="5xl">
+          Registration Confirmed
         </Heading>
-        <Text fontSize="xl">
-          Virtual CodeDay takes place on Discord (a community chat platform).
-          Once the event starts, you&apos;ll use Discord to find an idea to work
-          on, form a team, get help from mentors, and participate in fun
-          activities.
-        </Text>
-        <Text fontSize="xl">
-          We recommend you join the Discord right now so you&apos;re ready for
-          the event kickoff:
-        </Text>
-        <Box textAlign="center" mb={8}>
+        <Box textAlign="center" p={8} bg="purple.700" color="white">
+          <Text fontSize="xl">Virtual CodeDay will take place on Discord:</Text>
           <Button
+            fontSize="xl"
             as="a"
             href="https://discord.gg/codeday"
             variant="solid"
-            variantColor="purple"
+            bg="white"
+            color="purple.700"
           >
-            Join the CodeDay Discord
+            Join the Discord
           </Button>
         </Box>
+      </Content>
+      <Content textAlign="center">
         <Text mt={5} mb={0}>
           Have Questions?
         </Text>
@@ -74,13 +68,22 @@ export async function getServerSideProps({ req }) {
   const gqltoken = serverRuntimeConfig.auth0.ACCOUNT_ADMIN_TOKEN;
   const token = sign({ scopes: 'write:users' }, gqltoken, { expiresIn: '30s' });
 
-  // TODO(@tylermenezes) Move constants into an env file.
-  await apiFetch(mutation(session.user.sub, roleId), null, {
-    Authorization: `Bearer ${token}`,
+  await apiFetch(
+    print(AddRoleMutation),
+    {
+      userId: session.user.sub,
+      roleId,
+    },
+    { Authorization: `Bearer ${token}` }
+  );
+
+  const data = await apiFetch(print(ChecklistQuery), {
+    endDate: (new Date(new Date().getTime() - 1000 * 60 * 60 * 24)).toISOString(),
   });
 
   return {
     props: {
+      upcoming: data?.cms?.events?.items[0] || null,
       session: session || null,
     },
   };

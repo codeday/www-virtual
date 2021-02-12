@@ -1,6 +1,7 @@
 #import "../components/PastProjects.gql"
 #import "../components/StudentQuotes.gql"
 #import "../components/Sponsors.gql"
+#import "../components/ThemeNotifier.gql"
 
 query IndexQuery ($endDate: CmsDateTime!) {
   cms {
@@ -14,15 +15,10 @@ query IndexQuery ($endDate: CmsDateTime!) {
     ) {
       items {
         title
-        theme
         startsAt
         endsAt
         participantRoleId
-        themeBackgrounds {
-          items {
-            url(transform: { width: 1400, height: 400, quality: 90, resizeStrategy: FILL })
-          }
-        }
+        ...ThemeNotifier
         kickoffVideo {
           url
         }

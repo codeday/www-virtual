@@ -1,0 +1,24 @@
+#import "../../components/ThemeNotifier.gql"
+
+query ChecklistQuery ($endDate: CmsDateTime!) {
+  cms {
+    events(
+      limit: 1,
+      order: startsAt_ASC,
+      where: {
+        program: { webname: "virtual" }
+        endsAt_gte: $endDate,
+      }
+    ) {
+      items {
+        ...ThemeNotifier
+      }
+    }
+  }
+}
+
+mutation AddRoleMutation($userId: ID!, $roleId: ID!) {
+  account {
+    addRole (id: $userId, roleId: $roleId)
+  }
+}

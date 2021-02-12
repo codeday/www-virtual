@@ -16,6 +16,7 @@ import PastProjects from '../components/PastProjects';
 import RegisterButton from '../components/RegisterButton';
 import StudentQuotes from '../components/StudentQuotes';
 import { IndexQuery } from './index.gql';
+import ThemeNotifier from '../components/ThemeNotifier';
 
 export default function Home({ upcoming, query, faqs, random }) {
   if (!upcoming || upcoming.length === 0) {
@@ -30,7 +31,7 @@ export default function Home({ upcoming, query, faqs, random }) {
     );
   }
 
-  const { theme, title, themeBackgrounds } = upcoming;
+  const { theme, themeBackgrounds, title } = upcoming;
   const startsAt = moment(upcoming.startsAt.replace("Z", ""));
   const endsAt = moment(upcoming.endsAt.replace("Z", ""));
 
@@ -91,61 +92,17 @@ export default function Home({ upcoming, query, faqs, random }) {
         <Divider />
       </Content>
 
+      {(theme || themeBackgrounds?.items?.length > 0) && (
+        <Content wide>
+          <ThemeNotifier event={upcoming} />
+          <Divider mt={12} mb={12} />
+        </Content>
+      )}
+
       <Content d={{ base: 'none', md: 'block' }} mb={12}>
         <StudentQuotes query={query} />
       </Content>
 
-      {theme && (
-        <Content wide mb={12}>
-          <Box position="relative" height="300px">
-            <Skelly
-              position="absolute"
-              top={0}
-              left={0}
-              right={0}
-              height="300px"
-              marginBottom={0}
-              borderRadius={0}
-            />
-            {themeBackgrounds.items.length > 0 && (
-              <Slides
-                height="300px"
-                borderRadius="md"
-                position="absolute"
-                top={0}
-                left={0}
-                right={0}
-                style={{ filter: "brightness(50%)" }}
-                duration={5}
-              >
-                {themeBackgrounds.items.map((bg) => (
-                  <Box
-                    key={bg.url}
-                    backgroundImage={`url(${bg.url})`}
-                    backgroundPosition="50% 50%"
-                    backgroundSize="cover"
-                    h="300px"
-                  />
-                ))}
-              </Slides>
-            )}
-            <Box
-              position="absolute"
-              top={{ base: 0, sm: "5em" }}
-              left={0}
-              right={0}
-              color="white"
-            >
-              <Text textAlign="center" fontSize="2xl" fontFamily="accent">
-                The theme is...
-              </Text>
-              <Text textAlign="center" fontSize="6xl" fontFamily="accent" bold>
-                &ldquo;{theme}&rdquo;
-              </Text>
-            </Box>
-          </Box>
-        </Content>
-      )}
 
       <Content paddingBottom={8} textAlign="center">
         <Heading as="h3" fontSize="4xl" bold>
