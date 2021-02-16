@@ -35,6 +35,13 @@ export default function RegisterButton() {
           ? `Signed in to CodeDay as ${name}`
           : `You'll need to create a CodeDay account.`}
       </Box>
+      {signedIn && (
+        <Box fontWeight="bold" color="red.600">
+          You have{' '}
+          <Box as="span" bg="red.600" p={1} pb={0} color="white" d="inline-block">NOT</Box>
+          {' '}finished your registration yet.
+        </Box>
+      )}
     </>
   );
 
