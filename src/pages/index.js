@@ -12,8 +12,10 @@ import CognitoForm from '@codeday/topo/Molecule/CognitoForm';
 import Page from '../components/Page';
 import FaqAnswer from '../components/FaqAnswer';
 import ShowN from '../components/ShowN';
+import { signIn, signOut, useSession } from 'next-auth/client';
 
 export default function Home({ upcoming, globalSponsors, faqs, showYourWork }) {
+  const [ session, loading ] = useSession()
   if (!upcoming || upcoming.length === 0) {
     return (
       <Page slug="/">
@@ -35,13 +37,15 @@ export default function Home({ upcoming, globalSponsors, faqs, showYourWork }) {
           {startsAt.format('MMMM D')} - {endsAt.format('MMMM D, YYYY')}
         </Text>
         <Heading as="h2" fontSize="5xl" textAlign="center">{title}</Heading>
-        <Text fontSize="2xl" textAlign="center" fontWeight="bold" color="current.textLight">
-          Join thousands of students to make new friends, and make an amazing app or game.<br />
-          (Plus a virtual gaming tournament, workshops, prizes, and more!)<br />
+        <Box fontSize="2xl" fontWeight="bold" textAlign="center">
+          <Text color="current.textLight" mb={0}>
+            Join thousands of students to make new friends, and make an amazing app or game.<br />
+            (Plus a virtual gaming tournament, workshops, prizes, and more!)<br />
+          </Text>
           <Text d="inline-block" color="current.bg" bg="current.textLight" p={1} pl={4} pr={4} rounded="md">
             No prior experience needed!
           </Text>
-        </Text>
+        </Box>
       </Content>
       {theme && (
         <Content wide paddingTop={8} paddingBottom={8}>
@@ -81,14 +85,14 @@ export default function Home({ upcoming, globalSponsors, faqs, showYourWork }) {
             <Heading as="h3" color="current.textLight" fontSize="2xl" pb={4}>With support from...</Heading>
             <Box mb={8}>
               {globalSponsors.filter((sponsor) => sponsor.type === "major").map((sponsor, i) => (
-                <Link to={sponsor.link}>
+                <Link key={sponsor.name} to={sponsor.link}>
                   <Image d="inline-block" src={sponsor.logo.url} pr={i+1 === globalSponsors.length ? 0 : 8} />
                 </Link>
               ))}
             </Box>
             <Box>
               {globalSponsors.filter((sponsor) => sponsor.type === "minor").map((sponsor, i) => (
-                <Link to={sponsor.link}>
+                <Link key={sponsor.name} to={sponsor.link}>
                   <Image d="inline-block" src={sponsor.logo.small} pr={i+1 === globalSponsors.length ? 0 : 8} />
                 </Link>
               ))}
@@ -97,41 +101,19 @@ export default function Home({ upcoming, globalSponsors, faqs, showYourWork }) {
       )}
 
       <Content textAlign="center">
-          <Button onClick={smoothScroll} variant="solid" variantColor="red" size="lg">
-            Register Now
-          </Button>
+        <Button onClick={() => signIn('auth0', { callbackUrl: "https://virtual.codeday.org/registration/address" })} variant="solid" variantColor="red" size="lg">
+          Register Now
+        </Button>
+        <br></br>
+        <>
+          {!session && <>
+            Not signed in <br/>
+          </>}
+          {session && <>
+            Signed in as {session.user.name} <br/>
+          </>}
+        </>
       </Content>
-
-      {startsAt.isBefore(moment()) && endsAt.isAfter(moment()) && showYourWork?.length > 0 && (
-        <Box bg="gray.50">
-          <Content pb={8} pt={8}>
-            <Heading as="h3" fontSize="4xl" textAlign="center" mb={4} bold>Recent Progress:</Heading>
-            <Grid templateColumns="repeat(4, 1fr)" d={{ base: 'none', lg: 'grid' }} gap={4}>
-              <ShowN n={4} duration={5000}>
-                {showYourWork.map((msg) => (
-                  <Box bg="white" p={4}>
-                    <Box pb={4}>
-                      <Image
-                        src={msg.author.picture.replace('256x256', '32x32')}
-                        alt=""
-                        float="left"
-                        w={6}
-                        h={6}
-                        mr={2}
-                        rounded="full"
-                      />
-                      <Text mb={0}>{msg.author.name}</Text>
-                    </Box>
-                    <Image pb={4} src={msg.imageUrl} alt="" />
-                    <Text>{truncate(msg.text, 140)}</Text>
-                  </Box>
-                ))}
-              </ShowN>
-            </Grid>
-          </Content>
-        </Box>
-      )}
-
 
       <Content paddingBottom={8} textAlign="center">
         <Heading as="h3" fontSize="4xl" bold>FAQ:</Heading>
@@ -139,7 +121,7 @@ export default function Home({ upcoming, globalSponsors, faqs, showYourWork }) {
           {faqs.map((faq) => (
             <Box borderColor="current.border" borderWidth={1} borderRadius="sm" padding={8} key={faq.title}>
               <Text fontSize="lg" bold>{faq.title}</Text>
-              <Text><FaqAnswer json={faq.answer.json} /></Text>
+              <FaqAnswer json={faq.answer.json} />
             </Box>
           ))}
         </Grid>
@@ -147,27 +129,6 @@ export default function Home({ upcoming, globalSponsors, faqs, showYourWork }) {
         <Button as="a" href="https://www.codeday.org/help/virtual" target="_blank">View all FAQs</Button>
         {' '}or{' '}
         <Button as="a" href="mailto:team@codeday.org">contact us!</Button>
-      </Content>
-      <Content id="register">
-        <Heading as="h3" fontSize="4xl" bold textAlign="center" mb={8}>Register Now:</Heading>
-        <Grid templateColumns={{ base: '1fr', md: '8fr 4fr' }} gap={8}>
-          <Box>
-            <CognitoForm formId={53} fallback />
-          </Box>
-          <Box backgroundColor="red.50" borderRadius="sm" padding={4}>
-            <Heading as="h3" fontSize="lg" bold>Date</Heading>
-            <Text>{startsAt.format('MMMM DD')} - {endsAt.format('MMMM DD, YYYY')}</Text>
-
-            <Heading as="h3" fontSize="lg" bold>Location</Heading>
-            <Text>100% online, using Discord and Twitch.</Text>
-
-            <Heading as="h3" fontSize="lg" bold>Eligibility</Heading>
-            <Text>Anyone enrolled in a middle school, high school, or college.</Text>
-
-            <Heading as="h3" fontSize="lg" bold>Cost</Heading>
-            <Text>Free!</Text>
-          </Box>
-        </Grid>
       </Content>
     </Page>
   );

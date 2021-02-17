@@ -9,6 +9,7 @@ export default function App({ Component, pageProps }) {
     </Theme>
   );
 }
+
 App.propTypes = {
   Component: PropTypes.elementType.isRequired,
   pageProps: PropTypes.object,
