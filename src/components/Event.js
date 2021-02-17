@@ -124,7 +124,7 @@ export default function Event({ event }) {
             {error && <Text color="red.700" bold mt={2}>{error.toString()}</Text>}
             {hasSubscribed && <Text color="green.700" bold mt={2}>We&apos;ll text you when this starts!</Text>}
             <Text>
-              or <Link href={calendarInviteURL} target="_blank">add to Google Calendar</Link>
+              or <Link href={calendarInviteURL} target="_blank">add to Google Calendar (click the 3 dots and then "copy to")</Link>
             </Text>
           </Box>
         ))}
