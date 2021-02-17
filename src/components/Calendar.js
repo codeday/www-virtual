@@ -33,7 +33,7 @@ export default ({
 
   return (
     <>
-      <Content maxWidth="containers.xl">
+      <Content wide>
         <Grid
           templateColumns={{ base: '1fr', md: 'repeat(3, 1fr)' }}
           borderWidth={{ base: 0, md: border ? 1 : 0 }}
