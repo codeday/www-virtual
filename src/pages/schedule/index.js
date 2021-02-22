@@ -14,6 +14,11 @@ const { publicRuntimeConfig } = getConfig();
 
 export default function Home({ calendar, upcoming, photo }) {
   const calendarHydrated = calendar.map((e) => ({ ...e, Date: moment(e.Date) }));
+  const preEventStart = moment(upcoming.startsAt).startOf('day').subtract(7, 'days');
+  const preEventEnd = moment(upcoming.startsAt).startOf('day');
+  const preEventWorkshops = calendarHydrated.filter((e) => e.Date.isBetween(preEventStart, preEventEnd));
+  const timezone = typeof window !== 'undefined' ? Intl.DateTimeFormat().resolvedOptions().timeZone || 'America/Los_Angeles' : 'America/Los_Angeles';
+
   if (moment().isBefore(moment(upcoming.calendarReleaseDate || upcoming.startsAt))) {
     return (
       <Page slug="/schedule" title="Schedule">
@@ -39,11 +44,27 @@ export default function Home({ calendar, upcoming, photo }) {
   return (
     <Page slug="/schedule" title="Schedule">
       <Content>
-        <Text mb={16}>
+        <Text mb={8}>
           You can add these events to your calender using this link: <Link href={publicRuntimeConfig.icsUrl}>ICS Format</Link><br />
           (In Google Calendar, find "Other calendars," click +, choose "From URL", and copy-paste that link.)
         </Text>
       </Content>
+      {preEventWorkshops.length > 0 && (
+        <Content mb={8}>
+          <Box bg="blue.50" borderWidth={1} borderColor="blue.800" color="blue.900" p={4} rounded="sm">
+            <Text bold>Pre-Event Workshops</Text>
+            {preEventWorkshops.map((w) => (
+              <Box mb={4}>
+                <Link href={`/schedule/e/${w.id}`}>
+                  {w.Title}
+                </Link><br />
+                {w.Date.clone().tz(timezone).format('dddd, MMMM DD YYYY @ h:mma')} your time
+              </Box>
+            ))}
+          </Box>
+        </Content>
+      )}
+
       <Calendar calendar={calendarHydrated} displayStarts={moment(upcoming.startsAt)} displayEnds={moment(upcoming.endsAt)} />
     </Page>
   );
