@@ -44,6 +44,7 @@ export default function Home({ calendar, upcoming, photo }) {
   return (
     <Page slug="/schedule" title="Schedule">
       <Content>
+        <Text bold>All events are optional, please don't try to attend them all! (But we recommend the kickoff.)</Text>
         <Text mb={8}>
           You can add these events to your calender using this link: <Link href={publicRuntimeConfig.icsUrl}>ICS Format</Link><br />
           (In Google Calendar, find "Other calendars," click +, choose "From URL", and copy-paste that link.)
