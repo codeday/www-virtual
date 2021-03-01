@@ -18,6 +18,9 @@ query IndexQuery ($endDate: CmsDateTime!) {
         startsAt
         endsAt
         participantRoleId
+        notice {
+          json
+        }
         ...ThemeNotifier
         kickoffVideo {
           url

@@ -17,6 +17,7 @@ import RegisterButton from '../components/RegisterButton';
 import StudentQuotes from '../components/StudentQuotes';
 import { IndexQuery } from './index.gql';
 import ThemeNotifier from '../components/ThemeNotifier';
+import RichText from '../components/RichText';
 
 export default function Home({ upcoming, query, faqs, random }) {
   if (!upcoming || upcoming.length === 0) {
@@ -37,21 +38,23 @@ export default function Home({ upcoming, query, faqs, random }) {
 
   return (
     <Page slug="/">
-      <Content mt={-8}>
-        <Box
-          p={4}
-          bg="purple.100"
-          borderColor="purple.600"
-          borderWidth={1}
-          color="purple.900"
-          rounded="sm"
-        >
-          <Text mb={0}>
-            <Text as="span" bold>Register soon &mdash;</Text> we have free stickers and swag while supplies last! You
-            can also apply for a Beginner Electronics Kit provided for free by our friends at Digi-Key!
-          </Text>
-        </Box>
-      </Content>
+      {upcoming.notice && (
+        <Content mt={-8}>
+          <Box
+            p={4}
+            pb={0}
+            bg="purple.100"
+            borderColor="purple.600"
+            borderWidth={1}
+            color="purple.900"
+            rounded="sm"
+          >
+            <Text mb={0}>
+              <RichText document={upcoming.notice.json} />
+            </Text>
+          </Box>
+        </Content>
+      )}
 
       <Content wide>
         <Grid templateColumns={{ base: '1fr', md: '1fr 1fr' }} alignItems="center" gap={8} mb={12}>
