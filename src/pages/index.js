@@ -158,7 +158,7 @@ function smoothScroll() {
 
 export async function getStaticProps() {
   const data = await apiFetch(print(IndexQuery), {
-    endDate: (new Date(new Date().getTime() - 1000 * 60 * 60 * 24)).toISOString(),
+    endDate: (new Date(new Date().getTime())).toISOString(),
   });
   return {
     props: {

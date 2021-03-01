@@ -27,7 +27,7 @@ export function shuffle(randomSeed, array) {
 }
 
 export default function PastProjects({ query, random }) {
-  const projects = shuffle(random, (query?.showcase?.projects || []).filter((p) => p?.media[0]?.image));
+  const projects = shuffle(random, (query?.showcase?.projects || []).filter((p) => p?.media[0]?.image)).slice(0,10);
   const i = useSlideshow(projects.length, 5000);
 
   return (
