@@ -78,7 +78,7 @@ export async function getServerSideProps({ req }) {
   );
 
   const data = await apiFetch(print(ChecklistQuery), {
-    endDate: (new Date(new Date().getTime() - 1000 * 60 * 60 * 24)).toISOString(),
+    endDate: (new Date(new Date().getTime())).toISOString(),
   });
 
   return {
