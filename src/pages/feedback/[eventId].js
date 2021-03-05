@@ -6,7 +6,7 @@ import Page from '../../components/Page';
 
 export default function Feedback({ eventId }) {
   return (
-    <Page slug={`/feedback/${eventId}`} title="Address">
+    <Page slug={`/feedback/${eventId}`} title="Feedback?">
       <Content mt={-8}>
         <Box borderWidth={1} shadow="md" rounded="md" oveflow="hidden">
           <Box
