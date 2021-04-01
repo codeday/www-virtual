@@ -40,7 +40,7 @@ export default ({
       <Header darkBackground={darkHeader} gradAmount={darkHeader && 'lg'} underscore position="relative" zIndex="1000">
         <SiteLogo>
           <a href="https://www.codeday.org/">
-            <CodeDay withText />
+            <Image src="./codday.svg" height="1em" d="inline" />
           </a>
           <a href="/">
             <Text
