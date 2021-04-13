@@ -36,11 +36,11 @@ export default function Volunteer({ faqs, volunteer }) {
           </Box>
           <Box display={{ base: 'none', lg: 'block' }} bg="#000">
             <ReactPlayer
-              url="https://stream.mux.com/02RSS1qI5vHVlkbaqA8yu8sT3GGTwqsky.m3u8"
+              url="https://stream.mux.com/yoEuEbNeCsMbzUNssqYAorzMDK015NEiF.m3u8"
               config={{
                 file: {
                   attributes: {
-                    poster: 'https://image.mux.com/02RSS1qI5vHVlkbaqA8yu8sT3GGTwqsky/thumbnail.jpg?width=628&time=1',
+                    poster: 'https://image.mux.com/yoEuEbNeCsMbzUNssqYAorzMDK015NEiF/thumbnail.jpg?width=628&time=1',
                   }
                 }
               }}
