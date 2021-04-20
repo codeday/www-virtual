@@ -74,11 +74,10 @@ export default function Home({ upcoming, query, faqs, random }) {
               No prior coding experience needed!
             </Text>
             <Text fontSize="2xl" fontWeight="bold" mb={0}>
-              Join thousands of students to make new friends, and make an amazing
-              app or game.
+              The most beginner-friendly coding event on the internet
             </Text>
             <Text fontSize="lg">
-              Plus a virtual gaming tournament, workshops, awards, ...
+              Join thousands of students to make new friends, get guidance from industry professional mentors, and make an amazing app or game in just 48 hours!
             </Text>
             <RegisterButton />
           </Box>
