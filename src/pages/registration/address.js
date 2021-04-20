@@ -6,8 +6,9 @@ import CognitoForm from '@codeday/topo/Molecule/CognitoForm';
 import { useSession, getSession } from 'next-auth/client';
 import Page from '../../components/Page';
 import checkHasRegistered from '../../utils/checkHasRegistered';
+import getEventId from '../../utils/getEventId';
 
-export default function Address() {
+export default function Address({ eventId }) {
   const [session] = useSession();
 
   return (
@@ -38,6 +39,7 @@ export default function Address() {
                 prefill={{
                   Username: session.user.nickname,
                   Email: session.user.email,
+                  EventId: eventId,
                   Name: {
                     First: session.user.given_name,
                     Last: session.user.family_name,
@@ -58,19 +60,19 @@ export async function getServerSideProps({ req, res }) {
   const session = await getSession({ req });
   if (!session || !session.user) {
     res.writeHead(302, {
-      Location: '/'
+      Location: '/',
     });
     res.end();
   }
 
   const hasRegistered = await checkHasRegistered(req);
-  if (hasRegistered) {
+  if (hasRegistered && false) {
     res.writeHead(302, {
-      Location: '/registration/checklist'
+      Location: '/registration/checklist',
     });
     res.end();
   }
   return {
-    props: {},
+    props: { eventId: await getEventId() },
   };
 }
