@@ -66,7 +66,7 @@ export async function getServerSideProps({ req, res }) {
   }
 
   const hasRegistered = await checkHasRegistered(req);
-  if (hasRegistered && false) {
+  if (hasRegistered) {
     res.writeHead(302, {
       Location: '/registration/checklist',
     });
