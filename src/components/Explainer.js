@@ -1,6 +1,6 @@
 import React from 'react';
 import Box, { Grid } from '@codeday/topo/Atom/Box';
-import Text, { Heading } from '@codeday/topo/Atom/Text';
+import Text, { Heading, Link } from '@codeday/topo/Atom/Text';
 import Image from '@codeday/topo/Atom/Image';
 
 const steps = [
@@ -15,10 +15,14 @@ const steps = [
 export default function Explainer({ startsAt, ...props }) {
   return (
     <Box {...props}>
-      <Heading as="h2" textAlign="center" mb={2} fontSize="4xl">
-        The fun starts {startsAt.format('MMMM D')} on our Community Discord!
+      <Heading as="h2" textAlign="center" mb={8} fontSize="4xl">
+        The fun starts{' '}
+        <Text as="span" borderBottomColor="purple.700" color="purple.700" borderBottomWidth={6}>
+          {startsAt.format('MMMM D')}
+        </Text>
+        {' '}in our Discord community!
       </Heading>
-      <Text textAlign="center" mb={8} fontSize="xl" bold>Here&apos;s how it works:</Text>
+      <Text textAlign="center" mb={12} fontSize="xl" bold color="gray.600">Here&apos;s how it works:</Text>
       <Grid templateColumns={{ base: 'repeat(3, 1fr)', md: 'repeat(6, 1fr)' }} gap={8} alignItems="top">
         {steps.map((text, i) => (
           <Box>
