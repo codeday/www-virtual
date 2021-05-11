@@ -74,11 +74,10 @@ export default function Home({ upcoming, query, faqs, random }) {
               No prior coding experience needed!
             </Text>
             <Text fontSize="2xl" fontWeight="bold" mb={0}>
-              Join thousands of students to make new friends, and make an amazing
-              app or game.
+              The most beginner-friendly coding event on the internet
             </Text>
             <Text fontSize="lg">
-              Plus a virtual gaming tournament, workshops, awards, ...
+              Join thousands of students to make new friends, get guidance from industry professional mentors, and make an amazing app or game in just 48 hours!
             </Text>
             <RegisterButton />
           </Box>
@@ -89,20 +88,22 @@ export default function Home({ upcoming, query, faqs, random }) {
         </Grid>
       </Content>
 
-      <Content wide mt={16} mb={16}>
-        <Divider />
+      <Content wide pt={8} pb={8}>
         <Explainer mt={12} mb={12} startsAt={startsAt} />
         <Divider />
       </Content>
 
       {(theme || themeBackgrounds?.items?.length > 0) && (
-        <Content wide>
-          <ThemeNotifier event={upcoming} />
-          <Divider mt={12} mb={12} />
-        </Content>
+        <>
+          <Content>
+            <ThemeNotifier event={upcoming} />
+          </Content>
+          <Content wide mb={16} mt={16}><Divider /></Content>
+        </>
       )}
 
-      <Content d={{ base: 'none', md: 'block' }} mb={12}>
+
+      <Content wide d={{ base: 'none', md: 'block' }} mb={12}>
         <StudentQuotes query={query} />
       </Content>
 

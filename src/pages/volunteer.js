@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import ReactPlayer from 'react-player';
 import { apiFetch } from '@codeday/topo/utils';
 import Content from '@codeday/topo/Molecule/Content';
 import Image from '@codeday/topo/Atom/Image';
@@ -15,134 +16,126 @@ import FaqAnswer from '../components/FaqAnswer';
 import Divider from '@codeday/topo/Atom/Divider';
 import Link from '@codeday/topo/Atom/Text/Link';
 
-
-const ROLE_COLORS = {
-  mentor: 'blue',
-  judge: 'gray',
-  'general volunteer': 'red',
-  speaker: 'orange',
-  'career advisor': 'purple',
-};
-
 export default function Volunteer({ faqs, volunteer }) {
-  const [blurbVisible, setBlurbVisible] = useState(true);
+  const [blurbVisible, setBlurbVisible] = useState(false);
 
   return (
     <Page slug="/volunteer" title="Volunteer">
-      <Image
-          src="https://img.codeday.org/o/m/f/mfwgeuyxb7euvouiwx5252n79xan15ujhprpjqh1q198s7uutheambb6eamm2zdyu1.jpg"
-          rounded="md"
-          m="auto"
-          mt={-8}
-          mb={4}
-          alt=""
-        />
-      <Content>
-        <Heading as="h2">Make a Difference. Volunteer for Virtual CodeDay.</Heading>
-        <Box position="relative" >
-          <Text d="inline-block" mr={1}>Current positions open: </Text>
-
-          {volunteer[0].volunteerPositions?.map((pos) => (
-            <Box
-              d="inline-block"
-              p={1}
-              mr={1}
-              borderWidth={1}
-              borderColor={`${ROLE_COLORS[pos]}.700`}
-              rounded="md"
-              bg={`${ROLE_COLORS[pos]}.50`}
-              color={`${ROLE_COLORS[pos]}.700`}
-            >
-                {pos.replace(/\w\S*/g, (t) => t.charAt(0).toUpperCase() + t.slice(1))}s
-            </Box>
-          ))}
-
-        </Box>
-        <Box m="auto" textAlign="left">
-          <Button onClick={smoothScroll} variant="solid" variantColor="red" size="lg" mt={10}>Volunteer Now</Button>
-        </Box>
-
-        {volunteer[0].volunteerBlurb && (
-        <>
-          <Link as="div" onClick={() => setBlurbVisible(!blurbVisible)} position="relative" mt={-3}>
-            <Box textAlign="center">
-              <Box bg="current.bg" d="inline-block" p={4} color="blue.800">
-                <Link as="div" d="inline-block" mr={2}>
-                  {blurbVisible ? 'Hide' : 'Share With Co-Workers'}
-                </Link>
-                {blurbVisible ? <UiArrowUp /> : <UiArrowDown />}
-              </Box>
-            </Box>
-            <Divider
-              d={blurbVisible ? null : 'none'}
-              position="absolute"
-              top="50%"
-              transform="translateY(-0.5em)"
-              left={0}
-              right={0}
-              zIndex={-1}
+      <Content mt={-8}>
+        <Heading as="h2" mb={8}>Help students get started in tech at Virtual CodeDay.</Heading>
+        <Grid templateColumns={{ base: '1fr', lg: '1fr 1fr' }} gap={8}>
+          <Box>
+            <Text>Virtual CodeDay helps newcomers find their place in tech. We need your help to make that happen.</Text>
+            <Text>
+              We're looking for mentors, judges, workshop hosts, and general volunteers to help support students as they
+              learn to build apps and games of their own design.
+            </Text>
+            <Text>
+              Filling out this form isn't a binding commitment, we'll reach out in a few days after reviewing your app.
+            </Text>
+          </Box>
+          <Box display={{ base: 'none', lg: 'block' }} bg="#000">
+            <ReactPlayer
+              url="https://stream.mux.com/yoEuEbNeCsMbzUNssqYAorzMDK015NEiF.m3u8"
+              config={{
+                file: {
+                  attributes: {
+                    poster: 'https://image.mux.com/yoEuEbNeCsMbzUNssqYAorzMDK015NEiF/thumbnail.jpg?width=628&time=1',
+                  }
+                }
+              }}
+              width="100%"
+              height="250px"
+              controls
             />
-          </Link>
-          <Grid d={blurbVisible ? null : 'none'} templateColumns={{ base: '1fr', md: '8fr 3fr'}} gap={8}>
-            <Box>
-              <Heading as="h4" fontSize="2xl" mb={4}>Copy-Pastable Email Blurb</Heading>
-              <Box pl={4} ml={4} borderLeftWidth={2} borderColor="blue.600">
-                <ContentfulRichText json={volunteer[0].volunteerBlurb.json} />
-              </Box>
-            </Box>
-            <Box>
-              <Button
-                as="a"
-                target="_blank"
-                href={`https://www.linkedin.com/shareArticle/?url=${encodeURIComponent(volunteer[0].volunteerUrl)}`}
-                variantColor="blue"
-                mb={8}
-              >
-                Share on LinkedIn
-              </Button>
-              {volunteer[0].volunteerRecruitingResources?.items.length > 0 && (
-                <>
-                  <Heading as="h4" fontSize="xl" mb={4}>More Resources</Heading>
-                  {volunteer[0].volunteerRecruitingResources?.items.map((i) => (
-                    <Link href={i.url} target="_blank" rel="noopener">
-                      <Grid templateColumns="1fr 3fr" borderWidth={1} mb={1} gap={2} alignItems="center" minHeight={16}>
-                          {i.contentType.split('/')[0] === 'image' ? (
-                            <Image src={i.preview} alt={i.title} />
-                          ) : (
-                            <Box fontSize={32} textAlign="center">
-                              <FilePdf />
-                            </Box>
-                          )}
-                          <Text fontSize="sm" color="current.textLight" mb={0}>{i.title}</Text>
-                        </Grid>
-                    </Link>
-                  ))}
-                </>
-              )}
-            </Box>
-          </Grid>
-        </>
-      )}
-
+          </Box>
+        </Grid>
       </Content>
-      {faqs.length > 0 && (
-        <Content paddingBottom={8}>
-          <Heading as="h3" fontSize="2xl" bold>FAQ:</Heading>
-          <Grid templateColumns={{ base: '1fr', md: '1fr 1fr 1fr' }} gap={6} paddingTop={3} paddingBottom={3}>
-            {faqs.map((faq) => (
-              <Box borderColor="current.border" borderWidth={1} borderRadius="sm" padding={8} key={faq.title}>
-                <Text fontSize="lg" bold>{faq.title}</Text>
-                <Text><FaqAnswer json={faq.answer.json} /></Text>
-              </Box>
-            ))}
-          </Grid>
 
-          More questions? <Button as="a" href="mailto:team@codeday.org">Contact us!</Button>
-        </Content>
-      )}
+      <Content>
+        {volunteer[0].volunteerBlurb && (
+          <>
+            <Link as="div" onClick={() => setBlurbVisible(!blurbVisible)} position="relative" mt={-3}>
+              <Box textAlign="center">
+                <Box bg="current.bg" d="inline-block" p={4} color="blue.800">
+                  <Link as="div" d="inline-block" mr={2}>
+                    {blurbVisible ? 'Hide' : 'Share With Co-Workers'}
+                  </Link>
+                  {blurbVisible ? <UiArrowUp /> : <UiArrowDown />}
+                </Box>
+              </Box>
+              <Divider
+                d={blurbVisible ? null : 'none'}
+                position="absolute"
+                top="50%"
+                transform="translateY(-0.5em)"
+                left={0}
+                right={0}
+                zIndex={-1}
+              />
+            </Link>
+            <Grid d={blurbVisible ? null : 'none'} templateColumns={{ base: '1fr', md: '8fr 3fr'}} gap={8}>
+              <Box>
+                <Heading as="h4" fontSize="2xl" mb={4}>Copy-Pastable Email Blurb</Heading>
+                <Box pl={4} ml={4} borderLeftWidth={2} borderColor="blue.600">
+                  <ContentfulRichText json={volunteer[0].volunteerBlurb.json} />
+                </Box>
+              </Box>
+              <Box>
+                <Button
+                  as="a"
+                  target="_blank"
+                  href={`https://www.linkedin.com/shareArticle/?url=${encodeURIComponent(volunteer[0].volunteerUrl)}`}
+                  variantColor="blue"
+                  mb={8}
+                >
+                  Share on LinkedIn
+                </Button>
+                {volunteer[0].volunteerRecruitingResources?.items.length > 0 && (
+                  <>
+                    <Heading as="h4" fontSize="xl" mb={4}>More Resources</Heading>
+                    {volunteer[0].volunteerRecruitingResources?.items.map((i) => (
+                      <Link href={i.url} target="_blank" rel="noopener">
+                        <Grid templateColumns="1fr 3fr" borderWidth={1} mb={1} gap={2} alignItems="center" minHeight={16}>
+                            {i.contentType.split('/')[0] === 'image' ? (
+                              <Image src={i.preview} alt={i.title} />
+                            ) : (
+                              <Box fontSize={32} textAlign="center">
+                                <FilePdf />
+                              </Box>
+                            )}
+                            <Text fontSize="sm" color="current.textLight" mb={0}>{i.title}</Text>
+                          </Grid>
+                      </Link>
+                    ))}
+                  </>
+                )}
+              </Box>
+            </Grid>
+          </>
+        )}
+      </Content>
+
       <Content id="register">
-        <Heading as="h3" fontSize="2xl">Apply</Heading>
-        <CognitoForm formId={63} />
+        <Grid templateColumns={{ base: '1fr', lg: '3fr 1fr' }} gap={8}>
+          <Box>
+            <Heading as="h3" fontSize="2xl" mb={4} bold>Apply</Heading>
+            <CognitoForm formId={63} />
+          </Box>
+          {faqs.length > 0 && (
+            <Box backgroundColor="red.50" padding={6} marginTop="-2rem">
+              <Heading as="h3" fontSize="2xl" mb={4} bold>FAQs</Heading>
+              {faqs.map((faq) => (
+                <Box mb={8}>
+                  <Heading as="h4" fontSize="md" mb={2} bold>{faq.title}</Heading>
+                  <Text><FaqAnswer json={faq.answer.json} /></Text>
+                </Box>
+              ))}
+
+              More questions? <Button as="a" href="mailto:team@codeday.org">Contact us!</Button>
+            </Box>
+          )}
+        </Grid>
       </Content>
     </Page>
   );
