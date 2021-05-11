@@ -11,13 +11,18 @@ import getConfig from 'next/config';
 
 const { publicRuntimeConfig } = getConfig();
 
+const posterImageUrls = [
+    'https://img.codeday.org/o/5/q/5qtzq81wsdb82511t2b4g3oqk59rgsoqwooe5wnnibk3buqi4jg2zftvbziyxu2gsv.png', // space
+    'https://img.codeday.org/o/d/p/dph1kpp5s6p53s2p3qfx8k3tprnkmpk5sboa86qui17ffwov1fhb8ga9618tkjma7p.png', // artists meet
+    'https://img.codeday.org/o/b/9/b9sg9rxqiiyhxqv28rec89nwjgpm1t8yg5o6irfzm77ojd55yxcptdbr6kjggcenc7.png' // hard shadow
+]
 export default ({
   children, title, darkHeader, slug, ...props
 }) => (
   <>
     <DefaultSeo
       title={`${title ? `${title} ~ ` : ''}Virtual CodeDay`}
-      description="Make an amazing game or app at Virtual CodeDay!"
+      description="The most beginner friendly coding event on the internet"
       canonical={`https://virtual.codeday.org${slug}`}
       openGraph={{
         type: 'website',
@@ -26,7 +31,7 @@ export default ({
         url: `https://virtual.codeday.org${slug}`,
         images: [
           {
-            url: 'https://img.codeday.org/w=1104;h=736;fit=crop;crop=faces,edges/9/p/9p3ti4yxbj4xs99xbopc6mxixtivpcegmfj7qoev3ge5qqcapke622gxc6ui6g7p81.jpg',
+            url: posterImageUrls[Math.floor(Math.random() * posterImageUrls.length)],
           },
         ],
       }}
