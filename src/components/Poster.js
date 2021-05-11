@@ -8,10 +8,9 @@ import Button from '@codeday/topo/Atom/Button'
 import Image from "@codeday/topo/Atom/Image";
 
 export default function Poster({ poster, ...props }) {
-    console.log(poster)
     return (
-        <Box as="a" bg="gray.100" download={"codeday_" + poster.fileName} href={poster.url} {...props}>
-            <Image src={poster.url} borderRadius={10} fallback={<Skelly/>}/>
+        <Box as="a" bg="gray.100" borderRadius={10} download={"codeday_" + poster.fileName} href={poster.url} {...props}>
+            <Image key={poster.url} src={poster.url} borderRadius={10} fallback={<Skelly/>}/>
             </Box>
     )
 }
