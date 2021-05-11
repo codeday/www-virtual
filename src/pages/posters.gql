@@ -3,27 +3,23 @@ query PostersQuery ($endDate: CmsDateTime!) {
     events(limit: 1,
       order:startsAt_DESC
       where: {
-        program: {webname: "virtual"}
+        program: {webname: "virtual"},
         endsAt_gte: $endDate,
       }) {
       items {
-        id
-        startsAt
+        title
         posters {
           items {
             url
+            fileName
           }
         }
-      }
-    }
-    programs(limit: 1,
-      where: {
-        webname: "virtual"
-      }) {
-      items {
-        posters {
-          items {
-            url
+        program {
+          posters {
+            items {
+              url
+              fileName
+            }
           }
         }
       }
