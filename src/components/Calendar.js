@@ -38,7 +38,7 @@ export default ({
         borderBottom={0}
         borderColor="gray.100"
       >
-        {['Friday', 'Saturday', 'Sunday'].map((day) => (
+        {drawDays.map((day) => (
           <Box
             fontSize="sm"
             display={{ base: 'none', md: 'block' }}
@@ -47,7 +47,7 @@ export default ({
             borderColor="gray.100"
             borderLeftWidth={day === 'Sunday' ? 0 : 1}
           >
-            {day}
+            {day.format('dddd')}
           </Box>
         ))}
         {drawDays.map((date) => (
