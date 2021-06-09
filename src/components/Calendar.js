@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Box, { Grid } from '@codeday/topo/Atom/Box';
 import Content from '@codeday/topo/Molecule/Content';
 import moment from 'moment-timezone';
@@ -16,9 +16,13 @@ export const eventColors = {
 export default ({
   calendar, border, displayStarts, displayEnds,
 }) => {
+  const [timezone, setTimezone] = useState('America/Los_Angeles');
+  useEffect(() => {
+    if (typeof window !== 'undefined') { setTimezone(Intl.DateTimeFormat().resolvedOptions().timeZone); }
+  }, [typeof window]);
   const eventsByDay = {};
   calendar.forEach((e) => {
-    const day = e.Date.clone().tz('America/Los_Angeles').startOf('day').format('YYYY-MM-DD');
+    const day = e.Date.clone().tz(timezone).startOf('day').format('YYYY-MM-DD');
     if (!(day in eventsByDay)) eventsByDay[day] = [];
     eventsByDay[day].push(e);
   });
@@ -64,7 +68,6 @@ export default ({
               const colorHues = Object.keys(colors);
               const baseColor = eventColors[event.Type || ''] || colorHues[seed(event.Type.toLowerCase()).intBetween(0, colorHues.length)];
 
-              const timezone = typeof window !== 'undefined' ? Intl.DateTimeFormat().resolvedOptions().timeZone || 'America/Los_Angeles' : 'America/Los_Angeles';
               const start = moment.utc(event.Date).tz(timezone);
 
               return (
@@ -94,11 +97,6 @@ export default ({
                   <Box pl={2} pr={2} pb={1} fontSize="sm" fontWeight="bold" color={`${baseColor}.900`} textDecoration="underline">
                     {event.Title || 'TBA'}
                   </Box>
-                  {start.format('MMMM-DD-YYYY') !== start.clone().tz('America/Los_Angeles').format('MMMM-DD-YYYY') && (
-                  <Box pl={2} pr={2} pb={2} fontSize="xs" color="red.700" fontStyle="italic" fontWeight="bold">
-                    ({start.format('MMMM D')} in your timezone)
-                  </Box>
-                  )}
                 </Box>
               );
             }) : null}
