@@ -6,7 +6,7 @@ fragment PastProjects on Query {
       eventGroup {
         title
       }
-      media {
+      media(topics:[TEAM,DEMO,PRESENTATION]) {
         image(width: 512, height: 512)
         type
       }

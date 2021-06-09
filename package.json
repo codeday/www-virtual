@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "rm -rf ./.next; next dev",
+    "dev": "next dev",
     "build": "rm -rf ./.next; next build",
     "start": "next start"
   },
@@ -35,14 +35,16 @@
     "mysql": "^2.18.1",
     "next": "^9.5.4",
     "next-absolute-url": "^1.2.2",
-    "next-auth": "^3.1.0",
+    "next-auth": "^3.3.0",
     "next-seo": "^4.7.3",
     "prop-types": "^15.7.2",
     "random-seed": "^0.3.0",
     "react": "16.13.1",
+    "react-confetti": "^6.0.1",
     "react-dom": "16.13.1",
     "react-load-script": "^0.0.6",
     "react-player": "^2.8.2",
+    "react-use": "^17.2.4",
     "swr": "^0.4.1",
     "truncate": "^2.1.0"
   },

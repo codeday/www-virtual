@@ -1,4 +1,4 @@
-import moment from 'moment';
+import moment from 'moment-timezone';
 import { print } from 'graphql';
 import { apiFetch } from '@codeday/topo/utils';
 import Box, { Grid } from '@codeday/topo/Atom/Box';
@@ -35,6 +35,7 @@ export default function Home({ upcoming, query, faqs, random }) {
   const { theme, themeBackgrounds, title } = upcoming;
   const startsAt = moment(upcoming.startsAt.replace("Z", ""));
   const endsAt = moment(upcoming.endsAt.replace("Z", ""));
+  const timezone = typeof window !== 'undefined' ? Intl.DateTimeFormat().resolvedOptions().timeZone || 'America/Los_Angeles' : 'America/Los_Angeles';
 
   return (
     <Page slug="/">
@@ -66,6 +67,8 @@ export default function Home({ upcoming, query, faqs, random }) {
               mb={0}
             >
               {startsAt.format("MMMM D")} - {endsAt.format("MMMM D, YYYY")}
+              <br />
+              Starts at {startsAt.tz(timezone).format("LT z")}
             </Text>
             <Heading as="h2" fontSize="5xl" mb={2}>
               {title}

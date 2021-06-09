@@ -1,0 +1,30 @@
+query PostersQuery ($endDate: CmsDateTime!) {
+  cms {
+    events(limit: 1,
+      order:startsAt_DESC
+      where: {
+        program: {webname: "virtual"},
+        endsAt_gte: $endDate,
+      }) {
+      items {
+        title
+        posters {
+          items {
+            url
+            contentfulBaseUrl
+            fileName
+          }
+        }
+        program {
+          posters {
+            items {
+              url
+              contentfulBaseUrl
+              fileName
+            }
+          }
+        }
+      }
+    }
+  }
+}
