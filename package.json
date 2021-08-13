@@ -33,7 +33,7 @@
     "moment": "^2.25.3",
     "moment-timezone": "^0.5.31",
     "mysql": "^2.18.1",
-    "next": "^9.5.4",
+    "next": "^11.1.0",
     "next-absolute-url": "^1.2.2",
     "next-auth": "^3.3.0",
     "next-seo": "^4.7.3",
