@@ -17,7 +17,7 @@
     "@emotion/react": "^11.1.4",
     "@emotion/styled": "^10.0.27",
     "auth0": "^2.31.1",
-    "axios": "^0.21.1",
+    "axios": "^0.21.2",
     "babel-plugin-import-graphql": "^2.8.1",
     "blobs": "^2.2.0",
     "chakra-ui": "^0.3.9",
