@@ -12,10 +12,10 @@ import getConfig from 'next/config';
 const { publicRuntimeConfig } = getConfig();
 
 const posterImageUrls = [
-    'https://img.codeday.org/o/5/q/5qtzq81wsdb82511t2b4g3oqk59rgsoqwooe5wnnibk3buqi4jg2zftvbziyxu2gsv.png', // space
-    'https://img.codeday.org/o/d/p/dph1kpp5s6p53s2p3qfx8k3tprnkmpk5sboa86qui17ffwov1fhb8ga9618tkjma7p.png', // artists meet
-    'https://img.codeday.org/o/b/9/b9sg9rxqiiyhxqv28rec89nwjgpm1t8yg5o6irfzm77ojd55yxcptdbr6kjggcenc7.png' // hard shadow
-]
+  'https://img.codeday.org/o/5/q/5qtzq81wsdb82511t2b4g3oqk59rgsoqwooe5wnnibk3buqi4jg2zftvbziyxu2gsv.png', // space
+  'https://img.codeday.org/o/d/p/dph1kpp5s6p53s2p3qfx8k3tprnkmpk5sboa86qui17ffwov1fhb8ga9618tkjma7p.png', // artists meet
+  'https://img.codeday.org/o/b/9/b9sg9rxqiiyhxqv28rec89nwjgpm1t8yg5o6irfzm77ojd55yxcptdbr6kjggcenc7.png', // hard shadow
+];
 export default ({
   children, title, darkHeader, slug, ...props
 }) => (
@@ -64,15 +64,15 @@ export default ({
           </a>
         </SiteLogo>
         <Menu>
-            <Button variant="ghost" as="a" href="mailto:sponsor@codeday.org?subject=I'd%20like%20to%20sponsor%20CodeDay">Sponsor</Button>
-            <Button variant="ghost" as="a" href="/volunteer">Volunteer</Button>
-            <Button variant="ghost" as="a" href="/posters">Posters</Button>
+          <Button variant="ghost" as="a" href="mailto:sponsor@codeday.org?subject=I'd%20like%20to%20sponsor%20CodeDay">Sponsor</Button>
+          <Button variant="ghost" as="a" href="https://www.codeday.org/volunteer/virtual" target="_blank">Volunteer</Button>
+          <Button variant="ghost" as="a" href="/posters">Posters</Button>
           {publicRuntimeConfig.scheduleEnabled && (
             <Button variant="ghost" as="a" href="/schedule">Schedule</Button>
           )}
-            <Button variant="ghost" as="a" href="https://codeday.to/discord">
-                <Image width="35px" style={{ marginLeft: 0 }} mr={1} src="/discord.svg" alt="Discord" /> Discord
-            </Button>
+          <Button variant="ghost" as="a" href="https://codeday.to/discord">
+            <Image width="35px" style={{ marginLeft: 0 }} mr={1} src="/discord.svg" alt="Discord" /> Discord
+          </Button>
         </Menu>
       </Header>
       {children}
