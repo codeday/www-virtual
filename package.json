@@ -31,7 +31,7 @@
     "libphonenumber-js": "^1.7.55",
     "lru-cache": "^6.0.0",
     "moment": "^2.25.3",
-    "moment-timezone": "^0.5.31",
+    "moment-timezone": "^0.5.35",
     "mysql": "^2.18.1",
     "next": "^9.5.4",
     "next-absolute-url": "^1.2.2",
