@@ -27,7 +27,7 @@
     "graphql-request": "^3.4.0",
     "hash-sum": "^2.0.0",
     "jimp": "^0.14.0",
-    "jsonwebtoken": "^8.5.1",
+    "jsonwebtoken": "^9.0.0",
     "libphonenumber-js": "^1.7.55",
     "lru-cache": "^6.0.0",
     "moment": "^2.25.3",
