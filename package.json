@@ -35,7 +35,7 @@
     "mysql": "^2.18.1",
     "next": "^9.5.4",
     "next-absolute-url": "^1.2.2",
-    "next-auth": "^3.3.0",
+    "next-auth": "^4.20.1",
     "next-seo": "^4.7.3",
     "prop-types": "^15.7.2",
     "random-seed": "^0.3.0",
